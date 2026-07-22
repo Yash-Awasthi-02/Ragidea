@@ -17,16 +17,16 @@ MODEL_NAME = kg_mod.MODEL_NAME
 
 def load_2wiki_records(split="validation", max_samples=None):
     print(f"Loading 2WikiMultihopQA ({split})...")
-    # Load 2WikiMultihopQA dataset
-    ds = load_dataset("2wiki_multihop_qa", split=split)
+    # Load 2WikiMultihopQA dataset from community HF mirror
+    ds = load_dataset("framolfese/2WikiMultihopQA", split=split)
     if max_samples:
         ds = ds.select(range(min(max_samples, len(ds))))
     return ds
 
 def load_musique_records(split="validation", max_samples=None):
     print(f"Loading MuSiQue ({split})...")
-    # Load MuSiQue dataset
-    ds = load_dataset("musique", "ans", split=split)
+    # Load MuSiQue dataset from community HF mirror
+    ds = load_dataset("dgslibisey/MuSiQue", split=split)
     if max_samples:
         ds = ds.select(range(min(max_samples, len(ds))))
     return ds
