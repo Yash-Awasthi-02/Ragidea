@@ -50,7 +50,27 @@ class TraversalResult:
     parent:          dict            # disc_parent map for downstream use
 
 
-# ── σ(S) — true path confidence ───────────────────────────────────────────────
+# ── σ(S) — true path confidence & bottleneck confidence ──────────────────────
+def compute_sigma_min(S: list[int], parent: dict[int, Optional[int]], G: nx.DiGraph) -> float:
+    """
+    σ_min(S) = min_{v∈S} min_{edges/nodes on path} (W(e) · φ_conf(u))
+    Bottleneck confidence aggregation (fuzzy logic AND) to prevent path-product decay.
+    """
+    if not S:
+        return 1.0
+
+    min_conf = 1.0
+    for v in S:
+        cur = v
+        while cur is not None:
+            min_conf = min(min_conf, G.nodes[cur].get("phi_conf", 0.7))
+            par = parent.get(cur)
+            if par is not None and G.has_edge(par, cur):
+                min_conf = min(min_conf, max(0.0, G[par][cur].get("weight", 0.0)))
+            cur = par
+    return min_conf
+
+
 def compute_sigma(S: list[int], parent: dict[int, Optional[int]],
                   G: nx.DiGraph,
                   use_geometric_mean: bool = True) -> float:
