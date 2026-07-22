@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
     records = []
     print(f"Building KGs for {len(ds)} {args.dataset} examples...")
-    for idx, item in enumerate(ds):
+    for idx, item in enumerate(tqdm(ds, desc=f"Building {args.dataset} KGs")):
         question = item["question"]
         docs = []
 
