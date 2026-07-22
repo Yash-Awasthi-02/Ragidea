@@ -8,8 +8,12 @@ standard PATHFINDER knowledge graph record format used by 01_build_kg.py.
 import os
 import argparse
 import pickle
+import importlib
 from datasets import load_dataset
-from 01_build_kg import KGBuilder, MODEL_NAME
+
+kg_mod = importlib.import_module("01_build_kg")
+KGBuilder = kg_mod.KGBuilder
+MODEL_NAME = kg_mod.MODEL_NAME
 
 def load_2wiki_records(split="validation", max_samples=None):
     print(f"Loading 2WikiMultihopQA ({split})...")
