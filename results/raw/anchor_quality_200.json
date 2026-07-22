@@ -1,0 +1,8 @@
+{
+  "n": 200,
+  "median_rank": 0.0,
+  "mean_rank": 1.83,
+  "top1_pct": 0.73,
+  "top3_pct": 0.825,
+  "top5_pct": 0.885
+}

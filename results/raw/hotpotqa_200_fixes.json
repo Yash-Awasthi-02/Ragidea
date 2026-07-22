@@ -1,0 +1,39 @@
+{
+  "n_queries": 200,
+  "elapsed_s": 0.2,
+  "variants": {
+    "naive_rag": {
+      "mean_r5": 0.295,
+      "std_r5": 0.45604276115294284
+    },
+    "pathfinder_full_fix": {
+      "mean_r5": 0.155,
+      "std_r5": 0.3619046835839514
+    }
+  },
+  "pf_details": {
+    "mean_nodes": 6.76,
+    "median_nodes": 6.0,
+    "sigma_low_pct": 0.17,
+    "mean_sigma": 0.4406266973482838,
+    "spearman_rho": -0.12944917388940752,
+    "spearman_pval": 0.06771370710165912
+  },
+  "confidence_breakdown": {
+    "HIGH": {
+      "n": 70,
+      "mean_r5": 0.11428571428571428,
+      "mean_sigma": 0.6131746942807502
+    },
+    "HEDGE": {
+      "n": 96,
+      "mean_r5": 0.14583333333333334,
+      "mean_sigma": 0.3704318190811567
+    },
+    "LOW": {
+      "n": 34,
+      "mean_r5": 0.2647058823529412,
+      "mean_sigma": 0.2835781246533289
+    }
+  }
+}
