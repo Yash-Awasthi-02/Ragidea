@@ -49,18 +49,39 @@ if __name__ == "__main__":
     records = []
     print(f"Building KGs for {len(ds)} {args.dataset} examples...")
     for idx, item in enumerate(ds):
-        # Format candidate docs from dataset sample
         question = item["question"]
-        if "context" in item:
-            docs = [{"title": ctx[0], "sentences": ctx[1]} for ctx in item["context"]]
+        docs = []
+
+        if args.dataset == "2wiki":
+            # 2Wiki context is a dict {"title": [...], "sentences": [...]}
+            ctx = item.get("context", {})
+            titles = ctx.get("title", [])
+            sentences_list = ctx.get("sentences", [])
+            for t, s_list in zip(titles, sentences_list):
+                docs.append({"title": t, "sentences": s_list})
         else:
-            docs = []
+            # MuSiQue paragraphs is a list of dicts [{"title": ..., "paragraph_text": ...}, ...]
+            paragraphs = item.get("paragraphs", [])
+            for p in paragraphs:
+                t = p.get("title", "")
+                text = p.get("paragraph_text", "")
+                # Segment paragraph_text into sentences
+                s_list = builder._segment(text)
+                docs.append({"title": t, "sentences": s_list})
 
         rec = builder.build(question, docs)
         if rec is not None:
             rec["id"] = item.get("id", str(idx))
             rec["answer"] = item.get("answer", "")
-            rec["supporting_facts"] = item.get("supporting_facts", {"title": [], "sent_id": []})
+            sf = item.get("supporting_facts", {"title": [], "sent_id": []})
+            if isinstance(sf, list):
+                # 2Wiki supporting_facts is list of [title, sent_idx]
+                rec["supporting_facts"] = {
+                    "title": [s[0] for s in sf if len(s) > 1],
+                    "sent_id": [s[1] for s in sf if len(s) > 1]
+                }
+            else:
+                rec["supporting_facts"] = sf
             records.append(rec)
 
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
