@@ -7,7 +7,7 @@ This document outlines key future work, open theoretical problems, and planned e
 ## 1. Multi-Benchmark Evaluation & Scale
 
 - **Full Multi-Hop Suite Evaluation:**
-  While full HotpotQA validation evaluation ($N=7,405$) is complete, full benchmark evaluations for **2WikiMultihopQA** ($N=12,576$) and **MuSiQue** ($N=2,417$) are planned to assess cross-dataset generalizability.
+  While full HotpotQA validation evaluation ($N=7,405$) is complete, full benchmark loader support for **2WikiMultihopQA** ($N=12,576$) and **MuSiQue** ($N=2,417$) is now implemented (`experiments/02_load_2wiki_musique.py`) for cross-dataset evaluation.
 - **Heterogeneous Generator LLMs:**
   Evaluate PATHFINDER's retrieved context subtrees across a broader spectrum of open-source and proprietary generator models (e.g., Llama-3-70B, Qwen-2.5-72B, Claude 3.5 Sonnet, GPT-4o).
 
@@ -16,7 +16,7 @@ This document outlines key future work, open theoretical problems, and planned e
 ## 2. Advanced Path Confidence ($\sigma$) Calibration
 
 - **Bottleneck / Min-Edge Confidence ($\sigma_{\text{min}}$):**
-  Replace path-product confidence aggregation with fuzzy bottleneck confidence ($\sigma_{\text{min}}(S) = \min_{v \in S} \text{conf}(v)$) or temperature-scaled softmax normalization to avoid exponential path decay over deep multi-hop traversals.
+  Implemented fuzzy bottleneck confidence aggregation ($\sigma_{\text{min}}(S) = \min_{v \in S} \text{conf}(v)$ in `run_pathfinder.py`) alongside path-product confidence to prevent exponential path decay over deep multi-hop traversals.
 - **NLI & Entailment Verification:**
   Incorporate lightweight Natural Language Inference (NLI) step verification along traversal branches during early-exit gating.
 
