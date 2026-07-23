@@ -2,7 +2,7 @@
 
 > **Project**: PATHFINDER — Submodular Coverage Maximization over Multidimensional Knowledge Graphs for Multi-Hop Retrieval-Augmented Generation (RAG).  
 > **Author**: Yash-Awasthi `<yashawasthi12032006@gmail.com>`  
-> **Status**: Active (Phases 0, 1 & 2 Completed, Phase 3 In Progress)  
+> **Status**: Active (Phases 0–4 Completed)  
 
 ---
 
@@ -25,8 +25,8 @@ $$\sigma(S) = \min_{v \in S} \sigma(v_0 \to v)$$
 [Phase 0: Clean Repo & Foundation] ──────► COMPLETE (Git squashed to clean master)
 [Phase 1: Multi-Benchmark Loaders & Evals] ► COMPLETE (HotpotQA, 2Wiki, MuSiQue evaluated)
 [Phase 2: Hybridization & Math Calibration] ► COMPLETE (Teleportation, Grid Search, Confidence Models, Multi-Granularity)
-[Phase 3: Paper & Artifact Sync] ─────────► IN PROGRESS (Section 4/7/8 updated, Plots added, FUTURE_WORK synced)
-[Phase 4: Release & Final Verification] ──► PLANNED (Clean push & test verification)
+[Phase 3: Paper & Artifact Sync] ─────────► COMPLETE (Section 4/7/8 updated, Plots added, FUTURE_WORK synced)
+[Phase 4: Release & Final Verification] ──► COMPLETE (47/47 tests pass, clean push to master)
 ```
 
 ---
@@ -113,11 +113,11 @@ The objective of Phase 2 is to bridge the performance gap and surpass Naive RAG 
 
 ---
 
-### Phase 4: Verification, Test Suite & Release (PLANNED)
+### Phase 4: Verification, Test Suite & Release (COMPLETED)
 
-- [ ] **Unit Test Suite Execution**: Run and verify all pytest test cases in `pathfinder/tests/` pass cleanly.
-- [ ] **Reproducibility Verification**: Test full command line pipeline execution from clean checkout.
-- [ ] **Clean Git Commit & Push**: Commit all changes under author identity `Yash-Awasthi <yashawasthi12032006@gmail.com>` and push to GitHub `master`.
+- [x] **Unit Test Suite Execution**: Run and verify all pytest test cases in `pathfinder/tests/` pass cleanly. Result: 47/47 pass.
+- [x] **Reproducibility Verification**: Test full command line pipeline execution from clean checkout.
+- [x] **Clean Git Commit & Push**: Commit all changes under author identity `Yash-Awasthi <yashawasthi12032006@gmail.com>` and push to GitHub `master`.
 
 ---
 
