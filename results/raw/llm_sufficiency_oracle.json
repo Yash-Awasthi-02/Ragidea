@@ -1,0 +1,191 @@
+{
+  "summary": {
+    "n_queries": 20,
+    "mean_r5_heuristic": 0.2,
+    "mean_r5_hybrid": 0.15,
+    "mean_nodes_heuristic": 6.8,
+    "mean_nodes_hybrid": 3.6
+  },
+  "per_query": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "r5_heuristic": 1,
+      "r5_hybrid": 1,
+      "n_nodes_heuristic": 8,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -5
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in t",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 6,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -3
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of comp",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 8,
+      "n_nodes_hybrid": 5,
+      "delta_r5": 0,
+      "delta_nodes": -3
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "r5_heuristic": 1,
+      "r5_hybrid": 1,
+      "n_nodes_heuristic": 6,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -3
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York ci",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 8,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -5
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 3,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": 0
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their pe",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 10,
+      "n_nodes_hybrid": 5,
+      "delta_r5": 0,
+      "delta_nodes": -5
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 7,
+      "n_nodes_hybrid": 5,
+      "delta_r5": 0,
+      "delta_nodes": -2
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 8,
+      "n_nodes_hybrid": 5,
+      "delta_r5": 0,
+      "delta_nodes": -3
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 13,
+      "n_nodes_hybrid": 7,
+      "delta_r5": 0,
+      "delta_nodes": -6
+    },
+    {
+      "question": "What is the name of the fight song of the university whose main campus is in Law",
+      "r5_heuristic": 1,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 6,
+      "n_nodes_hybrid": 3,
+      "delta_r5": -1,
+      "delta_nodes": -3
+    },
+    {
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas ",
+      "r5_heuristic": 1,
+      "r5_hybrid": 1,
+      "n_nodes_heuristic": 8,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -5
+    },
+    {
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzen",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 7,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -4
+    },
+    {
+      "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 7,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -4
+    },
+    {
+      "question": "The football manager who recruited David Beckham managed Manchester United durin",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 5,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -2
+    },
+    {
+      "question": "Brown State Fishing Lake is in a country that has a population of how many inhab",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 6,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -3
+    },
+    {
+      "question": "The Vermont Catamounts men's soccer team currently competes in a conference that",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 3,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": 0
+    },
+    {
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 6,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -3
+    },
+    {
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs durin",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 6,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -3
+    },
+    {
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "r5_heuristic": 0,
+      "r5_hybrid": 0,
+      "n_nodes_heuristic": 5,
+      "n_nodes_hybrid": 3,
+      "delta_r5": 0,
+      "delta_nodes": -2
+    }
+  ]
+}

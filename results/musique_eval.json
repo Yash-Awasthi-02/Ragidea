@@ -36,8 +36,8 @@
       "mean": 6.73
     },
     "latency_seconds": {
-      "p50": 0.00121,
-      "p95": 0.00446
+      "p50": 0.00133,
+      "p95": 0.00506
     },
     "sigma_calibration": {
       "note": "skipped \u2014 no LLM"
@@ -161,7 +161,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00198
+        "latency_s": 0.00212
       },
       "naive_rag": {
         "S": [
@@ -334,7 +334,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00113
+        "latency_s": 0.0013
       },
       "naive_rag": {
         "S": [
@@ -478,7 +478,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00507
+        "latency_s": 0.00555
       },
       "naive_rag": {
         "S": [
@@ -676,7 +676,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00078
+        "latency_s": 0.00072
       },
       "naive_rag": {
         "S": [
@@ -797,7 +797,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00109
+        "latency_s": 0.00112
       },
       "naive_rag": {
         "S": [
@@ -904,7 +904,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0007
+        "latency_s": 0.00084
       },
       "naive_rag": {
         "S": [
@@ -1047,7 +1047,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00158
+        "latency_s": 0.0015
       },
       "naive_rag": {
         "S": [
@@ -1241,7 +1241,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00412
+        "latency_s": 0.00408
       },
       "naive_rag": {
         "S": [
@@ -1382,7 +1382,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00129
+        "latency_s": 0.00141
       },
       "naive_rag": {
         "S": [
@@ -1554,7 +1554,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00458
+        "latency_s": 0.00512
       },
       "naive_rag": {
         "S": [
@@ -1742,7 +1742,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00105
+        "latency_s": 0.00106
       },
       "naive_rag": {
         "S": [
@@ -1888,7 +1888,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00138
+        "latency_s": 0.00143
       },
       "naive_rag": {
         "S": [
@@ -2036,7 +2036,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00228
+        "latency_s": 0.00241
       },
       "naive_rag": {
         "S": [
@@ -2122,7 +2122,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0038
+        "latency_s": 0.00462
       },
       "naive_rag": {
         "S": [
@@ -2265,7 +2265,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00098
+        "latency_s": 0.00099
       },
       "naive_rag": {
         "S": [
@@ -2372,7 +2372,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00026
+        "latency_s": 0.00027
       },
       "naive_rag": {
         "S": [
@@ -2526,7 +2526,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00366
+        "latency_s": 0.00395
       },
       "naive_rag": {
         "S": [
@@ -2671,7 +2671,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00391
+        "latency_s": 0.00444
       },
       "naive_rag": {
         "S": [
@@ -2849,7 +2849,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00076
+        "latency_s": 0.00082
       },
       "naive_rag": {
         "S": [
@@ -2950,7 +2950,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00085
+        "latency_s": 0.00079
       },
       "naive_rag": {
         "S": [
@@ -3078,7 +3078,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00136
+        "latency_s": 0.00141
       },
       "naive_rag": {
         "S": [
@@ -3235,7 +3235,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00091
+        "latency_s": 0.0009
       },
       "naive_rag": {
         "S": [
@@ -3385,7 +3385,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00077
+        "latency_s": 0.00104
       },
       "naive_rag": {
         "S": [
@@ -3486,7 +3486,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00032
+        "latency_s": 0.00038
       },
       "naive_rag": {
         "S": [
@@ -3631,7 +3631,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00049
+        "latency_s": 0.00051
       },
       "naive_rag": {
         "S": [
@@ -3735,7 +3735,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00097
+        "latency_s": 0.00101
       },
       "naive_rag": {
         "S": [
@@ -3901,7 +3901,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00078
+        "latency_s": 0.0009
       },
       "naive_rag": {
         "S": [
@@ -4072,7 +4072,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00193
+        "latency_s": 0.00205
       },
       "naive_rag": {
         "S": [
@@ -4257,7 +4257,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00041
+        "latency_s": 0.00046
       },
       "naive_rag": {
         "S": [
@@ -4543,7 +4543,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00134
+        "latency_s": 0.00136
       },
       "naive_rag": {
         "S": [
@@ -4719,7 +4719,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00312
+        "latency_s": 0.00347
       },
       "naive_rag": {
         "S": [
@@ -4859,7 +4859,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00055
+        "latency_s": 0.00064
       },
       "naive_rag": {
         "S": [
@@ -4995,7 +4995,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00094
+        "latency_s": 0.00096
       },
       "naive_rag": {
         "S": [
@@ -5147,7 +5147,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00305
+        "latency_s": 0.00324
       },
       "naive_rag": {
         "S": [
@@ -5243,7 +5243,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00111
+        "latency_s": 0.00152
       },
       "naive_rag": {
         "S": [
@@ -5375,7 +5375,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00375
+        "latency_s": 0.00381
       },
       "naive_rag": {
         "S": [
@@ -5487,7 +5487,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00252
+        "latency_s": 0.00299
       },
       "naive_rag": {
         "S": [
@@ -5638,7 +5638,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00127
+        "latency_s": 0.00131
       },
       "naive_rag": {
         "S": [
@@ -5764,7 +5764,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00138
+        "latency_s": 0.00155
       },
       "naive_rag": {
         "S": [
@@ -5936,7 +5936,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00048
+        "latency_s": 0.00047
       },
       "naive_rag": {
         "S": [
@@ -6092,7 +6092,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00019
+        "latency_s": 0.00027
       },
       "naive_rag": {
         "S": [
@@ -6205,7 +6205,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00191
+        "latency_s": 0.01582
       },
       "naive_rag": {
         "S": [
@@ -6297,7 +6297,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00035
+        "latency_s": 0.00047
       },
       "naive_rag": {
         "S": [
@@ -6426,7 +6426,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00038
+        "latency_s": 0.00045
       },
       "naive_rag": {
         "S": [
@@ -6616,7 +6616,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00177
+        "latency_s": 0.00423
       },
       "naive_rag": {
         "S": [
@@ -6739,7 +6739,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00062
+        "latency_s": 0.00072
       },
       "naive_rag": {
         "S": [
@@ -6904,7 +6904,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00051
+        "latency_s": 0.00122
       },
       "naive_rag": {
         "S": [
@@ -7012,7 +7012,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00126
+        "latency_s": 0.00125
       },
       "naive_rag": {
         "S": [
@@ -7172,7 +7172,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00157
+        "latency_s": 0.00195
       },
       "naive_rag": {
         "S": [
@@ -7344,7 +7344,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00161
+        "latency_s": 0.00169
       },
       "naive_rag": {
         "S": [
@@ -7514,7 +7514,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00132
+        "latency_s": 0.00127
       },
       "naive_rag": {
         "S": [
@@ -7657,7 +7657,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0026
+        "latency_s": 0.00305
       },
       "naive_rag": {
         "S": [
@@ -7805,7 +7805,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00321
+        "latency_s": 0.00308
       },
       "naive_rag": {
         "S": [
@@ -7980,7 +7980,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0007
+        "latency_s": 0.00071
       },
       "naive_rag": {
         "S": [
@@ -8135,7 +8135,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00096
+        "latency_s": 0.00101
       },
       "naive_rag": {
         "S": [
@@ -8247,7 +8247,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 5e-05
+        "latency_s": 6e-05
       },
       "naive_rag": {
         "S": [
@@ -8313,7 +8313,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00027
+        "latency_s": 0.00028
       },
       "naive_rag": {
         "S": [
@@ -8438,7 +8438,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00078
+        "latency_s": 0.00087
       },
       "naive_rag": {
         "S": [
@@ -8607,7 +8607,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00181
+        "latency_s": 0.00167
       },
       "naive_rag": {
         "S": [
@@ -8737,7 +8737,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00145
+        "latency_s": 0.00148
       },
       "naive_rag": {
         "S": [
@@ -8928,7 +8928,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00122
+        "latency_s": 0.00123
       },
       "naive_rag": {
         "S": [
@@ -9114,7 +9114,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0019
+        "latency_s": 0.002
       },
       "naive_rag": {
         "S": [
@@ -9261,7 +9261,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00089
+        "latency_s": 0.00077
       },
       "naive_rag": {
         "S": [
@@ -9398,7 +9398,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00176
+        "latency_s": 0.00171
       },
       "naive_rag": {
         "S": [
@@ -9681,7 +9681,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00042
+        "latency_s": 0.00045
       },
       "naive_rag": {
         "S": [
@@ -9789,7 +9789,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00116
+        "latency_s": 0.00131
       },
       "naive_rag": {
         "S": [
@@ -9924,7 +9924,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00061
+        "latency_s": 0.0007
       },
       "naive_rag": {
         "S": [
@@ -10011,7 +10011,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00363
+        "latency_s": 0.00355
       },
       "naive_rag": {
         "S": [
@@ -10169,7 +10169,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00199
+        "latency_s": 0.00219
       },
       "naive_rag": {
         "S": [
@@ -10310,7 +10310,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00203
+        "latency_s": 0.00195
       },
       "naive_rag": {
         "S": [
@@ -10547,7 +10547,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00075
+        "latency_s": 0.00087
       },
       "naive_rag": {
         "S": [
@@ -10726,7 +10726,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00372
+        "latency_s": 0.00418
       },
       "naive_rag": {
         "S": [
@@ -10937,7 +10937,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00257
+        "latency_s": 0.00287
       },
       "naive_rag": {
         "S": [
@@ -11168,7 +11168,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00091
+        "latency_s": 0.00105
       },
       "naive_rag": {
         "S": [
@@ -11274,7 +11274,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00101
+        "latency_s": 0.00124
       },
       "naive_rag": {
         "S": [
@@ -11505,7 +11505,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0029
+        "latency_s": 0.00324
       },
       "naive_rag": {
         "S": [
@@ -11624,7 +11624,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00018
+        "latency_s": 0.00019
       },
       "naive_rag": {
         "S": [
@@ -11746,7 +11746,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00036
+        "latency_s": 0.00038
       },
       "naive_rag": {
         "S": [
@@ -11930,7 +11930,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.007
+        "latency_s": 0.00824
       },
       "naive_rag": {
         "S": [
@@ -12131,7 +12131,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00546
+        "latency_s": 0.00593
       },
       "naive_rag": {
         "S": [
@@ -12357,7 +12357,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00135
+        "latency_s": 0.00147
       },
       "naive_rag": {
         "S": [
@@ -12591,7 +12591,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00265
+        "latency_s": 0.00279
       },
       "naive_rag": {
         "S": [
@@ -12671,7 +12671,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00084
+        "latency_s": 0.00102
       },
       "naive_rag": {
         "S": [
@@ -12793,7 +12793,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00085
+        "latency_s": 0.0011
       },
       "naive_rag": {
         "S": [
@@ -12964,7 +12964,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0016
+        "latency_s": 0.00173
       },
       "naive_rag": {
         "S": [
@@ -13157,7 +13157,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00128
+        "latency_s": 0.00133
       },
       "naive_rag": {
         "S": [
@@ -13348,7 +13348,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00038
+        "latency_s": 0.00047
       },
       "naive_rag": {
         "S": [
@@ -13476,7 +13476,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00297
+        "latency_s": 0.00316
       },
       "naive_rag": {
         "S": [
@@ -13602,7 +13602,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00148
+        "latency_s": 0.00152
       },
       "naive_rag": {
         "S": [
@@ -13815,7 +13815,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00039
+        "latency_s": 0.00042
       },
       "naive_rag": {
         "S": [
@@ -13952,7 +13952,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00229
+        "latency_s": 0.00249
       },
       "naive_rag": {
         "S": [
@@ -14079,7 +14079,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00363
+        "latency_s": 0.00392
       },
       "naive_rag": {
         "S": [
@@ -14250,7 +14250,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00092
+        "latency_s": 0.001
       },
       "naive_rag": {
         "S": [
@@ -14441,7 +14441,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0009
+        "latency_s": 0.00108
       },
       "naive_rag": {
         "S": [
@@ -14628,7 +14628,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00061
+        "latency_s": 0.00065
       },
       "naive_rag": {
         "S": [
@@ -14806,7 +14806,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00062
+        "latency_s": 0.00052
       },
       "naive_rag": {
         "S": [
@@ -14969,7 +14969,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00112
+        "latency_s": 0.00136
       },
       "naive_rag": {
         "S": [
@@ -15126,7 +15126,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00381
+        "latency_s": 0.00432
       },
       "naive_rag": {
         "S": [
@@ -15278,7 +15278,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00327
+        "latency_s": 0.00328
       },
       "naive_rag": {
         "S": [
@@ -15399,7 +15399,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00138
+        "latency_s": 0.00161
       },
       "naive_rag": {
         "S": [
@@ -15558,7 +15558,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00092
+        "latency_s": 0.00099
       },
       "naive_rag": {
         "S": [
@@ -15750,7 +15750,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00127
+        "latency_s": 0.0013
       },
       "naive_rag": {
         "S": [
@@ -15912,7 +15912,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0009
+        "latency_s": 0.001
       },
       "naive_rag": {
         "S": [
@@ -16068,7 +16068,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00335
+        "latency_s": 0.00378
       },
       "naive_rag": {
         "S": [
@@ -16282,7 +16282,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00193
+        "latency_s": 0.00205
       },
       "naive_rag": {
         "S": [
@@ -16465,7 +16465,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0008
+        "latency_s": 0.00082
       },
       "naive_rag": {
         "S": [
@@ -16665,7 +16665,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00343
+        "latency_s": 0.00331
       },
       "naive_rag": {
         "S": [
@@ -16830,7 +16830,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00086
+        "latency_s": 0.00089
       },
       "naive_rag": {
         "S": [
@@ -17014,7 +17014,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00129
+        "latency_s": 0.00156
       },
       "naive_rag": {
         "S": [
@@ -17216,7 +17216,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00086
+        "latency_s": 0.0009
       },
       "naive_rag": {
         "S": [
@@ -17372,7 +17372,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0008
+        "latency_s": 0.00085
       },
       "naive_rag": {
         "S": [
@@ -17518,7 +17518,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00064
+        "latency_s": 0.00056
       },
       "naive_rag": {
         "S": [
@@ -17655,7 +17655,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00085
+        "latency_s": 0.00107
       },
       "naive_rag": {
         "S": [
@@ -17818,7 +17818,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00072
+        "latency_s": 0.00083
       },
       "naive_rag": {
         "S": [
@@ -17988,7 +17988,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00087
+        "latency_s": 0.00103
       },
       "naive_rag": {
         "S": [
@@ -18154,7 +18154,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00093
+        "latency_s": 0.00109
       },
       "naive_rag": {
         "S": [
@@ -18282,7 +18282,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0067
+        "latency_s": 0.00582
       },
       "naive_rag": {
         "S": [
@@ -18438,7 +18438,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00148
+        "latency_s": 0.00143
       },
       "naive_rag": {
         "S": [
@@ -18708,7 +18708,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00074
+        "latency_s": 0.00113
       },
       "naive_rag": {
         "S": [
@@ -18880,7 +18880,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0005
+        "latency_s": 0.00062
       },
       "naive_rag": {
         "S": [
@@ -19018,7 +19018,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00041
+        "latency_s": 0.00059
       },
       "naive_rag": {
         "S": [
@@ -19187,7 +19187,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00076
+        "latency_s": 0.00081
       },
       "naive_rag": {
         "S": [
@@ -19345,7 +19345,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00054
+        "latency_s": 0.00058
       },
       "naive_rag": {
         "S": [
@@ -19500,7 +19500,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00092
+        "latency_s": 0.00096
       },
       "naive_rag": {
         "S": [
@@ -19657,7 +19657,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00098
+        "latency_s": 0.00125
       },
       "naive_rag": {
         "S": [
@@ -19824,7 +19824,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00188
+        "latency_s": 0.00202
       },
       "naive_rag": {
         "S": [
@@ -20130,7 +20130,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00406
+        "latency_s": 0.0048
       },
       "naive_rag": {
         "S": [
@@ -20301,7 +20301,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00087
+        "latency_s": 0.00091
       },
       "naive_rag": {
         "S": [
@@ -20513,7 +20513,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00178
+        "latency_s": 0.00188
       },
       "naive_rag": {
         "S": [
@@ -20720,7 +20720,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00125
+        "latency_s": 0.00128
       },
       "naive_rag": {
         "S": [
@@ -20896,7 +20896,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00121
+        "latency_s": 0.00125
       },
       "naive_rag": {
         "S": [
@@ -21116,7 +21116,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00471
+        "latency_s": 0.00534
       },
       "naive_rag": {
         "S": [
@@ -21328,7 +21328,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00092
+        "latency_s": 0.00096
       },
       "naive_rag": {
         "S": [
@@ -21492,7 +21492,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00027
+        "latency_s": 0.0003
       },
       "naive_rag": {
         "S": [
@@ -21643,7 +21643,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00198
+        "latency_s": 0.00236
       },
       "naive_rag": {
         "S": [
@@ -21843,7 +21843,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00264
+        "latency_s": 0.00295
       },
       "naive_rag": {
         "S": [
@@ -22032,7 +22032,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00549
+        "latency_s": 0.00565
       },
       "naive_rag": {
         "S": [
@@ -22235,7 +22235,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00307
+        "latency_s": 0.00332
       },
       "naive_rag": {
         "S": [
@@ -22394,7 +22394,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00387
+        "latency_s": 0.00435
       },
       "naive_rag": {
         "S": [
@@ -22539,7 +22539,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00038
+        "latency_s": 0.00042
       },
       "naive_rag": {
         "S": [
@@ -22691,7 +22691,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00021
+        "latency_s": 0.00031
       },
       "naive_rag": {
         "S": [
@@ -22786,7 +22786,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 8e-05
+        "latency_s": 9e-05
       },
       "naive_rag": {
         "S": [
@@ -22909,7 +22909,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00195
+        "latency_s": 0.00207
       },
       "naive_rag": {
         "S": [
@@ -23143,7 +23143,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0016
+        "latency_s": 0.00197
       },
       "naive_rag": {
         "S": [
@@ -23285,7 +23285,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00092
+        "latency_s": 0.001
       },
       "naive_rag": {
         "S": [
@@ -23409,7 +23409,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00016
+        "latency_s": 0.00023
       },
       "naive_rag": {
         "S": [
@@ -23495,7 +23495,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00077
+        "latency_s": 0.001
       },
       "naive_rag": {
         "S": [
@@ -23675,7 +23675,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00124
+        "latency_s": 0.00132
       },
       "naive_rag": {
         "S": [
@@ -23896,7 +23896,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00108
+        "latency_s": 0.00134
       },
       "naive_rag": {
         "S": [
@@ -24108,7 +24108,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00118
+        "latency_s": 0.00127
       },
       "naive_rag": {
         "S": [
@@ -24328,7 +24328,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00122
+        "latency_s": 0.00163
       },
       "naive_rag": {
         "S": [
@@ -24498,7 +24498,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00658
+        "latency_s": 0.00731
       },
       "naive_rag": {
         "S": [
@@ -24730,7 +24730,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00076
+        "latency_s": 0.00084
       },
       "naive_rag": {
         "S": [
@@ -24924,7 +24924,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00348
+        "latency_s": 0.00378
       },
       "naive_rag": {
         "S": [
@@ -25098,7 +25098,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00107
+        "latency_s": 0.00122
       },
       "naive_rag": {
         "S": [
@@ -25315,7 +25315,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00302
+        "latency_s": 0.00308
       },
       "naive_rag": {
         "S": [
@@ -25491,7 +25491,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00079
+        "latency_s": 0.00083
       },
       "naive_rag": {
         "S": [
@@ -25688,7 +25688,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00107
+        "latency_s": 0.00124
       },
       "naive_rag": {
         "S": [
@@ -25885,7 +25885,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00138
+        "latency_s": 0.00137
       },
       "naive_rag": {
         "S": [
@@ -26083,7 +26083,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0011
+        "latency_s": 0.00124
       },
       "naive_rag": {
         "S": [
@@ -26202,7 +26202,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00123
+        "latency_s": 0.00151
       },
       "naive_rag": {
         "S": [
@@ -26427,7 +26427,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0024
+        "latency_s": 0.00291
       },
       "naive_rag": {
         "S": [
@@ -26535,7 +26535,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00098
+        "latency_s": 0.00101
       },
       "naive_rag": {
         "S": [
@@ -26767,7 +26767,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00093
+        "latency_s": 0.00095
       },
       "naive_rag": {
         "S": [
@@ -26894,7 +26894,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00057
+        "latency_s": 0.00068
       },
       "naive_rag": {
         "S": [
@@ -27006,7 +27006,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00129
+        "latency_s": 0.00138
       },
       "naive_rag": {
         "S": [
@@ -27236,7 +27236,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00058
+        "latency_s": 0.00089
       },
       "naive_rag": {
         "S": [
@@ -27459,7 +27459,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0006
+        "latency_s": 0.00065
       },
       "naive_rag": {
         "S": [
@@ -27667,7 +27667,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00068
+        "latency_s": 0.0009
       },
       "naive_rag": {
         "S": [
@@ -27900,7 +27900,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00118
+        "latency_s": 0.00144
       },
       "naive_rag": {
         "S": [
@@ -28040,7 +28040,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00112
+        "latency_s": 0.00117
       },
       "naive_rag": {
         "S": [
@@ -28185,7 +28185,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00098
+        "latency_s": 0.001
       },
       "naive_rag": {
         "S": [
@@ -28357,7 +28357,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00115
+        "latency_s": 0.00121
       },
       "naive_rag": {
         "S": [
@@ -28564,7 +28564,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00197
+        "latency_s": 0.00226
       },
       "naive_rag": {
         "S": [
@@ -28668,7 +28668,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0014
+        "latency_s": 0.00149
       },
       "naive_rag": {
         "S": [
@@ -28896,7 +28896,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00138
+        "latency_s": 0.00145
       },
       "naive_rag": {
         "S": [
@@ -29078,7 +29078,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00117
+        "latency_s": 0.00141
       },
       "naive_rag": {
         "S": [
@@ -29250,7 +29250,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00109
+        "latency_s": 0.00133
       },
       "naive_rag": {
         "S": [
@@ -29434,7 +29434,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00117
+        "latency_s": 0.00151
       },
       "naive_rag": {
         "S": [
@@ -29617,7 +29617,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00079
+        "latency_s": 0.00119
       },
       "naive_rag": {
         "S": [
@@ -29771,7 +29771,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00026
+        "latency_s": 0.00031
       },
       "naive_rag": {
         "S": [
@@ -29910,7 +29910,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00146
+        "latency_s": 0.00188
       },
       "naive_rag": {
         "S": [
@@ -30106,7 +30106,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00179
+        "latency_s": 0.00209
       },
       "naive_rag": {
         "S": [
@@ -30315,7 +30315,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00102
+        "latency_s": 0.00121
       },
       "naive_rag": {
         "S": [
@@ -30495,7 +30495,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00033
+        "latency_s": 0.0004
       },
       "naive_rag": {
         "S": [
@@ -30701,7 +30701,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0012
+        "latency_s": 0.00141
       },
       "naive_rag": {
         "S": [
@@ -30866,7 +30866,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00026
+        "latency_s": 0.00027
       },
       "naive_rag": {
         "S": [
@@ -31023,7 +31023,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00114
+        "latency_s": 0.00132
       },
       "naive_rag": {
         "S": [
@@ -31211,7 +31211,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00118
+        "latency_s": 0.00123
       },
       "naive_rag": {
         "S": [
@@ -31401,7 +31401,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00113
+        "latency_s": 0.00124
       },
       "naive_rag": {
         "S": [
@@ -31714,7 +31714,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00175
+        "latency_s": 0.00246
       },
       "naive_rag": {
         "S": [
@@ -31852,7 +31852,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00097
+        "latency_s": 0.00109
       },
       "naive_rag": {
         "S": [
@@ -32079,7 +32079,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00107
+        "latency_s": 0.00116
       },
       "naive_rag": {
         "S": [
@@ -32282,7 +32282,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00164
+        "latency_s": 0.00191
       },
       "naive_rag": {
         "S": [
@@ -32456,7 +32456,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0026
+        "latency_s": 0.00307
       },
       "naive_rag": {
         "S": [
@@ -32662,7 +32662,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00085
+        "latency_s": 0.00118
       },
       "naive_rag": {
         "S": [
@@ -32859,7 +32859,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00345
+        "latency_s": 0.004
       },
       "naive_rag": {
         "S": [
@@ -33053,7 +33053,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00149
+        "latency_s": 0.00174
       },
       "naive_rag": {
         "S": [
@@ -33292,7 +33292,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00156
+        "latency_s": 0.0017
       },
       "naive_rag": {
         "S": [
@@ -33506,7 +33506,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0039
+        "latency_s": 0.00453
       },
       "naive_rag": {
         "S": [
@@ -33676,7 +33676,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0009
+        "latency_s": 0.00094
       },
       "naive_rag": {
         "S": [
@@ -33874,7 +33874,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00198
+        "latency_s": 0.00215
       },
       "naive_rag": {
         "S": [
@@ -34026,7 +34026,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00398
+        "latency_s": 0.00454
       },
       "naive_rag": {
         "S": [
@@ -34212,7 +34212,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00097
+        "latency_s": 0.00103
       },
       "naive_rag": {
         "S": [
@@ -34418,7 +34418,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00074
+        "latency_s": 0.00093
       },
       "naive_rag": {
         "S": [
@@ -34579,7 +34579,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00032
+        "latency_s": 0.00041
       },
       "naive_rag": {
         "S": [
@@ -34760,7 +34760,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00112
+        "latency_s": 0.00104
       },
       "naive_rag": {
         "S": [
@@ -34942,7 +34942,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00424
+        "latency_s": 0.00451
       },
       "naive_rag": {
         "S": [
@@ -35046,7 +35046,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0016
+        "latency_s": 0.00184
       },
       "naive_rag": {
         "S": [
@@ -35182,7 +35182,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00168
+        "latency_s": 0.0017
       },
       "naive_rag": {
         "S": [
@@ -35330,7 +35330,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00146
+        "latency_s": 0.00166
       },
       "naive_rag": {
         "S": [
@@ -35495,7 +35495,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00195
+        "latency_s": 0.00219
       },
       "naive_rag": {
         "S": [
@@ -35681,7 +35681,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00183
+        "latency_s": 0.00189
       },
       "naive_rag": {
         "S": [
@@ -35893,7 +35893,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00056
+        "latency_s": 0.00069
       },
       "naive_rag": {
         "S": [
@@ -36072,7 +36072,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00169
+        "latency_s": 0.00186
       },
       "naive_rag": {
         "S": [
@@ -36294,7 +36294,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00154
+        "latency_s": 0.00162
       },
       "naive_rag": {
         "S": [
@@ -36535,7 +36535,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00109
+        "latency_s": 0.00115
       },
       "naive_rag": {
         "S": [
@@ -36694,7 +36694,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00031
+        "latency_s": 0.0004
       },
       "naive_rag": {
         "S": [
@@ -36857,7 +36857,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00023
+        "latency_s": 0.00024
       },
       "naive_rag": {
         "S": [
@@ -37005,7 +37005,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00087
+        "latency_s": 0.00096
       },
       "naive_rag": {
         "S": [
@@ -37167,7 +37167,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00038
+        "latency_s": 0.00039
       },
       "naive_rag": {
         "S": [
@@ -37337,7 +37337,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00094
+        "latency_s": 0.00107
       },
       "naive_rag": {
         "S": [
@@ -37498,7 +37498,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0004
+        "latency_s": 0.00041
       },
       "naive_rag": {
         "S": [
@@ -37669,7 +37669,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00068
+        "latency_s": 0.00072
       },
       "naive_rag": {
         "S": [
@@ -37809,7 +37809,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00498
+        "latency_s": 0.00529
       },
       "naive_rag": {
         "S": [
@@ -38000,7 +38000,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00143
+        "latency_s": 0.00167
       },
       "naive_rag": {
         "S": [
@@ -38190,7 +38190,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0009
+        "latency_s": 0.00093
       },
       "naive_rag": {
         "S": [
@@ -38367,7 +38367,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0025
+        "latency_s": 0.00273
       },
       "naive_rag": {
         "S": [
@@ -38487,7 +38487,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00108
+        "latency_s": 0.00146
       },
       "naive_rag": {
         "S": [
@@ -38657,7 +38657,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00096
+        "latency_s": 0.00118
       },
       "naive_rag": {
         "S": [
@@ -38866,7 +38866,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00351
+        "latency_s": 0.00361
       },
       "naive_rag": {
         "S": [
@@ -39099,7 +39099,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00064
+        "latency_s": 0.00079
       },
       "naive_rag": {
         "S": [
@@ -39309,7 +39309,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00077
+        "latency_s": 0.00081
       },
       "naive_rag": {
         "S": [
@@ -39491,7 +39491,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0035
+        "latency_s": 0.00394
       },
       "naive_rag": {
         "S": [
@@ -39646,7 +39646,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00103
+        "latency_s": 0.00127
       },
       "naive_rag": {
         "S": [
@@ -39804,7 +39804,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00041
+        "latency_s": 0.0006
       },
       "naive_rag": {
         "S": [
@@ -40028,7 +40028,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00232
+        "latency_s": 0.00282
       },
       "naive_rag": {
         "S": [
@@ -40286,7 +40286,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00163
+        "latency_s": 0.00176
       },
       "naive_rag": {
         "S": [
@@ -40534,7 +40534,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00116
+        "latency_s": 0.00153
       },
       "naive_rag": {
         "S": [
@@ -40785,7 +40785,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00103
+        "latency_s": 0.00105
       },
       "naive_rag": {
         "S": [
@@ -41000,7 +41000,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0011
+        "latency_s": 0.00129
       },
       "naive_rag": {
         "S": [
@@ -41181,7 +41181,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0009
+        "latency_s": 0.00097
       },
       "naive_rag": {
         "S": [
@@ -41350,7 +41350,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0016
+        "latency_s": 0.00175
       },
       "naive_rag": {
         "S": [
@@ -41566,7 +41566,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00114
+        "latency_s": 0.00133
       },
       "naive_rag": {
         "S": [
@@ -41735,7 +41735,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00075
+        "latency_s": 0.00099
       },
       "naive_rag": {
         "S": [
@@ -41903,7 +41903,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00104
+        "latency_s": 0.00109
       },
       "naive_rag": {
         "S": [
@@ -42091,7 +42091,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00156
+        "latency_s": 0.00177
       },
       "naive_rag": {
         "S": [
@@ -42331,7 +42331,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00083
+        "latency_s": 0.0009
       },
       "naive_rag": {
         "S": [
@@ -42504,7 +42504,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00505
+        "latency_s": 0.00593
       },
       "naive_rag": {
         "S": [
@@ -42711,7 +42711,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00247
+        "latency_s": 0.00286
       },
       "naive_rag": {
         "S": [
@@ -42912,7 +42912,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00062
+        "latency_s": 0.00064
       },
       "naive_rag": {
         "S": [
@@ -43126,7 +43126,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00093
+        "latency_s": 0.001
       },
       "naive_rag": {
         "S": [
@@ -43283,7 +43283,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00139
+        "latency_s": 0.00159
       },
       "naive_rag": {
         "S": [
@@ -43458,7 +43458,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00144
+        "latency_s": 0.00181
       },
       "naive_rag": {
         "S": [
@@ -43597,7 +43597,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00098
+        "latency_s": 0.00124
       },
       "naive_rag": {
         "S": [
@@ -43817,7 +43817,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00197
+        "latency_s": 0.0025
       },
       "naive_rag": {
         "S": [
@@ -44047,7 +44047,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00171
+        "latency_s": 0.00198
       },
       "naive_rag": {
         "S": [
@@ -44273,7 +44273,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00073
+        "latency_s": 0.00083
       },
       "naive_rag": {
         "S": [
@@ -44493,7 +44493,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0006
+        "latency_s": 0.00062
       },
       "naive_rag": {
         "S": [
@@ -44634,7 +44634,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00062
+        "latency_s": 0.00059
       },
       "naive_rag": {
         "S": [
@@ -44790,7 +44790,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00095
+        "latency_s": 0.00086
       },
       "naive_rag": {
         "S": [
@@ -45029,7 +45029,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00165
+        "latency_s": 0.00196
       },
       "naive_rag": {
         "S": [
@@ -45201,7 +45201,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0038
+        "latency_s": 0.00398
       },
       "naive_rag": {
         "S": [
@@ -45407,7 +45407,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00173
+        "latency_s": 0.00208
       },
       "naive_rag": {
         "S": [
@@ -45540,7 +45540,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00131
+        "latency_s": 0.00153
       },
       "naive_rag": {
         "S": [
@@ -45749,7 +45749,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00098
+        "latency_s": 0.0013
       },
       "naive_rag": {
         "S": [
@@ -45918,7 +45918,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0006
+        "latency_s": 0.00067
       },
       "naive_rag": {
         "S": [
@@ -46021,7 +46021,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00039
+        "latency_s": 0.00048
       },
       "naive_rag": {
         "S": [
@@ -46181,7 +46181,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00255
+        "latency_s": 0.00258
       },
       "naive_rag": {
         "S": [
@@ -46343,7 +46343,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00126
+        "latency_s": 0.00141
       },
       "naive_rag": {
         "S": [
@@ -46538,7 +46538,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00108
+        "latency_s": 0.00134
       },
       "naive_rag": {
         "S": [
@@ -46676,7 +46676,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00118
+        "latency_s": 0.00128
       },
       "naive_rag": {
         "S": [
@@ -46839,7 +46839,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00092
+        "latency_s": 0.00099
       },
       "naive_rag": {
         "S": [
@@ -47030,7 +47030,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00151
+        "latency_s": 0.00162
       },
       "naive_rag": {
         "S": [
@@ -47220,7 +47220,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00312
+        "latency_s": 0.00372
       },
       "naive_rag": {
         "S": [
@@ -47359,7 +47359,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00151
+        "latency_s": 0.00167
       },
       "naive_rag": {
         "S": [
@@ -47551,7 +47551,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00112
+        "latency_s": 0.00129
       },
       "naive_rag": {
         "S": [
@@ -47767,7 +47767,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00075
+        "latency_s": 0.00079
       },
       "naive_rag": {
         "S": [
@@ -47954,7 +47954,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00068
+        "latency_s": 0.00072
       },
       "naive_rag": {
         "S": [
@@ -48151,7 +48151,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00079
+        "latency_s": 0.0008
       },
       "naive_rag": {
         "S": [
@@ -48324,7 +48324,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00015
+        "latency_s": 0.00016
       },
       "naive_rag": {
         "S": [
@@ -48434,7 +48434,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00401
+        "latency_s": 0.00438
       },
       "naive_rag": {
         "S": [
@@ -48629,7 +48629,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00211
+        "latency_s": 0.00223
       },
       "naive_rag": {
         "S": [
@@ -48797,7 +48797,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0005
+        "latency_s": 0.00055
       },
       "naive_rag": {
         "S": [
@@ -48992,7 +48992,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00107
+        "latency_s": 0.00108
       },
       "naive_rag": {
         "S": [
@@ -49141,7 +49141,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00194
+        "latency_s": 0.00197
       },
       "naive_rag": {
         "S": [
@@ -49277,7 +49277,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00115
+        "latency_s": 0.00121
       },
       "naive_rag": {
         "S": [
@@ -49448,7 +49448,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00082
+        "latency_s": 0.00093
       },
       "naive_rag": {
         "S": [
@@ -49591,7 +49591,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00089
+        "latency_s": 0.00114
       },
       "naive_rag": {
         "S": [
@@ -49764,7 +49764,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00368
+        "latency_s": 0.00402
       },
       "naive_rag": {
         "S": [
@@ -49940,7 +49940,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00101
+        "latency_s": 0.00126
       },
       "naive_rag": {
         "S": [
@@ -50137,7 +50137,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00392
+        "latency_s": 0.00431
       },
       "naive_rag": {
         "S": [
@@ -50308,7 +50308,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00334
+        "latency_s": 0.00409
       },
       "naive_rag": {
         "S": [
@@ -50493,7 +50493,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00446
+        "latency_s": 0.00534
       },
       "naive_rag": {
         "S": [
@@ -50686,7 +50686,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00237
+        "latency_s": 0.00247
       },
       "naive_rag": {
         "S": [
@@ -50942,7 +50942,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00221
+        "latency_s": 0.00239
       },
       "naive_rag": {
         "S": [
@@ -51160,7 +51160,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 9e-05
+        "latency_s": 0.00011
       },
       "naive_rag": {
         "S": [
@@ -51237,7 +51237,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00241
+        "latency_s": 0.00283
       },
       "naive_rag": {
         "S": [
@@ -51378,7 +51378,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00214
+        "latency_s": 0.00244
       },
       "naive_rag": {
         "S": [
@@ -51573,7 +51573,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00105
+        "latency_s": 0.00127
       },
       "naive_rag": {
         "S": [
@@ -51758,7 +51758,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00108
+        "latency_s": 0.00123
       },
       "naive_rag": {
         "S": [
@@ -51945,7 +51945,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0011
+        "latency_s": 0.00117
       },
       "naive_rag": {
         "S": [
@@ -52152,7 +52152,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00155
+        "latency_s": 0.00169
       },
       "naive_rag": {
         "S": [
@@ -52379,7 +52379,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00143
+        "latency_s": 0.00165
       },
       "naive_rag": {
         "S": [
@@ -52589,7 +52589,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0018
+        "latency_s": 0.0021
       },
       "naive_rag": {
         "S": [
@@ -52823,7 +52823,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00189
+        "latency_s": 0.00215
       },
       "naive_rag": {
         "S": [
@@ -53076,7 +53076,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00767
+        "latency_s": 0.00796
       },
       "naive_rag": {
         "S": [
@@ -53370,7 +53370,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00159
+        "latency_s": 0.00197
       },
       "naive_rag": {
         "S": [
@@ -53618,7 +53618,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00157
+        "latency_s": 0.00167
       },
       "naive_rag": {
         "S": [
@@ -53855,7 +53855,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00134
+        "latency_s": 0.00182
       },
       "naive_rag": {
         "S": [
@@ -54078,7 +54078,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00135
+        "latency_s": 0.00155
       },
       "naive_rag": {
         "S": [
@@ -54238,7 +54238,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00425
+        "latency_s": 0.00493
       },
       "naive_rag": {
         "S": [
@@ -54438,7 +54438,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00086
+        "latency_s": 0.00104
       },
       "naive_rag": {
         "S": [
@@ -54565,7 +54565,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00098
+        "latency_s": 0.00103
       },
       "naive_rag": {
         "S": [
@@ -54750,7 +54750,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00087
+        "latency_s": 0.00126
       },
       "naive_rag": {
         "S": [
@@ -54890,7 +54890,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00492
+        "latency_s": 0.00538
       },
       "naive_rag": {
         "S": [
@@ -55058,7 +55058,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00073
+        "latency_s": 0.001
       },
       "naive_rag": {
         "S": [
@@ -55274,7 +55274,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00071
+        "latency_s": 0.00081
       },
       "naive_rag": {
         "S": [
@@ -55467,7 +55467,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00145
+        "latency_s": 0.00172
       },
       "naive_rag": {
         "S": [
@@ -55696,7 +55696,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00133
+        "latency_s": 0.00131
       },
       "naive_rag": {
         "S": [
@@ -55895,7 +55895,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00176
+        "latency_s": 0.00218
       },
       "naive_rag": {
         "S": [
@@ -56036,7 +56036,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0034
+        "latency_s": 0.00383
       },
       "naive_rag": {
         "S": [
@@ -56241,7 +56241,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00048
+        "latency_s": 0.00056
       },
       "naive_rag": {
         "S": [
@@ -56394,7 +56394,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00157
+        "latency_s": 0.0018
       },
       "naive_rag": {
         "S": [
@@ -56504,7 +56504,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00476
+        "latency_s": 0.00524
       },
       "naive_rag": {
         "S": [
@@ -56673,7 +56673,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0012
+        "latency_s": 0.00123
       },
       "naive_rag": {
         "S": [
@@ -56776,7 +56776,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00182
+        "latency_s": 0.00205
       },
       "naive_rag": {
         "S": [
@@ -57008,7 +57008,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0021
+        "latency_s": 0.00244
       },
       "naive_rag": {
         "S": [
@@ -57246,7 +57246,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00138
+        "latency_s": 0.00144
       },
       "naive_rag": {
         "S": [
@@ -57362,7 +57362,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00341
+        "latency_s": 0.00417
       },
       "naive_rag": {
         "S": [
@@ -57515,7 +57515,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00124
+        "latency_s": 0.00138
       },
       "naive_rag": {
         "S": [
@@ -57687,7 +57687,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00277
+        "latency_s": 0.00322
       },
       "naive_rag": {
         "S": [
@@ -57834,7 +57834,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00115
+        "latency_s": 0.0013
       },
       "naive_rag": {
         "S": [
@@ -58002,7 +58002,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00087
+        "latency_s": 0.00095
       },
       "naive_rag": {
         "S": [
@@ -58165,7 +58165,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00109
+        "latency_s": 0.00112
       },
       "naive_rag": {
         "S": [
@@ -58340,7 +58340,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00443
+        "latency_s": 0.00481
       },
       "naive_rag": {
         "S": [
@@ -58460,7 +58460,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00161
+        "latency_s": 0.0017
       },
       "naive_rag": {
         "S": [
@@ -58605,7 +58605,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00114
+        "latency_s": 0.00139
       },
       "naive_rag": {
         "S": [
@@ -58734,7 +58734,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0021
+        "latency_s": 0.00234
       },
       "naive_rag": {
         "S": [
@@ -58958,7 +58958,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00352
+        "latency_s": 0.00393
       },
       "naive_rag": {
         "S": [
@@ -59140,7 +59140,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00064
+        "latency_s": 0.00072
       },
       "naive_rag": {
         "S": [
@@ -59321,7 +59321,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00069
+        "latency_s": 0.0007
       },
       "naive_rag": {
         "S": [
@@ -59461,7 +59461,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00145
+        "latency_s": 0.00173
       },
       "naive_rag": {
         "S": [
@@ -59641,7 +59641,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00338
+        "latency_s": 0.00385
       },
       "naive_rag": {
         "S": [
@@ -59817,7 +59817,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00065
+        "latency_s": 0.00068
       },
       "naive_rag": {
         "S": [
@@ -59926,7 +59926,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00112
+        "latency_s": 0.0011
       },
       "naive_rag": {
         "S": [
@@ -60110,7 +60110,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0045
+        "latency_s": 0.00423
       },
       "naive_rag": {
         "S": [
@@ -60258,7 +60258,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0023
+        "latency_s": 0.00277
       },
       "naive_rag": {
         "S": [
@@ -60387,7 +60387,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00061
+        "latency_s": 0.00073
       },
       "naive_rag": {
         "S": [
@@ -60529,7 +60529,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0007
+        "latency_s": 0.0008
       },
       "naive_rag": {
         "S": [
@@ -60669,7 +60669,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 7e-05
+        "latency_s": 0.0001
       },
       "naive_rag": {
         "S": [
@@ -60744,7 +60744,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00133
+        "latency_s": 0.00124
       },
       "naive_rag": {
         "S": [
@@ -60856,7 +60856,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0015
+        "latency_s": 0.00163
       },
       "naive_rag": {
         "S": [
@@ -61070,7 +61070,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.005
+        "latency_s": 0.00526
       },
       "naive_rag": {
         "S": [
@@ -61240,7 +61240,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00516
+        "latency_s": 0.00571
       },
       "naive_rag": {
         "S": [
@@ -61400,7 +61400,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0038
+        "latency_s": 0.00424
       },
       "naive_rag": {
         "S": [
@@ -61555,7 +61555,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00053
+        "latency_s": 0.00064
       },
       "naive_rag": {
         "S": [
@@ -61738,7 +61738,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0015
+        "latency_s": 0.00136
       },
       "naive_rag": {
         "S": [
@@ -61905,7 +61905,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0014
+        "latency_s": 0.00145
       },
       "naive_rag": {
         "S": [
@@ -62123,7 +62123,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00218
+        "latency_s": 0.00243
       },
       "naive_rag": {
         "S": [
@@ -62344,7 +62344,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0022
+        "latency_s": 0.00252
       },
       "naive_rag": {
         "S": [
@@ -62510,7 +62510,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00183
+        "latency_s": 0.00177
       },
       "naive_rag": {
         "S": [
@@ -62703,7 +62703,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00202
+        "latency_s": 0.00164
       },
       "naive_rag": {
         "S": [
@@ -62921,7 +62921,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00076
+        "latency_s": 0.00075
       },
       "naive_rag": {
         "S": [
@@ -63097,7 +63097,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00091
+        "latency_s": 0.00097
       },
       "naive_rag": {
         "S": [
@@ -63317,7 +63317,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00095
+        "latency_s": 0.00125
       },
       "naive_rag": {
         "S": [
@@ -63515,7 +63515,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00066
+        "latency_s": 0.0007
       },
       "naive_rag": {
         "S": [
@@ -63671,7 +63671,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00243
+        "latency_s": 0.00317
       },
       "naive_rag": {
         "S": [
@@ -63848,7 +63848,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00641
+        "latency_s": 0.00714
       },
       "naive_rag": {
         "S": [
@@ -64064,7 +64064,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00102
+        "latency_s": 0.00117
       },
       "naive_rag": {
         "S": [
@@ -64277,7 +64277,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00183
+        "latency_s": 0.00205
       },
       "naive_rag": {
         "S": [
@@ -64429,7 +64429,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00164
+        "latency_s": 0.00173
       },
       "naive_rag": {
         "S": [
@@ -64655,7 +64655,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00147
+        "latency_s": 0.0016
       },
       "naive_rag": {
         "S": [
@@ -64865,7 +64865,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00029
+        "latency_s": 0.00031
       },
       "naive_rag": {
         "S": [
@@ -65248,7 +65248,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00182
+        "latency_s": 0.00195
       },
       "naive_rag": {
         "S": [
@@ -65475,7 +65475,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00419
+        "latency_s": 0.00433
       },
       "naive_rag": {
         "S": [
@@ -65635,7 +65635,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00049
+        "latency_s": 0.00058
       },
       "naive_rag": {
         "S": [
@@ -65803,7 +65803,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00137
+        "latency_s": 0.00155
       },
       "naive_rag": {
         "S": [
@@ -65971,7 +65971,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00127
+        "latency_s": 0.00151
       },
       "naive_rag": {
         "S": [
@@ -66134,7 +66134,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00052
+        "latency_s": 0.00057
       },
       "naive_rag": {
         "S": [
@@ -66308,7 +66308,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00078
+        "latency_s": 0.00094
       },
       "naive_rag": {
         "S": [
@@ -66411,7 +66411,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00081
+        "latency_s": 0.00095
       },
       "naive_rag": {
         "S": [
@@ -66549,7 +66549,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00079
+        "latency_s": 0.00097
       },
       "naive_rag": {
         "S": [
@@ -66708,7 +66708,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00188
+        "latency_s": 0.00197
       },
       "naive_rag": {
         "S": [
@@ -66892,7 +66892,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00164
+        "latency_s": 0.0018
       },
       "naive_rag": {
         "S": [
@@ -67117,7 +67117,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00144
+        "latency_s": 0.00156
       },
       "naive_rag": {
         "S": [
@@ -67285,7 +67285,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00099
+        "latency_s": 0.00102
       },
       "naive_rag": {
         "S": [
@@ -67452,7 +67452,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00237
+        "latency_s": 0.00251
       },
       "naive_rag": {
         "S": [
@@ -67692,7 +67692,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00094
+        "latency_s": 0.00114
       },
       "naive_rag": {
         "S": [
@@ -67869,7 +67869,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00129
+        "latency_s": 0.00131
       },
       "naive_rag": {
         "S": [
@@ -68076,7 +68076,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00244
+        "latency_s": 0.00287
       },
       "naive_rag": {
         "S": [
@@ -68325,7 +68325,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00487
+        "latency_s": 0.00559
       },
       "naive_rag": {
         "S": [
@@ -68547,7 +68547,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00046
+        "latency_s": 0.00049
       },
       "naive_rag": {
         "S": [
@@ -68707,7 +68707,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00384
+        "latency_s": 0.00449
       },
       "naive_rag": {
         "S": [
@@ -68886,7 +68886,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00077
+        "latency_s": 0.00081
       },
       "naive_rag": {
         "S": [
@@ -69023,7 +69023,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00068
+        "latency_s": 0.00072
       },
       "naive_rag": {
         "S": [
@@ -69164,7 +69164,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.004
+        "latency_s": 0.00445
       },
       "naive_rag": {
         "S": [
@@ -69328,7 +69328,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00095
+        "latency_s": 0.00101
       },
       "naive_rag": {
         "S": [
@@ -69530,7 +69530,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00095
+        "latency_s": 0.00097
       },
       "naive_rag": {
         "S": [
@@ -69755,7 +69755,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00178
+        "latency_s": 0.00202
       },
       "naive_rag": {
         "S": [
@@ -69969,7 +69969,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00102
+        "latency_s": 0.00122
       },
       "naive_rag": {
         "S": [
@@ -70110,7 +70110,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00151
+        "latency_s": 0.00156
       },
       "naive_rag": {
         "S": [
@@ -70316,7 +70316,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00134
+        "latency_s": 0.0015
       },
       "naive_rag": {
         "S": [
@@ -70549,7 +70549,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00373
+        "latency_s": 0.00382
       },
       "naive_rag": {
         "S": [
@@ -70653,7 +70653,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00139
+        "latency_s": 0.0013
       },
       "naive_rag": {
         "S": [
@@ -70777,7 +70777,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00191
+        "latency_s": 0.00216
       },
       "naive_rag": {
         "S": [
@@ -70911,7 +70911,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00391
+        "latency_s": 0.00452
       },
       "naive_rag": {
         "S": [
@@ -71068,7 +71068,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0036
+        "latency_s": 0.00343
       },
       "naive_rag": {
         "S": [
@@ -71242,7 +71242,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0045
+        "latency_s": 0.00535
       },
       "naive_rag": {
         "S": [
@@ -71344,7 +71344,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00206
+        "latency_s": 0.00239
       },
       "naive_rag": {
         "S": [
@@ -71475,7 +71475,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00095
+        "latency_s": 0.00101
       },
       "naive_rag": {
         "S": [
@@ -71623,7 +71623,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00076
+        "latency_s": 0.00083
       },
       "naive_rag": {
         "S": [
@@ -71787,7 +71787,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00081
+        "latency_s": 0.00086
       },
       "naive_rag": {
         "S": [
@@ -71949,7 +71949,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00153
+        "latency_s": 0.00158
       },
       "naive_rag": {
         "S": [
@@ -72078,7 +72078,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00057
+        "latency_s": 0.00072
       },
       "naive_rag": {
         "S": [
@@ -72206,7 +72206,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00103
+        "latency_s": 0.00116
       },
       "naive_rag": {
         "S": [
@@ -72360,7 +72360,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00243
+        "latency_s": 0.00282
       },
       "naive_rag": {
         "S": [
@@ -72492,7 +72492,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00327
+        "latency_s": 0.00351
       },
       "naive_rag": {
         "S": [
@@ -72626,7 +72626,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00269
+        "latency_s": 0.00294
       },
       "naive_rag": {
         "S": [
@@ -72781,7 +72781,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00096
+        "latency_s": 0.00098
       },
       "naive_rag": {
         "S": [
@@ -72906,7 +72906,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00373
+        "latency_s": 0.00444
       },
       "naive_rag": {
         "S": [
@@ -73077,7 +73077,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00165
+        "latency_s": 0.00156
       },
       "naive_rag": {
         "S": [
@@ -73296,7 +73296,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00113
+        "latency_s": 0.00128
       },
       "naive_rag": {
         "S": [
@@ -73499,7 +73499,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00318
+        "latency_s": 0.00356
       },
       "naive_rag": {
         "S": [
@@ -73647,7 +73647,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0007
+        "latency_s": 0.00083
       },
       "naive_rag": {
         "S": [
@@ -73838,7 +73838,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00096
+        "latency_s": 0.00108
       },
       "naive_rag": {
         "S": [
@@ -74051,7 +74051,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00081
+        "latency_s": 0.00102
       },
       "naive_rag": {
         "S": [
@@ -74246,7 +74246,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00132
+        "latency_s": 0.00138
       },
       "naive_rag": {
         "S": [
@@ -74376,7 +74376,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00064
+        "latency_s": 0.00075
       },
       "naive_rag": {
         "S": [
@@ -74611,7 +74611,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0005
+        "latency_s": 0.00056
       },
       "naive_rag": {
         "S": [
@@ -74739,7 +74739,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00066
+        "latency_s": 0.00074
       },
       "naive_rag": {
         "S": [
@@ -75189,7 +75189,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00101
+        "latency_s": 0.00105
       },
       "naive_rag": {
         "S": [
@@ -75380,7 +75380,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00157
+        "latency_s": 0.00185
       },
       "naive_rag": {
         "S": [
@@ -75571,7 +75571,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00112
+        "latency_s": 0.00119
       },
       "naive_rag": {
         "S": [
@@ -75731,7 +75731,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00111
+        "latency_s": 0.00118
       },
       "naive_rag": {
         "S": [
@@ -75898,7 +75898,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00072
+        "latency_s": 0.00077
       },
       "naive_rag": {
         "S": [
@@ -76028,7 +76028,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0005
+        "latency_s": 0.00079
       },
       "naive_rag": {
         "S": [
@@ -76223,7 +76223,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00045
+        "latency_s": 0.00054
       },
       "naive_rag": {
         "S": [
@@ -76382,7 +76382,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00146
+        "latency_s": 0.00159
       },
       "naive_rag": {
         "S": [
@@ -76577,7 +76577,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00166
+        "latency_s": 0.00194
       },
       "naive_rag": {
         "S": [
@@ -76798,7 +76798,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 4e-05
+        "latency_s": 8e-05
       },
       "naive_rag": {
         "S": [
@@ -76866,7 +76866,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00096
+        "latency_s": 0.00119
       },
       "naive_rag": {
         "S": [
@@ -77060,7 +77060,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00465
+        "latency_s": 0.00528
       },
       "naive_rag": {
         "S": [
@@ -77226,7 +77226,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00208
+        "latency_s": 0.0024
       },
       "naive_rag": {
         "S": [
@@ -77433,7 +77433,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00091
+        "latency_s": 0.00108
       },
       "naive_rag": {
         "S": [
@@ -77600,7 +77600,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00171
+        "latency_s": 0.00191
       },
       "naive_rag": {
         "S": [
@@ -77799,7 +77799,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00084
+        "latency_s": 0.001
       },
       "naive_rag": {
         "S": [
@@ -77975,7 +77975,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00177
+        "latency_s": 0.00205
       },
       "naive_rag": {
         "S": [
@@ -78182,7 +78182,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00092
+        "latency_s": 0.00116
       },
       "naive_rag": {
         "S": [
@@ -78474,7 +78474,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00138
+        "latency_s": 0.00155
       },
       "naive_rag": {
         "S": [
@@ -78713,7 +78713,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00139
+        "latency_s": 0.0015
       },
       "naive_rag": {
         "S": [
@@ -78923,7 +78923,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00109
+        "latency_s": 0.00112
       },
       "naive_rag": {
         "S": [
@@ -79110,7 +79110,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00069
+        "latency_s": 0.00085
       },
       "naive_rag": {
         "S": [
@@ -79319,7 +79319,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00275
+        "latency_s": 0.00426
       },
       "naive_rag": {
         "S": [
@@ -79479,7 +79479,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00177
+        "latency_s": 0.00185
       },
       "naive_rag": {
         "S": [
@@ -79676,7 +79676,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00204
+        "latency_s": 0.00211
       },
       "naive_rag": {
         "S": [
@@ -79800,7 +79800,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00106
+        "latency_s": 0.00125
       },
       "naive_rag": {
         "S": [
@@ -79923,7 +79923,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00064
+        "latency_s": 0.00074
       },
       "naive_rag": {
         "S": [
@@ -80026,7 +80026,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00151
+        "latency_s": 0.00169
       },
       "naive_rag": {
         "S": [
@@ -80221,7 +80221,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00219
+        "latency_s": 0.00243
       },
       "naive_rag": {
         "S": [
@@ -80425,7 +80425,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00507
+        "latency_s": 0.00557
       },
       "naive_rag": {
         "S": [
@@ -80623,7 +80623,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00056
+        "latency_s": 0.00074
       },
       "naive_rag": {
         "S": [
@@ -80807,7 +80807,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00541
+        "latency_s": 0.00598
       },
       "naive_rag": {
         "S": [
@@ -80994,7 +80994,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00468
+        "latency_s": 0.00506
       },
       "naive_rag": {
         "S": [
@@ -81187,7 +81187,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00109
+        "latency_s": 0.00124
       },
       "naive_rag": {
         "S": [
@@ -81331,7 +81331,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00164
+        "latency_s": 0.00167
       },
       "naive_rag": {
         "S": [
@@ -81566,7 +81566,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0037
+        "latency_s": 0.00427
       },
       "naive_rag": {
         "S": [
@@ -81744,7 +81744,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.001
+        "latency_s": 0.00112
       },
       "naive_rag": {
         "S": [
@@ -81902,7 +81902,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00081
+        "latency_s": 0.00085
       },
       "naive_rag": {
         "S": [
@@ -82062,7 +82062,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00067
+        "latency_s": 0.00076
       },
       "naive_rag": {
         "S": [
@@ -82221,7 +82221,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.0008
+        "latency_s": 0.001
       },
       "naive_rag": {
         "S": [
@@ -82337,7 +82337,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00168
+        "latency_s": 0.00204
       },
       "naive_rag": {
         "S": [
@@ -82545,7 +82545,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00016
+        "latency_s": 0.00027
       },
       "naive_rag": {
         "S": [
@@ -82653,7 +82653,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00093
+        "latency_s": 0.00102
       },
       "naive_rag": {
         "S": [
@@ -82763,7 +82763,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00347
+        "latency_s": 0.00415
       },
       "naive_rag": {
         "S": [
@@ -82942,7 +82942,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00144
+        "latency_s": 0.00151
       },
       "naive_rag": {
         "S": [
@@ -83160,7 +83160,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00184
+        "latency_s": 0.00226
       },
       "naive_rag": {
         "S": [
@@ -83398,7 +83398,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00106
+        "latency_s": 0.0012
       },
       "naive_rag": {
         "S": [
@@ -83557,7 +83557,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00124
+        "latency_s": 0.00144
       },
       "naive_rag": {
         "S": [
@@ -83757,7 +83757,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00059
+        "latency_s": 0.00073
       },
       "naive_rag": {
         "S": [
@@ -83888,7 +83888,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00195
+        "latency_s": 0.00206
       },
       "naive_rag": {
         "S": [
@@ -84135,7 +84135,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00159
+        "latency_s": 0.00152
       },
       "naive_rag": {
         "S": [
@@ -84363,7 +84363,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00655
+        "latency_s": 0.00773
       },
       "naive_rag": {
         "S": [
@@ -84603,7 +84603,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00509
+        "latency_s": 0.00539
       },
       "naive_rag": {
         "S": [
@@ -84815,7 +84815,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00166
+        "latency_s": 0.00195
       },
       "naive_rag": {
         "S": [
@@ -85033,7 +85033,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00116
+        "latency_s": 0.00142
       },
       "naive_rag": {
         "S": [
@@ -85220,7 +85220,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00121
+        "latency_s": 0.00147
       },
       "naive_rag": {
         "S": [
@@ -85429,7 +85429,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00348
+        "latency_s": 0.00375
       },
       "naive_rag": {
         "S": [
@@ -85641,7 +85641,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00053
+        "latency_s": 0.00064
       },
       "naive_rag": {
         "S": [
@@ -85785,7 +85785,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00167
+        "latency_s": 0.00173
       },
       "naive_rag": {
         "S": [
@@ -85990,7 +85990,7 @@
         "em": 0,
         "f1": 0.0,
         "prediction": "",
-        "latency_s": 0.00266
+        "latency_s": 0.00294
       },
       "naive_rag": {
         "S": [

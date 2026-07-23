@@ -1,0 +1,89 @@
+{
+  "results": [
+    {
+      "parameter": "theta",
+      "value": 0.1,
+      "mean_recall_at_5": 0.27,
+      "std_recall_at_5": 0.444
+    },
+    {
+      "parameter": "theta",
+      "value": 0.05,
+      "mean_recall_at_5": 0.265,
+      "std_recall_at_5": 0.4413
+    },
+    {
+      "parameter": "theta",
+      "value": 0.001,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "theta",
+      "value": 0.005,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "theta",
+      "value": 0.01,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "topk",
+      "value": 3,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "topk",
+      "value": 5,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "topk",
+      "value": 10,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "topk",
+      "value": 15,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "max_teleports",
+      "value": 1,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "max_teleports",
+      "value": 2,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "max_teleports",
+      "value": 3,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "max_teleports",
+      "value": 5,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    },
+    {
+      "parameter": "max_teleports",
+      "value": 10,
+      "mean_recall_at_5": 0.24,
+      "std_recall_at_5": 0.4271
+    }
+  ],
+  "n_queries": 200
+}

@@ -1,0 +1,3097 @@
+{
+  "summary": {
+    "n_queries": 500,
+    "final_mean_recall": 0.244,
+    "early_recall": 0.18,
+    "late_recall": 0.3,
+    "convergence": 0.12
+  },
+  "arm_rankings": [
+    {
+      "name": "semantic_only",
+      "weights": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "n_selected": 144,
+      "posterior_mean": 0.2877,
+      "alpha": 42.0,
+      "beta": 104.0
+    },
+    {
+      "name": "confidence_heavy",
+      "weights": [
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.15
+      ],
+      "n_selected": 206,
+      "posterior_mean": 0.2788,
+      "alpha": 58.0,
+      "beta": 150.0
+    },
+    {
+      "name": "paper_defaults",
+      "weights": [
+        0.5,
+        0.0,
+        0.15,
+        0.0,
+        0.1
+      ],
+      "n_selected": 70,
+      "posterior_mean": 0.1944,
+      "alpha": 14.0,
+      "beta": 58.0
+    },
+    {
+      "name": "high_semantic",
+      "weights": [
+        0.7,
+        0.0,
+        0.1,
+        0.0,
+        0.05
+      ],
+      "n_selected": 34,
+      "posterior_mean": 0.1944,
+      "alpha": 7.0,
+      "beta": 29.0
+    },
+    {
+      "name": "very_high_sem",
+      "weights": [
+        0.9,
+        0.0,
+        0.05,
+        0.0,
+        0.0
+      ],
+      "n_selected": 30,
+      "posterior_mean": 0.1875,
+      "alpha": 6.0,
+      "beta": 26.0
+    },
+    {
+      "name": "structural_heavy",
+      "weights": [
+        0.8,
+        0.0,
+        0.2,
+        0.0,
+        0.0
+      ],
+      "n_selected": 16,
+      "posterior_mean": 0.0556,
+      "alpha": 1.0,
+      "beta": 17.0
+    }
+  ],
+  "per_query": [
+    {
+      "query_idx": 0,
+      "selected_arm": "high_semantic",
+      "reward": 1,
+      "cumulative_mean_recall": 1.0
+    },
+    {
+      "query_idx": 1,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.5
+    },
+    {
+      "query_idx": 2,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.3333
+    },
+    {
+      "query_idx": 3,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.5
+    },
+    {
+      "query_idx": 4,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.4
+    },
+    {
+      "query_idx": 5,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.3333
+    },
+    {
+      "query_idx": 6,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2857
+    },
+    {
+      "query_idx": 7,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.25
+    },
+    {
+      "query_idx": 8,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2222
+    },
+    {
+      "query_idx": 9,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2
+    },
+    {
+      "query_idx": 10,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1818
+    },
+    {
+      "query_idx": 11,
+      "selected_arm": "high_semantic",
+      "reward": 1,
+      "cumulative_mean_recall": 0.25
+    },
+    {
+      "query_idx": 12,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2308
+    },
+    {
+      "query_idx": 13,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2143
+    },
+    {
+      "query_idx": 14,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2
+    },
+    {
+      "query_idx": 15,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1875
+    },
+    {
+      "query_idx": 16,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1765
+    },
+    {
+      "query_idx": 17,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1667
+    },
+    {
+      "query_idx": 18,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1579
+    },
+    {
+      "query_idx": 19,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.15
+    },
+    {
+      "query_idx": 20,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1429
+    },
+    {
+      "query_idx": 21,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1364
+    },
+    {
+      "query_idx": 22,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1304
+    },
+    {
+      "query_idx": 23,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.125
+    },
+    {
+      "query_idx": 24,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.16
+    },
+    {
+      "query_idx": 25,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1538
+    },
+    {
+      "query_idx": 26,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1481
+    },
+    {
+      "query_idx": 27,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1786
+    },
+    {
+      "query_idx": 28,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1724
+    },
+    {
+      "query_idx": 29,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2
+    },
+    {
+      "query_idx": 30,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1935
+    },
+    {
+      "query_idx": 31,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1875
+    },
+    {
+      "query_idx": 32,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2121
+    },
+    {
+      "query_idx": 33,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2059
+    },
+    {
+      "query_idx": 34,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2
+    },
+    {
+      "query_idx": 35,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1944
+    },
+    {
+      "query_idx": 36,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2162
+    },
+    {
+      "query_idx": 37,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2105
+    },
+    {
+      "query_idx": 38,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2051
+    },
+    {
+      "query_idx": 39,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2
+    },
+    {
+      "query_idx": 40,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1951
+    },
+    {
+      "query_idx": 41,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1905
+    },
+    {
+      "query_idx": 42,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.186
+    },
+    {
+      "query_idx": 43,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1818
+    },
+    {
+      "query_idx": 44,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1778
+    },
+    {
+      "query_idx": 45,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1739
+    },
+    {
+      "query_idx": 46,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1702
+    },
+    {
+      "query_idx": 47,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1667
+    },
+    {
+      "query_idx": 48,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1633
+    },
+    {
+      "query_idx": 49,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.16
+    },
+    {
+      "query_idx": 50,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1569
+    },
+    {
+      "query_idx": 51,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1538
+    },
+    {
+      "query_idx": 52,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1509
+    },
+    {
+      "query_idx": 53,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1481
+    },
+    {
+      "query_idx": 54,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1455
+    },
+    {
+      "query_idx": 55,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1429
+    },
+    {
+      "query_idx": 56,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1404
+    },
+    {
+      "query_idx": 57,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1552
+    },
+    {
+      "query_idx": 58,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1525
+    },
+    {
+      "query_idx": 59,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.15
+    },
+    {
+      "query_idx": 60,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1475
+    },
+    {
+      "query_idx": 61,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1452
+    },
+    {
+      "query_idx": 62,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1429
+    },
+    {
+      "query_idx": 63,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1406
+    },
+    {
+      "query_idx": 64,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1538
+    },
+    {
+      "query_idx": 65,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1515
+    },
+    {
+      "query_idx": 66,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1493
+    },
+    {
+      "query_idx": 67,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1618
+    },
+    {
+      "query_idx": 68,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1594
+    },
+    {
+      "query_idx": 69,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1571
+    },
+    {
+      "query_idx": 70,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1549
+    },
+    {
+      "query_idx": 71,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1528
+    },
+    {
+      "query_idx": 72,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1507
+    },
+    {
+      "query_idx": 73,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1486
+    },
+    {
+      "query_idx": 74,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1467
+    },
+    {
+      "query_idx": 75,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1447
+    },
+    {
+      "query_idx": 76,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1558
+    },
+    {
+      "query_idx": 77,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1538
+    },
+    {
+      "query_idx": 78,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1519
+    },
+    {
+      "query_idx": 79,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.15
+    },
+    {
+      "query_idx": 80,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1605
+    },
+    {
+      "query_idx": 81,
+      "selected_arm": "very_high_sem",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1707
+    },
+    {
+      "query_idx": 82,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1687
+    },
+    {
+      "query_idx": 83,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1667
+    },
+    {
+      "query_idx": 84,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1765
+    },
+    {
+      "query_idx": 85,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.186
+    },
+    {
+      "query_idx": 86,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1839
+    },
+    {
+      "query_idx": 87,
+      "selected_arm": "very_high_sem",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1932
+    },
+    {
+      "query_idx": 88,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.191
+    },
+    {
+      "query_idx": 89,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1889
+    },
+    {
+      "query_idx": 90,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1978
+    },
+    {
+      "query_idx": 91,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1957
+    },
+    {
+      "query_idx": 92,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1935
+    },
+    {
+      "query_idx": 93,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1915
+    },
+    {
+      "query_idx": 94,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1895
+    },
+    {
+      "query_idx": 95,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1875
+    },
+    {
+      "query_idx": 96,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1856
+    },
+    {
+      "query_idx": 97,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1837
+    },
+    {
+      "query_idx": 98,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1818
+    },
+    {
+      "query_idx": 99,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.18
+    },
+    {
+      "query_idx": 100,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1782
+    },
+    {
+      "query_idx": 101,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1765
+    },
+    {
+      "query_idx": 102,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1748
+    },
+    {
+      "query_idx": 103,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1731
+    },
+    {
+      "query_idx": 104,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1714
+    },
+    {
+      "query_idx": 105,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1698
+    },
+    {
+      "query_idx": 106,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1682
+    },
+    {
+      "query_idx": 107,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1667
+    },
+    {
+      "query_idx": 108,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1651
+    },
+    {
+      "query_idx": 109,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1636
+    },
+    {
+      "query_idx": 110,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1622
+    },
+    {
+      "query_idx": 111,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1607
+    },
+    {
+      "query_idx": 112,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1593
+    },
+    {
+      "query_idx": 113,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1667
+    },
+    {
+      "query_idx": 114,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1652
+    },
+    {
+      "query_idx": 115,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1638
+    },
+    {
+      "query_idx": 116,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1709
+    },
+    {
+      "query_idx": 117,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1695
+    },
+    {
+      "query_idx": 118,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1681
+    },
+    {
+      "query_idx": 119,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1667
+    },
+    {
+      "query_idx": 120,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1653
+    },
+    {
+      "query_idx": 121,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1639
+    },
+    {
+      "query_idx": 122,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1626
+    },
+    {
+      "query_idx": 123,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1613
+    },
+    {
+      "query_idx": 124,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.16
+    },
+    {
+      "query_idx": 125,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1587
+    },
+    {
+      "query_idx": 126,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1575
+    },
+    {
+      "query_idx": 127,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1562
+    },
+    {
+      "query_idx": 128,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.155
+    },
+    {
+      "query_idx": 129,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1538
+    },
+    {
+      "query_idx": 130,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1527
+    },
+    {
+      "query_idx": 131,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1515
+    },
+    {
+      "query_idx": 132,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1504
+    },
+    {
+      "query_idx": 133,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1493
+    },
+    {
+      "query_idx": 134,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1481
+    },
+    {
+      "query_idx": 135,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1471
+    },
+    {
+      "query_idx": 136,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.146
+    },
+    {
+      "query_idx": 137,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1449
+    },
+    {
+      "query_idx": 138,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1439
+    },
+    {
+      "query_idx": 139,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1429
+    },
+    {
+      "query_idx": 140,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1418
+    },
+    {
+      "query_idx": 141,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1408
+    },
+    {
+      "query_idx": 142,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1469
+    },
+    {
+      "query_idx": 143,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1458
+    },
+    {
+      "query_idx": 144,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1517
+    },
+    {
+      "query_idx": 145,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1575
+    },
+    {
+      "query_idx": 146,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1565
+    },
+    {
+      "query_idx": 147,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1554
+    },
+    {
+      "query_idx": 148,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1544
+    },
+    {
+      "query_idx": 149,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1533
+    },
+    {
+      "query_idx": 150,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1523
+    },
+    {
+      "query_idx": 151,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1513
+    },
+    {
+      "query_idx": 152,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1569
+    },
+    {
+      "query_idx": 153,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1558
+    },
+    {
+      "query_idx": 154,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1613
+    },
+    {
+      "query_idx": 155,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1603
+    },
+    {
+      "query_idx": 156,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1656
+    },
+    {
+      "query_idx": 157,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1646
+    },
+    {
+      "query_idx": 158,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1698
+    },
+    {
+      "query_idx": 159,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1688
+    },
+    {
+      "query_idx": 160,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1739
+    },
+    {
+      "query_idx": 161,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1728
+    },
+    {
+      "query_idx": 162,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1718
+    },
+    {
+      "query_idx": 163,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1707
+    },
+    {
+      "query_idx": 164,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1758
+    },
+    {
+      "query_idx": 165,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1747
+    },
+    {
+      "query_idx": 166,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1796
+    },
+    {
+      "query_idx": 167,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1845
+    },
+    {
+      "query_idx": 168,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1893
+    },
+    {
+      "query_idx": 169,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1882
+    },
+    {
+      "query_idx": 170,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.193
+    },
+    {
+      "query_idx": 171,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1919
+    },
+    {
+      "query_idx": 172,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1908
+    },
+    {
+      "query_idx": 173,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1897
+    },
+    {
+      "query_idx": 174,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1886
+    },
+    {
+      "query_idx": 175,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1875
+    },
+    {
+      "query_idx": 176,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1864
+    },
+    {
+      "query_idx": 177,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1854
+    },
+    {
+      "query_idx": 178,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1899
+    },
+    {
+      "query_idx": 179,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1944
+    },
+    {
+      "query_idx": 180,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1934
+    },
+    {
+      "query_idx": 181,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1923
+    },
+    {
+      "query_idx": 182,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1967
+    },
+    {
+      "query_idx": 183,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2011
+    },
+    {
+      "query_idx": 184,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2
+    },
+    {
+      "query_idx": 185,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1989
+    },
+    {
+      "query_idx": 186,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1979
+    },
+    {
+      "query_idx": 187,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1968
+    },
+    {
+      "query_idx": 188,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2011
+    },
+    {
+      "query_idx": 189,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2
+    },
+    {
+      "query_idx": 190,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.199
+    },
+    {
+      "query_idx": 191,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1979
+    },
+    {
+      "query_idx": 192,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1969
+    },
+    {
+      "query_idx": 193,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1959
+    },
+    {
+      "query_idx": 194,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1949
+    },
+    {
+      "query_idx": 195,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1939
+    },
+    {
+      "query_idx": 196,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1929
+    },
+    {
+      "query_idx": 197,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1919
+    },
+    {
+      "query_idx": 198,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.191
+    },
+    {
+      "query_idx": 199,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.19
+    },
+    {
+      "query_idx": 200,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.194
+    },
+    {
+      "query_idx": 201,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1931
+    },
+    {
+      "query_idx": 202,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1921
+    },
+    {
+      "query_idx": 203,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1961
+    },
+    {
+      "query_idx": 204,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1951
+    },
+    {
+      "query_idx": 205,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.199
+    },
+    {
+      "query_idx": 206,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1981
+    },
+    {
+      "query_idx": 207,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1971
+    },
+    {
+      "query_idx": 208,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1962
+    },
+    {
+      "query_idx": 209,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1952
+    },
+    {
+      "query_idx": 210,
+      "selected_arm": "high_semantic",
+      "reward": 1,
+      "cumulative_mean_recall": 0.1991
+    },
+    {
+      "query_idx": 211,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.1981
+    },
+    {
+      "query_idx": 212,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2019
+    },
+    {
+      "query_idx": 213,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2009
+    },
+    {
+      "query_idx": 214,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2047
+    },
+    {
+      "query_idx": 215,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2037
+    },
+    {
+      "query_idx": 216,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2028
+    },
+    {
+      "query_idx": 217,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2018
+    },
+    {
+      "query_idx": 218,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2009
+    },
+    {
+      "query_idx": 219,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2
+    },
+    {
+      "query_idx": 220,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2036
+    },
+    {
+      "query_idx": 221,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2027
+    },
+    {
+      "query_idx": 222,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2063
+    },
+    {
+      "query_idx": 223,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2098
+    },
+    {
+      "query_idx": 224,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2089
+    },
+    {
+      "query_idx": 225,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2124
+    },
+    {
+      "query_idx": 226,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2115
+    },
+    {
+      "query_idx": 227,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2105
+    },
+    {
+      "query_idx": 228,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2096
+    },
+    {
+      "query_idx": 229,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.213
+    },
+    {
+      "query_idx": 230,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2121
+    },
+    {
+      "query_idx": 231,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2112
+    },
+    {
+      "query_idx": 232,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2103
+    },
+    {
+      "query_idx": 233,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2137
+    },
+    {
+      "query_idx": 234,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2128
+    },
+    {
+      "query_idx": 235,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2119
+    },
+    {
+      "query_idx": 236,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.211
+    },
+    {
+      "query_idx": 237,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2101
+    },
+    {
+      "query_idx": 238,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2092
+    },
+    {
+      "query_idx": 239,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2125
+    },
+    {
+      "query_idx": 240,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2116
+    },
+    {
+      "query_idx": 241,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2107
+    },
+    {
+      "query_idx": 242,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2099
+    },
+    {
+      "query_idx": 243,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.209
+    },
+    {
+      "query_idx": 244,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2082
+    },
+    {
+      "query_idx": 245,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2073
+    },
+    {
+      "query_idx": 246,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2065
+    },
+    {
+      "query_idx": 247,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2097
+    },
+    {
+      "query_idx": 248,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2088
+    },
+    {
+      "query_idx": 249,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.208
+    },
+    {
+      "query_idx": 250,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2072
+    },
+    {
+      "query_idx": 251,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2103
+    },
+    {
+      "query_idx": 252,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2095
+    },
+    {
+      "query_idx": 253,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2087
+    },
+    {
+      "query_idx": 254,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2078
+    },
+    {
+      "query_idx": 255,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.207
+    },
+    {
+      "query_idx": 256,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2062
+    },
+    {
+      "query_idx": 257,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2054
+    },
+    {
+      "query_idx": 258,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2046
+    },
+    {
+      "query_idx": 259,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2038
+    },
+    {
+      "query_idx": 260,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2069
+    },
+    {
+      "query_idx": 261,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2061
+    },
+    {
+      "query_idx": 262,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2053
+    },
+    {
+      "query_idx": 263,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2045
+    },
+    {
+      "query_idx": 264,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2038
+    },
+    {
+      "query_idx": 265,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.203
+    },
+    {
+      "query_idx": 266,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2022
+    },
+    {
+      "query_idx": 267,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2015
+    },
+    {
+      "query_idx": 268,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2045
+    },
+    {
+      "query_idx": 269,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2037
+    },
+    {
+      "query_idx": 270,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.203
+    },
+    {
+      "query_idx": 271,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2022
+    },
+    {
+      "query_idx": 272,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2015
+    },
+    {
+      "query_idx": 273,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2044
+    },
+    {
+      "query_idx": 274,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2036
+    },
+    {
+      "query_idx": 275,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2029
+    },
+    {
+      "query_idx": 276,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2022
+    },
+    {
+      "query_idx": 277,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2014
+    },
+    {
+      "query_idx": 278,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2043
+    },
+    {
+      "query_idx": 279,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2071
+    },
+    {
+      "query_idx": 280,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.21
+    },
+    {
+      "query_idx": 281,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2092
+    },
+    {
+      "query_idx": 282,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2085
+    },
+    {
+      "query_idx": 283,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2077
+    },
+    {
+      "query_idx": 284,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.207
+    },
+    {
+      "query_idx": 285,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2098
+    },
+    {
+      "query_idx": 286,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2091
+    },
+    {
+      "query_idx": 287,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2118
+    },
+    {
+      "query_idx": 288,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2111
+    },
+    {
+      "query_idx": 289,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2103
+    },
+    {
+      "query_idx": 290,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2131
+    },
+    {
+      "query_idx": 291,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2123
+    },
+    {
+      "query_idx": 292,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2116
+    },
+    {
+      "query_idx": 293,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2109
+    },
+    {
+      "query_idx": 294,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2102
+    },
+    {
+      "query_idx": 295,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2095
+    },
+    {
+      "query_idx": 296,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2088
+    },
+    {
+      "query_idx": 297,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2114
+    },
+    {
+      "query_idx": 298,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2107
+    },
+    {
+      "query_idx": 299,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.21
+    },
+    {
+      "query_idx": 300,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2093
+    },
+    {
+      "query_idx": 301,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2119
+    },
+    {
+      "query_idx": 302,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2112
+    },
+    {
+      "query_idx": 303,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2105
+    },
+    {
+      "query_idx": 304,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2131
+    },
+    {
+      "query_idx": 305,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2157
+    },
+    {
+      "query_idx": 306,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.215
+    },
+    {
+      "query_idx": 307,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2175
+    },
+    {
+      "query_idx": 308,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2201
+    },
+    {
+      "query_idx": 309,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2194
+    },
+    {
+      "query_idx": 310,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2186
+    },
+    {
+      "query_idx": 311,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2212
+    },
+    {
+      "query_idx": 312,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2236
+    },
+    {
+      "query_idx": 313,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2229
+    },
+    {
+      "query_idx": 314,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2222
+    },
+    {
+      "query_idx": 315,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2215
+    },
+    {
+      "query_idx": 316,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2208
+    },
+    {
+      "query_idx": 317,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2201
+    },
+    {
+      "query_idx": 318,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2194
+    },
+    {
+      "query_idx": 319,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2188
+    },
+    {
+      "query_idx": 320,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2181
+    },
+    {
+      "query_idx": 321,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2174
+    },
+    {
+      "query_idx": 322,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2167
+    },
+    {
+      "query_idx": 323,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.216
+    },
+    {
+      "query_idx": 324,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2154
+    },
+    {
+      "query_idx": 325,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2147
+    },
+    {
+      "query_idx": 326,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2141
+    },
+    {
+      "query_idx": 327,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2134
+    },
+    {
+      "query_idx": 328,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2158
+    },
+    {
+      "query_idx": 329,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2152
+    },
+    {
+      "query_idx": 330,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2145
+    },
+    {
+      "query_idx": 331,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2139
+    },
+    {
+      "query_idx": 332,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2132
+    },
+    {
+      "query_idx": 333,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2126
+    },
+    {
+      "query_idx": 334,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2119
+    },
+    {
+      "query_idx": 335,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2113
+    },
+    {
+      "query_idx": 336,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2136
+    },
+    {
+      "query_idx": 337,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.213
+    },
+    {
+      "query_idx": 338,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2153
+    },
+    {
+      "query_idx": 339,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2147
+    },
+    {
+      "query_idx": 340,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2141
+    },
+    {
+      "query_idx": 341,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2135
+    },
+    {
+      "query_idx": 342,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2128
+    },
+    {
+      "query_idx": 343,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2151
+    },
+    {
+      "query_idx": 344,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2145
+    },
+    {
+      "query_idx": 345,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2168
+    },
+    {
+      "query_idx": 346,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2161
+    },
+    {
+      "query_idx": 347,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2184
+    },
+    {
+      "query_idx": 348,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2178
+    },
+    {
+      "query_idx": 349,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2171
+    },
+    {
+      "query_idx": 350,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2165
+    },
+    {
+      "query_idx": 351,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2159
+    },
+    {
+      "query_idx": 352,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2181
+    },
+    {
+      "query_idx": 353,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2203
+    },
+    {
+      "query_idx": 354,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2225
+    },
+    {
+      "query_idx": 355,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2219
+    },
+    {
+      "query_idx": 356,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2213
+    },
+    {
+      "query_idx": 357,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2207
+    },
+    {
+      "query_idx": 358,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2228
+    },
+    {
+      "query_idx": 359,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2222
+    },
+    {
+      "query_idx": 360,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2216
+    },
+    {
+      "query_idx": 361,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.221
+    },
+    {
+      "query_idx": 362,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2231
+    },
+    {
+      "query_idx": 363,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2225
+    },
+    {
+      "query_idx": 364,
+      "selected_arm": "very_high_sem",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2247
+    },
+    {
+      "query_idx": 365,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.224
+    },
+    {
+      "query_idx": 366,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2234
+    },
+    {
+      "query_idx": 367,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2228
+    },
+    {
+      "query_idx": 368,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2222
+    },
+    {
+      "query_idx": 369,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2243
+    },
+    {
+      "query_idx": 370,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2237
+    },
+    {
+      "query_idx": 371,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2231
+    },
+    {
+      "query_idx": 372,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2225
+    },
+    {
+      "query_idx": 373,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2219
+    },
+    {
+      "query_idx": 374,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2213
+    },
+    {
+      "query_idx": 375,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2207
+    },
+    {
+      "query_idx": 376,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2202
+    },
+    {
+      "query_idx": 377,
+      "selected_arm": "very_high_sem",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2222
+    },
+    {
+      "query_idx": 378,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2216
+    },
+    {
+      "query_idx": 379,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2237
+    },
+    {
+      "query_idx": 380,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2257
+    },
+    {
+      "query_idx": 381,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2251
+    },
+    {
+      "query_idx": 382,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2245
+    },
+    {
+      "query_idx": 383,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2266
+    },
+    {
+      "query_idx": 384,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2286
+    },
+    {
+      "query_idx": 385,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2306
+    },
+    {
+      "query_idx": 386,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.23
+    },
+    {
+      "query_idx": 387,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2294
+    },
+    {
+      "query_idx": 388,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2288
+    },
+    {
+      "query_idx": 389,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2282
+    },
+    {
+      "query_idx": 390,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2302
+    },
+    {
+      "query_idx": 391,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2296
+    },
+    {
+      "query_idx": 392,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.229
+    },
+    {
+      "query_idx": 393,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2284
+    },
+    {
+      "query_idx": 394,
+      "selected_arm": "paper_defaults",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2304
+    },
+    {
+      "query_idx": 395,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2298
+    },
+    {
+      "query_idx": 396,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2292
+    },
+    {
+      "query_idx": 397,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2312
+    },
+    {
+      "query_idx": 398,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2306
+    },
+    {
+      "query_idx": 399,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.23
+    },
+    {
+      "query_idx": 400,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2294
+    },
+    {
+      "query_idx": 401,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2289
+    },
+    {
+      "query_idx": 402,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2283
+    },
+    {
+      "query_idx": 403,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2277
+    },
+    {
+      "query_idx": 404,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2296
+    },
+    {
+      "query_idx": 405,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2291
+    },
+    {
+      "query_idx": 406,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.231
+    },
+    {
+      "query_idx": 407,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2304
+    },
+    {
+      "query_idx": 408,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2298
+    },
+    {
+      "query_idx": 409,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2293
+    },
+    {
+      "query_idx": 410,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2287
+    },
+    {
+      "query_idx": 411,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2282
+    },
+    {
+      "query_idx": 412,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.23
+    },
+    {
+      "query_idx": 413,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2319
+    },
+    {
+      "query_idx": 414,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2313
+    },
+    {
+      "query_idx": 415,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2308
+    },
+    {
+      "query_idx": 416,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2302
+    },
+    {
+      "query_idx": 417,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2297
+    },
+    {
+      "query_idx": 418,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2291
+    },
+    {
+      "query_idx": 419,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2286
+    },
+    {
+      "query_idx": 420,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2304
+    },
+    {
+      "query_idx": 421,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2322
+    },
+    {
+      "query_idx": 422,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2317
+    },
+    {
+      "query_idx": 423,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2311
+    },
+    {
+      "query_idx": 424,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2306
+    },
+    {
+      "query_idx": 425,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.23
+    },
+    {
+      "query_idx": 426,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2319
+    },
+    {
+      "query_idx": 427,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2313
+    },
+    {
+      "query_idx": 428,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2308
+    },
+    {
+      "query_idx": 429,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2302
+    },
+    {
+      "query_idx": 430,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2297
+    },
+    {
+      "query_idx": 431,
+      "selected_arm": "high_semantic",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2315
+    },
+    {
+      "query_idx": 432,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2333
+    },
+    {
+      "query_idx": 433,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2327
+    },
+    {
+      "query_idx": 434,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2322
+    },
+    {
+      "query_idx": 435,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2317
+    },
+    {
+      "query_idx": 436,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2311
+    },
+    {
+      "query_idx": 437,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2306
+    },
+    {
+      "query_idx": 438,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2323
+    },
+    {
+      "query_idx": 439,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2318
+    },
+    {
+      "query_idx": 440,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2313
+    },
+    {
+      "query_idx": 441,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2308
+    },
+    {
+      "query_idx": 442,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2302
+    },
+    {
+      "query_idx": 443,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2297
+    },
+    {
+      "query_idx": 444,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2315
+    },
+    {
+      "query_idx": 445,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2309
+    },
+    {
+      "query_idx": 446,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2304
+    },
+    {
+      "query_idx": 447,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2321
+    },
+    {
+      "query_idx": 448,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2339
+    },
+    {
+      "query_idx": 449,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2333
+    },
+    {
+      "query_idx": 450,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.235
+    },
+    {
+      "query_idx": 451,
+      "selected_arm": "structural_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2345
+    },
+    {
+      "query_idx": 452,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.234
+    },
+    {
+      "query_idx": 453,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2335
+    },
+    {
+      "query_idx": 454,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.233
+    },
+    {
+      "query_idx": 455,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2325
+    },
+    {
+      "query_idx": 456,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2341
+    },
+    {
+      "query_idx": 457,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2336
+    },
+    {
+      "query_idx": 458,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2331
+    },
+    {
+      "query_idx": 459,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2326
+    },
+    {
+      "query_idx": 460,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2321
+    },
+    {
+      "query_idx": 461,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2316
+    },
+    {
+      "query_idx": 462,
+      "selected_arm": "high_semantic",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2333
+    },
+    {
+      "query_idx": 463,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2349
+    },
+    {
+      "query_idx": 464,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2344
+    },
+    {
+      "query_idx": 465,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2361
+    },
+    {
+      "query_idx": 466,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2377
+    },
+    {
+      "query_idx": 467,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2393
+    },
+    {
+      "query_idx": 468,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2388
+    },
+    {
+      "query_idx": 469,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2383
+    },
+    {
+      "query_idx": 470,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2399
+    },
+    {
+      "query_idx": 471,
+      "selected_arm": "very_high_sem",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2394
+    },
+    {
+      "query_idx": 472,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2389
+    },
+    {
+      "query_idx": 473,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2384
+    },
+    {
+      "query_idx": 474,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2379
+    },
+    {
+      "query_idx": 475,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2395
+    },
+    {
+      "query_idx": 476,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.239
+    },
+    {
+      "query_idx": 477,
+      "selected_arm": "very_high_sem",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2406
+    },
+    {
+      "query_idx": 478,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2422
+    },
+    {
+      "query_idx": 479,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2417
+    },
+    {
+      "query_idx": 480,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2412
+    },
+    {
+      "query_idx": 481,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2407
+    },
+    {
+      "query_idx": 482,
+      "selected_arm": "paper_defaults",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2402
+    },
+    {
+      "query_idx": 483,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2417
+    },
+    {
+      "query_idx": 484,
+      "selected_arm": "confidence_heavy",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2412
+    },
+    {
+      "query_idx": 485,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2407
+    },
+    {
+      "query_idx": 486,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2402
+    },
+    {
+      "query_idx": 487,
+      "selected_arm": "high_semantic",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2398
+    },
+    {
+      "query_idx": 488,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2393
+    },
+    {
+      "query_idx": 489,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2408
+    },
+    {
+      "query_idx": 490,
+      "selected_arm": "semantic_only",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2424
+    },
+    {
+      "query_idx": 491,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2439
+    },
+    {
+      "query_idx": 492,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2434
+    },
+    {
+      "query_idx": 493,
+      "selected_arm": "high_semantic",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2449
+    },
+    {
+      "query_idx": 494,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2444
+    },
+    {
+      "query_idx": 495,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.244
+    },
+    {
+      "query_idx": 496,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.2435
+    },
+    {
+      "query_idx": 497,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.243
+    },
+    {
+      "query_idx": 498,
+      "selected_arm": "confidence_heavy",
+      "reward": 1,
+      "cumulative_mean_recall": 0.2445
+    },
+    {
+      "query_idx": 499,
+      "selected_arm": "semantic_only",
+      "reward": 0,
+      "cumulative_mean_recall": 0.244
+    }
+  ]
+}
