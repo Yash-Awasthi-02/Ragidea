@@ -53,10 +53,12 @@ $$\sigma(S) = \min_{v \in S} \sigma(v_0 \to v)$$
 #### Benchmark Evaluation Summary Table (Recall@5)
 | Algorithm | HotpotQA ($N=7,405$) | 2WikiMultihopQA ($N=12,576$) | MuSiQue ($N=2,417$) |
 | :--- | :---: | :---: | :---: |
-| **PATHFINDER (Semantic-Only)** | 0.7307 | 0.2331 | 0.0087 |
-| **Naive RAG (Dense Only)** | **0.7937** | **0.3248** | 0.0041 |
-| **Spreading Activation** | 0.6974 | 0.2358 | **0.0165** |
-| **BFS 2-Hop Traversal** | 0.6124 | 0.1820 | 0.0141 |
+| **PATHFINDER (Semantic-Only)** | 0.2680 | 0.2260 | 0.0060 |
+| **Naive RAG (Dense Only)** | **0.3100** | **0.3040** | 0.0040 |
+| **Spreading Activation** | 0.1900 | 0.2340 | **0.0320** |
+| **BFS 2-Hop Traversal** | 0.1400 | 0.1680 | 0.0280 |
+
+*Note: Phase 2 re-evaluation on N=500 subsets. Phase 1 full-scale N=7,405 HotpotQA results are in `results/results_full.json`.*
 
 #### Empirical Key Findings & Diagnostics
 1. **Dense Retrieval Dominance on Disconnected Graphs**: Naive RAG outperforms pure structural graph traversal on 2Wiki and HotpotQA because inter-document entity links are often missing in text-extracted KGs. Graph traversals get trapped in local clusters.

@@ -61,6 +61,6 @@ This document outlines key future work, open theoretical problems, and planned e
 
 ## 5. Empirical Findings & Next Steps
 
-- **Dense Retrieval Dominance on Disconnected Graphs:** Naive RAG outperforms pure graph traversal on HotpotQA and 2Wiki because inter-document entity links are sparse. The teleportation operator is designed to bridge this gap.
-- **MuSiQue Metric Challenge:** Sentence-level Recall@5 produces near-zero scores for MuSiQue due to 4-hop queries with many supporting sentences. Paragraph-level Recall@k and Recall@10/20 (Phase 2, Task 2.4) provide more meaningful signal.
-- **Confidence Decay in Deep Multi-Hop:** Product confidence σ_prod collapses on paths of depth ≥ 3, triggering unnecessary re-traversal. The geometric mean and bottleneck models (Phase 2, Task 2.3) address this.
+- **Dense Retrieval Dominance on Disconnected Graphs:** Naive RAG outperforms pure graph traversal at Recall@5 on HotpotQA (0.310 vs 0.268) and 2Wiki (0.304 vs 0.226) because inter-document entity links are sparse. However, PATHFINDER surpasses Naive RAG at Recall@10 on both datasets (HotpotQA: 0.350 vs 0.310, 2Wiki: 0.334 vs 0.304), showing graph traversal discovers relevant nodes that dense retrieval misses with a slightly larger budget. The teleportation operator is designed to close the k=5 gap.
+- **MuSiQue Metric Challenge:** Sentence-level Recall@5 produces near-zero scores for MuSiQue due to 4-hop queries with many supporting sentences. Paragraph-level Recall@5 (0.617) and Fractional Recall@5 (0.269) provide more meaningful signal, confirming relevant content is being retrieved.
+- **Confidence Decay in Deep Multi-Hop:** Product confidence σ_prod collapses to 0.0077 on deep paths, confirming exponential decay. Geometric mean (min=0.2718) and bottleneck (min=0.3001) models address this (Phase 2, Task 2.3).
