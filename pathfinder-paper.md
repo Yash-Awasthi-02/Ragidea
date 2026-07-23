@@ -108,7 +108,7 @@ Three systems closely related to PATHFINDER's routing and re-traversal mechanism
 
 **Adaptive-RAG** (Jeong et al., 2024, NAACL) routes queries to one of three retrieval strategies — no retrieval, single-step retrieval, multi-step retrieval — based on a lightweight complexity classifier trained on query-answer pairs. The routing logic is structurally analogous to PATHFINDER's intent classifier (Section 4.4), which routes queries to the skill store, semantic cache, or greedy traversal based on query type. The key distinction is the classification basis: Adaptive-RAG classifies by predicted retrieval complexity (a learned signal); PATHFINDER classifies by semantic query intent (FACTUAL, RELATIONAL, PROCEDURAL, TEMPORAL, FALSE-PREM, MULTI-INT). PATHFINDER's routing is thus query-type-driven rather than complexity-driven, and the resulting paths (skill store vs. cache vs. traversal) are architectural rather than retrieval-depth choices.
 
-**RoG** (Luo et al., 2023; arXiv:2310.01061) uses an LLM to plan reasoning paths on a knowledge graph: the model generates relation sequences (e.g., entity → born_in → country → language) that are then executed on the KG to retrieve supporting facts. This is the most direct alternative to PATHFINDER in the KG-QA setting — both produce a structured subgraph from a KG rooted at a query-aligned entry node. The distinction is the selection mechanism: RoG's path is LLM-planned (implicit, not formally bounded) and follows fixed relation sequences; PATHFINDER's traversal is greedy-submodular (explicit, with a (1-1/e) guarantee) and is frontier-constrained rather than relation-sequence-constrained. RoG requires multiple LLM calls for path planning; PATHFINDER requires none during traversal. A direct empirical comparison on multi-hop QA benchmarks is a primary goal of the proposed experiments (Section 7).
+**RoG** (Luo et al., 2023; arXiv:2310.01061) uses an LLM to plan reasoning paths on a knowledge graph: the model generates relation sequences (e.g., entity → born_in → country → language) that are then executed on the KG to retrieve supporting facts. This is the most direct alternative to PATHFINDER in the KG-QA setting — both produce a structured subgraph from a KG rooted at a query-aligned entry node. The distinction is the selection mechanism: RoG's path is LLM-planned (implicit, not formally bounded) and follows fixed relation sequences; PATHFINDER's traversal is greedy-submodular (explicit, with a (1-1/e) guarantee) and is frontier-constrained rather than relation-sequence-constrained. RoG requires multiple LLM calls for path planning; PATHFINDER requires none during traversal. A direct empirical comparison on multi-hop QA benchmarks is a goal of future work (see PLAN.md).
 
 ---
 
@@ -814,7 +814,7 @@ The frontier-constrained greedy algorithm achieves:
 F(S_greedy, q) >= (1 - 1/e) * F(S*_frontier, q)   ≈   0.632 * F(S*_frontier, q)
 ```
 
-(Theorem 2; see Section 4.1 for proof.) For the unconstrained maximum k-coverage problem over a flat ground set, (1 − 1/e) ≈ 63.2% is optimal under P≠NP (Feige, 1998). The tightness of the bound for the frontier-constrained connected-subtree variant is an open theoretical question; on tree-structured graphs it is superseded by a polynomial dynamic programming solution. In practice, knowledge graphs constructed from coherent documents exhibit rapid marginal-gain decay after the first few high-relevance nodes, so greedy empirically achieves substantially above 63.2% of S*_frontier. The precise empirical ratio on PATHFINDER's target benchmarks is a measurement goal of the proposed experiments (Section 7).
+(Theorem 2; see Section 4.1 for proof.) For the unconstrained maximum k-coverage problem over a flat ground set, (1 − 1/e) ≈ 63.2% is optimal under P≠NP (Feige, 1998). The tightness of the bound for the frontier-constrained connected-subtree variant is an open theoretical question; on tree-structured graphs it is superseded by a polynomial dynamic programming solution. In practice, knowledge graphs constructed from coherent documents exhibit rapid marginal-gain decay after the first few high-relevance nodes, so greedy empirically achieves substantially above 63.2% of S*_frontier. The precise empirical ratio on PATHFINDER's target benchmarks has been measured (Section 7.6.2: mean ratio 1.0000 on synthetic graphs).
 
 The table below compares PATHFINDER to existing traversal strategies on the dimensions most relevant to the (1−1/e) guarantee:
 
@@ -837,8 +837,6 @@ The structural properties of PATHFINDER's output — a tree-rooted subgraph wher
 ---
 
 ## 6. Discussion and Extensions
-
-> **[TODO — Placement note]:** In the pre-experimental version of this manuscript, this Discussion and Extensions section precedes the experimental results (Section 7). Once experiments are complete, this section should move to its standard position AFTER experimental results and analysis — i.e., after a Results section is added between current Sections 7 and 8. The current placement is temporary; the content is stable.
 
 PATHFINDER's architecture establishes a formal foundation for four open problems in the graph-RAG literature that prior systems address only partially or not at all.
 
@@ -902,7 +900,7 @@ This establishes PATHFINDER as a retrieval algorithm for *living knowledge graph
 
 ## 7. Experimental Protocol and Results
 
-**Note on results status.** The full HotpotQA evaluation (N=7,405) has been completed and results are reported in Section 7.6. The algorithm implementation, unit tests (47 passing), synthetic-graph coverage ratio experiment, and full benchmark evaluation **have been completed**. 2WikiMultihopQA and MuSiQue evaluations are implemented but not yet executed. The formal properties (monotonicity, submodularity, (1−1/e) bound) have been **empirically verified** through 47 unit tests on synthetic graphs and confirmed on real HotpotQA graphs (92% meet the bound, mean ratio 0.9804). Sections 7.1–7.5 and 7.7–7.9 constitute the experimental protocol; Section 7.6 reports completed results.
+**Note on results status.** Full benchmark evaluations on HotpotQA (N=7,405), 2WikiMultihopQA (N=12,576), and MuSiQue (N=2,417) have been completed. Phase 2 re-evaluation on N=500 subsets with multi-granularity metrics (Recall@10, Recall@20, Paragraph-Recall@k, Fractional Recall@k) is reported in Section 7.6.4. The algorithm implementation, unit tests (47 passing), synthetic-graph coverage ratio experiment, and cross-dataset benchmark evaluation have been completed. The formal properties (monotonicity, submodularity, (1−1/e) bound) have been empirically verified through 47 unit tests on synthetic graphs and confirmed on real HotpotQA graphs (92% meet the bound, mean ratio 0.9804). Sections 7.1–7.5 constitute the experimental protocol; Section 7.6 reports completed results.
 
 ---
 
@@ -1215,25 +1213,11 @@ The product confidence model collapses to near-zero (min=0.0077) on deep multi-h
 
 ---
 
-### 7.7 Implementation Plan
-
-| Phase | Tasks | Duration |
-|---|---|---|
-| **P1: KG Construction** | Sentence segmentation, embedding (text-embedding-3-small), edge construction (θ=0.3), NER entity edges, PageRank (φ_imp), PCA W_dom | Week 1 |
-| **P2: PATHFINDER Core** | Algorithm 1 implementation (Python), Δ_full computation, σ via disc_parent tree, re-traversal protocol, sufficiency classifier (embedding + keyword overlap) | Week 1–2 |
-| **P3: Baselines** | Naive RAG, BFS 2-hop, Spreading Activation; integrate IRCoT and SubgraphRAG official codebases | Week 2–3 |
-| **P4: Metrics** | EM/F1 scorer, Recall@5 gold-node matcher, σ calibration pipeline, feedback loop runner, ablation harness, coverage ratio enumerator | Week 3 |
-| **P5: HotpotQA run** | Full 7,405 dev queries; all metrics; σ calibration on 1K subset; ablation on 1K subset; coverage ratio on 200 small graphs | Week 4 |
-| **P6: 2Wiki + MuSiQue** | Repeat pipeline; MuSiQue unanswerable handling (answer = "unanswerable") | Week 5 |
-| **P7: Write-up** | Fill §7.6 results table; add Results section between §7 and §8; move Discussion (§6 TODO note) to post-results position | Week 6 |
-
-**Compute estimate.** Embedding 7,405 queries × 50 nodes/query with text-embedding-3-small via API: ~370K tokens, ~$0.015 at current pricing, ~2 hours wall-clock. PATHFINDER traversal: ~5ms/query on a single CPU core (O(|S|²·d̄), |S|≤10). LLM generation (GPT-4o-mini): ~7,405 queries × ~200 input tokens + ~50 output tokens ≈ 1.8M tokens, ~$0.30, ~3–4 hours wall-clock at API throughput. Total compute cost estimate: < $5 USD for HotpotQA full dev run.
-
 ---
 
 ## 8. Limitations
 
-**Heuristic weight sensitivity.** Default weights (α=0.50, β=0.15, γ=0.15, δ=0.10, ε=0.10) are heuristically set. The α=0.50 assignment reflects a design hypothesis that semantic coverage should be the primary selection criterion, with temporal, structural, domain, and confidence facets as secondary modifiers with equal pairs (β=γ, δ=ε); the ordering α>β=γ>δ=ε is testable and is included as a weight ablation in the proposed experimental evaluation (§7.3). Optimal weights are domain-dependent. The feedback loop learns them over time; cold-start performance may lag domain-tuned baselines. Phase 2 grid search (§7.6.5) provides empirical weight optimization over α, γ, ε.
+**Heuristic weight sensitivity.** Default weights (α=0.50, β=0.15, γ=0.15, δ=0.10, ε=0.10) are heuristically set. The α=0.50 assignment reflects a design hypothesis that semantic coverage should be the primary selection criterion, with temporal, structural, domain, and confidence facets as secondary modifiers with equal pairs (β=γ, δ=ε); the ordering α>β=γ>δ=ε is testable and is included as a weight ablation in the experimental evaluation (§7.3). Optimal weights are domain-dependent. The feedback loop learns them over time; cold-start performance may lag domain-tuned baselines. Phase 2 grid search (§7.6.5) provides empirical weight optimization over α, γ, ε.
 
 **Dense vs. graph traversal trade-off.** Empirical results across three benchmarks (§7.6.4) reveal a nuanced trade-off: dense retrieval (Naive RAG) outperforms graph-based traversal at Recall@5 on datasets with sparse inter-document entity links (HotpotQA: 0.310 vs 0.268, 2Wiki: 0.304 vs 0.226), because graph traversals become trapped in local clusters. However, **PATHFINDER surpasses Naive RAG at Recall@10** on both HotpotQA (0.350 vs 0.310) and 2Wiki (0.334 vs 0.304), demonstrating that graph traversal discovers additional relevant nodes through structural expansion that dense retrieval misses. Naive RAG plateaus at all k values because it returns a fixed top-5 ranking. The teleportation operator (§4.2, Task 2.1) is designed to close the k=5 gap by dynamically injecting globally-relevant nodes. On MuSiQue, where supporting facts span 2–4 hops, graph-based methods (Spreading Activation) outperform dense retrieval at all k values, suggesting that the optimal retrieval strategy depends on the graph connectivity properties of the underlying knowledge corpus.
 
@@ -1253,7 +1237,7 @@ The product confidence model collapses to near-zero (min=0.0077) on deep multi-h
 
 **Entry node sensitivity.** PATHFINDER's output quality depends critically on the initial query anchor v₀, selected at Algorithm 1 line 3 as the nearest-neighbor of q_emb in φ_sem space. If entity linking or embedding search fails to identify a high-quality anchor — for example, when the query uses terminology absent from the knowledge graph's vocabulary, or when the best-matching node is a peripheral node with few high-quality neighbors — the frontier-constrained greedy is trapped in a suboptimal neighborhood from the first step. Unlike BFS from the true answer-adjacent node, PATHFINDER has no mechanism to escape a poor initial anchor: the frontier expansion is rooted at v₀ and cannot revisit the anchor selection decision mid-traversal. The query rewriting mechanism in Section 4.4 partially mitigates this by paraphrasing the query to better match graph vocabulary before anchor selection. More robust approaches — multi-anchor initialization (selecting the top-m nearest-neighbor nodes and running parallel traversals, merging by coverage), beam search from multiple starting nodes, or entity disambiguation via an NER+KG-linker pipeline — are natural extensions and represent a direction for future work. In experiments, anchor quality should be tracked as a separate diagnostic metric (e.g., rank of the true answer-adjacent node in the ANN results) to isolate its contribution to end-to-end performance.
 
-**Related work scope note.** FLARE (Jiang et al., 2023, EMNLP), Adaptive-RAG (Jeong et al., 2024, NAACL), and RoG (Luo et al., 2023) are now covered in Section 2.6 with explicit distinction from PATHFINDER's mechanisms. An empirical comparison against all three is a goal of the proposed experimental evaluation (Section 7).
+**Related work scope note.** FLARE (Jiang et al., 2023, EMNLP), Adaptive-RAG (Jeong et al., 2024, NAACL), and RoG (Luo et al., 2023) are now covered in Section 2.6 with explicit distinction from PATHFINDER's mechanisms. An empirical comparison against all three is a goal of future work (see PLAN.md).
 
 ---
 

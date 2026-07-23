@@ -524,9 +524,9 @@ python experiments/05_evaluate.py --graphs data/hotpotqa_graphs_full.pkl --outpu
 
 This plan consolidates content from:
 - `PLAN.md` (original execution plan, Phases 0–4)
-- `FUTURE_WORK.md` (future research extensions)
-- `experiments/analysis.md` (preliminary experimental analysis, open issues)
+- `FUTURE_WORK.md` (future research extensions — now deleted, content merged here)
+- `experiments/analysis.md` (preliminary experimental analysis — now deleted, issues captured in §4)
 - `experiments/README.md` (experiment pipeline documentation)
 - `results/multi_benchmark.md` (benchmark results log)
 - `results/literature_audit.md` (citation verification, actionable edits)
-- `pathfinder-paper.md` §6 (Discussion and Extensions), §8 (Limitations), §9 (Conclusion)
+- `pathfinder-paper.md` §6 (Discussion and Extensions), §7.7 (Implementation Plan — removed from paper, merged here), §8 (Limitations), §9 (Conclusion)

@@ -52,11 +52,15 @@ python 06_plot_sigma.py --results results/results.json
 | File | Purpose |
 |---|---|
 | `01_build_kg.py` | Build per-query KGs from HotpotQA candidate documents |
-| `run_pathfinder.py` | Algorithm 1 — greedy submodular traversal |
+| `02_load_2wiki_musique.py` | Load 2WikiMultihopQA and MuSiQue datasets |
+| `03_grid_search.py` | Hyperparameter grid search (α, γ, ε) — 48 configs |
+| `04_confidence_calibration.py` | Compare 3 σ models (product, geometric mean, bottleneck) |
+| `run_pathfinder.py` | Algorithm 1 — greedy submodular traversal with teleportation |
 | `run_baselines.py` | Naive RAG, BFS 2-hop, Spreading Activation |
 | `generate_answers.py` | Groq LLM generation + HotpotQA EM/F1 |
-| `05_evaluate.py` | All 8 metrics (§7.5.1–7.5.9) |
+| `05_evaluate.py` | All metrics (§7.5.1–7.5.9) with multi-granularity recall |
 | `06_plot_sigma.py` | σ calibration plots (bucket analysis + calibration curve) |
+| `print_metrics.py` | Print consolidated metrics from all benchmark evals |
 | `run_all.sh` | End-to-end orchestrator |
 
 ## Metrics
@@ -72,13 +76,13 @@ python 06_plot_sigma.py --results results/results.json
 | Anchor quality rank | Entry node selection quality |
 | Weight ablation | Validates α>β=γ>δ=ε ordering |
 
-## Expected Results (projections — not empirical yet)
+## Expected Results (empirical — N=500 per dataset)
 
-| System | HotpotQA Recall@5 | HotpotQA EM |
+| System | HotpotQA Recall@5 | HotpotQA Recall@10 |
 |---|---|---|
-| Naive RAG | ~0.62 | ~0.40 |
-| BFS 2-hop | ~0.66 | ~0.41 |
-| Spreading Activation | ~0.68 | ~0.43 |
-| **PATHFINDER** | **~0.73** | **~0.48** |
+| Naive RAG | 0.3100 | 0.3100 |
+| BFS 2-hop | 0.1400 | 0.3020 |
+| Spreading Activation | 0.1900 | 0.3520 |
+| **PATHFINDER** | **0.2680** | **0.3500** |
 
-σ calibration target: Spearman ρ > 0.30, ECE < 0.15, EM(proceed) > EM(hedge) > EM(re-traverse).
+σ calibration: Product σ collapses to min=0.0077; geometric mean (min=0.272) and bottleneck (min=0.300) models address decay. Spearman ρ pending LLM evaluation.
