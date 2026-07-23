@@ -68,6 +68,27 @@ def recall_at_k(retrieved: list[int], gold: list[int], k: int = 5) -> int:
     return int(all(g in set(retrieved[:k]) for g in gold))
 
 
+# ── §7.5.1 Multi-Granularity Recall (Phase 2, Task 2.4) ─────────────────────
+def recall_at_k_fraction(retrieved: list[int], gold: list[int], k: int = 5) -> float:
+    """Fraction of gold nodes in retrieved[:k]. More granular than binary recall."""
+    if not gold:
+        return 0.0
+    return len(set(retrieved[:k]) & set(gold)) / len(gold)
+
+
+def paragraph_recall_at_k(retrieved: list[int], gold: list[int],
+                          G, k: int = 5) -> float:
+    """
+    Paragraph-level Recall@k: fraction of gold *paragraphs* (doc_title)
+    covered by retrieved[:k]. Fairer for MuSiQue 4-hop paragraph retrieval.
+    """
+    if not gold:
+        return 0.0
+    gold_titles = {G.nodes[v].get("doc_title", f"unk_{v}") for v in gold}
+    retrieved_titles = {G.nodes[v].get("doc_title", f"unk_{v}") for v in retrieved[:k]}
+    return len(gold_titles & retrieved_titles) / len(gold_titles)
+
+
 # ── §7.5.5 σ Calibration helpers ──────────────────────────────────────────────
 SIGMA_BUCKETS = [(0.0, 0.3), (0.3, 0.5), (0.5, 0.7), (0.7, 1.01)]
 
@@ -307,6 +328,13 @@ def run_evaluation(records: list[dict],
         latencies.append(lat)
 
         r5_pf = recall_at_k(pf.S, gold_nodes, k=5)
+        r10_pf = recall_at_k(pf.S, gold_nodes, k=10)
+        r20_pf = recall_at_k(pf.S, gold_nodes, k=20)
+        r5_frac_pf = recall_at_k_fraction(pf.S, gold_nodes, k=5)
+        r10_frac_pf = recall_at_k_fraction(pf.S, gold_nodes, k=10)
+        r20_frac_pf = recall_at_k_fraction(pf.S, gold_nodes, k=20)
+        para_r5_pf = paragraph_recall_at_k(pf.S, gold_nodes, gd["G"], k=5)
+        para_r10_pf = paragraph_recall_at_k(pf.S, gold_nodes, gd["G"], k=10)
 
         em_pf, f1_pf, pred_pf = 0, 0.0, ""
         if groq_client:
@@ -323,6 +351,18 @@ def run_evaluation(records: list[dict],
         r5_bfs   = recall_at_k(bfs_nodes,   gold_nodes, k=5)
         r5_sa    = recall_at_k(sa_nodes,     gold_nodes, k=5)
 
+        # Multi-granularity metrics for baselines (Phase 2, Task 2.4)
+        r10_naive = recall_at_k(naive_nodes, gold_nodes, k=10)
+        r20_naive = recall_at_k(naive_nodes, gold_nodes, k=20)
+        r10_bfs   = recall_at_k(bfs_nodes,   gold_nodes, k=10)
+        r20_bfs   = recall_at_k(bfs_nodes,   gold_nodes, k=20)
+        r10_sa    = recall_at_k(sa_nodes,     gold_nodes, k=10)
+        r20_sa    = recall_at_k(sa_nodes,     gold_nodes, k=20)
+
+        para_r5_naive = paragraph_recall_at_k(naive_nodes, gold_nodes, gd["G"], k=5)
+        para_r5_bfs   = paragraph_recall_at_k(bfs_nodes,   gold_nodes, gd["G"], k=5)
+        para_r5_sa    = paragraph_recall_at_k(sa_nodes,     gold_nodes, gd["G"], k=5)
+
         per_query.append({
             "id":       rec["id"],
             "question": q,
@@ -336,14 +376,27 @@ def run_evaluation(records: list[dict],
                 "retries":   pf.retries,
                 "n_nodes":   len(pf.S),
                 "recall@5":  r5_pf,
+                "recall@10": r10_pf,
+                "recall@20": r20_pf,
+                "recall_frac@5":  round(r5_frac_pf, 4),
+                "recall_frac@10": round(r10_frac_pf, 4),
+                "recall_frac@20": round(r20_frac_pf, 4),
+                "paragraph_recall@5":  round(para_r5_pf, 4),
+                "paragraph_recall@10": round(para_r10_pf, 4),
                 "em":        em_pf,
                 "f1":        round(f1_pf, 4),
                 "prediction":pred_pf,
                 "latency_s": round(lat, 5),
             },
-            "naive_rag":            {"S": naive_nodes, "recall@5": r5_naive},
-            "bfs_2hop":             {"S": bfs_nodes,   "recall@5": r5_bfs},
-            "spreading_activation": {"S": sa_nodes,    "recall@5": r5_sa},
+            "naive_rag":            {"S": naive_nodes, "recall@5": r5_naive,
+                                     "recall@10": r10_naive, "recall@20": r20_naive,
+                                     "paragraph_recall@5": round(para_r5_naive, 4)},
+            "bfs_2hop":             {"S": bfs_nodes,   "recall@5": r5_bfs,
+                                     "recall@10": r10_bfs, "recall@20": r20_bfs,
+                                     "paragraph_recall@5": round(para_r5_bfs, 4)},
+            "spreading_activation": {"S": sa_nodes,    "recall@5": r5_sa,
+                                     "recall@10": r10_sa, "recall@20": r20_sa,
+                                     "paragraph_recall@5": round(para_r5_sa, 4)},
         })
 
     # ── Aggregate main metrics ─────────────────────────────────────────────────
@@ -351,6 +404,25 @@ def run_evaluation(records: list[dict],
     naive_r5 = float(np.mean([q["naive_rag"]["recall@5"]  for q in per_query]))
     bfs_r5   = float(np.mean([q["bfs_2hop"]["recall@5"]   for q in per_query]))
     sa_r5    = float(np.mean([q["spreading_activation"]["recall@5"] for q in per_query]))
+
+    # Multi-granularity aggregate metrics (Phase 2, Task 2.4)
+    pf_r10   = float(np.mean([q["pathfinder"]["recall@10"] for q in per_query]))
+    pf_r20   = float(np.mean([q["pathfinder"]["recall@20"] for q in per_query]))
+    naive_r10 = float(np.mean([q["naive_rag"]["recall@10"]  for q in per_query]))
+    naive_r20 = float(np.mean([q["naive_rag"]["recall@20"]  for q in per_query]))
+    bfs_r10   = float(np.mean([q["bfs_2hop"]["recall@10"]   for q in per_query]))
+    bfs_r20   = float(np.mean([q["bfs_2hop"]["recall@20"]   for q in per_query]))
+    sa_r10    = float(np.mean([q["spreading_activation"]["recall@10"] for q in per_query]))
+    sa_r20    = float(np.mean([q["spreading_activation"]["recall@20"] for q in per_query]))
+
+    pf_para_r5  = float(np.mean([q["pathfinder"]["paragraph_recall@5"] for q in per_query]))
+    naive_para_r5 = float(np.mean([q["naive_rag"]["paragraph_recall@5"]  for q in per_query]))
+    bfs_para_r5   = float(np.mean([q["bfs_2hop"]["paragraph_recall@5"]   for q in per_query]))
+    sa_para_r5    = float(np.mean([q["spreading_activation"]["paragraph_recall@5"] for q in per_query]))
+
+    pf_r5_frac  = float(np.mean([q["pathfinder"]["recall_frac@5"] for q in per_query]))
+    pf_r10_frac = float(np.mean([q["pathfinder"]["recall_frac@10"] for q in per_query]))
+    pf_r20_frac = float(np.mean([q["pathfinder"]["recall_frac@20"] for q in per_query]))
 
     pf_em  = float(np.mean([q["pathfinder"]["em"]  for q in per_query]))
     pf_f1  = float(np.mean([q["pathfinder"]["f1"]  for q in per_query]))
@@ -385,6 +457,27 @@ def run_evaluation(records: list[dict],
             "bfs_2hop":            round(bfs_r5,   4),
             "spreading_activation":round(sa_r5,    4),
         },
+        "recall@10": {
+            "pathfinder":          round(pf_r10,    4),
+            "naive_rag":           round(naive_r10, 4),
+            "bfs_2hop":            round(bfs_r10,   4),
+            "spreading_activation":round(sa_r10,    4),
+        },
+        "recall@20": {
+            "pathfinder":          round(pf_r20,    4),
+            "naive_rag":           round(naive_r20, 4),
+            "bfs_2hop":            round(bfs_r20,   4),
+            "spreading_activation":round(sa_r20,    4),
+        },
+        "recall_frac@5":  round(pf_r5_frac,  4),
+        "recall_frac@10": round(pf_r10_frac, 4),
+        "recall_frac@20": round(pf_r20_frac, 4),
+        "paragraph_recall@5": {
+            "pathfinder":          round(pf_para_r5,    4),
+            "naive_rag":           round(naive_para_r5, 4),
+            "bfs_2hop":            round(bfs_para_r5,   4),
+            "spreading_activation":round(sa_para_r5,    4),
+        },
         "em_f1": {
             "em":  round(pf_em, 4),
             "f1":  round(pf_f1, 4),
@@ -406,11 +499,15 @@ def run_evaluation(records: list[dict],
     print(f"\n{'='*60}")
     print("RESULTS TABLE")
     print(f"{'='*60}")
-    print(f"{'System':<25} {'Recall@5':>10}")
-    print("-" * 37)
-    for sys_name, r5 in summary["recall@5"].items():
+    print(f"{'System':<25} {'Recall@5':>10} {'Recall@10':>10} {'Recall@20':>10} {'ParaR@5':>10}")
+    print("-" * 67)
+    for sys_name in ["pathfinder", "naive_rag", "bfs_2hop", "spreading_activation"]:
+        r5  = summary["recall@5"].get(sys_name, 0)
+        r10 = summary["recall@10"].get(sys_name, 0)
+        r20 = summary["recall@20"].get(sys_name, 0)
+        pr5 = summary["paragraph_recall@5"].get(sys_name, 0)
         marker = " <-" if sys_name == "pathfinder" else ""
-        print(f"{'  '+sys_name:<25} {r5:>10.4f}{marker}")
+        print(f"{'  '+sys_name:<25} {r5:>10.4f} {r10:>10.4f} {r20:>10.4f} {pr5:>10.4f}{marker}")
     if groq_client:
         print(f"\nPATHFINDER EM={pf_em:.4f}  F1={pf_f1:.4f}")
     print(f"Node Expansion Rate  : {pf_ner:.2f} nodes/query")

@@ -33,6 +33,11 @@ EPSILON_MAX = 0.40
 EPSILON_STEP= 0.05
 SUFFICIENCY_THRESHOLD = 0.99   # coverage score for sufficiency_check (0.99 = effectively disabled for Recall@5)
 
+# ── Teleportation parameters (Phase 2, Task 2.1) ───────────────────────────
+THETA_TELEPORT    = 0.01   # min marginal gain threshold to trigger teleportation
+TELEPORT_TOPK     = 5      # number of global dense nodes to inject on teleport
+MAX_TELEPORTS     = 3      # cap teleportation jumps per traversal
+
 # Approximate tokens per sentence (proxy for c̄)
 def tok_count(node_idx: int, G: nx.DiGraph) -> int:
     text = G.nodes[node_idx].get("text", "")
@@ -55,6 +60,7 @@ def compute_sigma_min(S: list[int], parent: dict[int, Optional[int]], G: nx.DiGr
     """
     σ_min(S) = min_{v∈S} min_{edges/nodes on path} (W(e) · φ_conf(u))
     Bottleneck confidence aggregation (fuzzy logic AND) to prevent path-product decay.
+    Teleportation nodes (parent=None, non-root) are treated as fresh entries.
     """
     if not S:
         return 1.0
@@ -71,6 +77,35 @@ def compute_sigma_min(S: list[int], parent: dict[int, Optional[int]], G: nx.DiGr
     return min_conf
 
 
+def compute_sigma_product(S: list[int], parent: dict[int, Optional[int]],
+                          G: nx.DiGraph) -> float:
+    """
+    σ_prod(S) = min_{v∈S} Π_{edges/nodes on path} (W(e) · φ_conf(u))
+    Original path-product confidence (no geometric mean normalization).
+    Teleportation nodes reset the product to φ_conf(v).
+    """
+    if not S:
+        return 1.0
+
+    min_sigma = 1.0
+    for v in S:
+        sigma_v = 1.0
+        cur = v
+        while cur is not None:
+            sigma_v *= G.nodes[cur].get("phi_conf", 0.7)
+            par = parent.get(cur)
+            if par is not None and G.has_edge(par, cur):
+                sigma_v *= max(0.0, G[par][cur].get("weight", 0.0))
+            cur = par
+        min_sigma = min(min_sigma, sigma_v)
+
+    return min_sigma
+
+
+# Alias for consistency with paper terminology
+compute_sigma_bottleneck = compute_sigma_min
+
+
 def compute_sigma(S: list[int], parent: dict[int, Optional[int]],
                   G: nx.DiGraph,
                   use_geometric_mean: bool = True) -> float:
@@ -83,6 +118,8 @@ def compute_sigma(S: list[int], parent: dict[int, Optional[int]],
       σ(v₀→v) = Π φ_conf(u) × Π W(e)
 
     Uses disc_parent pointers to trace each root-to-node path.
+    Teleportation nodes (parent=None but not root) are treated as fresh
+    entry points: σ(v) = φ_conf(v) for that node.
     """
     if not S:
         return 1.0
@@ -184,10 +221,16 @@ def sufficiency_check(product_factor: float,
 # ── Single traversal pass (Algorithm 1) ──────────────────────────────────────
 def _single_pass(G: nx.DiGraph, q_emb: np.ndarray, q_dom: np.ndarray,
                  phi_sem_q: np.ndarray, N: int,
-                 weights: tuple, k_tok: int) -> tuple:
+                 weights: tuple, k_tok: int,
+                 enable_teleport: bool = True) -> tuple:
     """
     One complete run of Algorithm 1.
     Returns (S, F, sigma, parent).
+
+    When enable_teleport=True, implements dynamic dense-frontier teleportation
+    jumps (Phase 2, Task 2.1): when max marginal gain on the frontier falls below
+    θ_teleport, inject TopK global dense nodes into the frontier to escape
+    disconnected graph components.
     """
     alpha, beta, gamma, delta, epsilon = weights
 
@@ -222,6 +265,13 @@ def _single_pass(G: nx.DiGraph, q_emb: np.ndarray, q_dom: np.ndarray,
         if u not in S_set:
             frontier[u] = v0
 
+    teleport_count = 0  # track teleportation jumps
+
+    # Precompute global dense ranking for teleportation
+    global_dense_ranked = None
+    if enable_teleport:
+        global_dense_ranked = np.argsort(phi_sem_q)[::-1]
+
     # Line 8 — main greedy loop
     while frontier and tok < k_tok:
 
@@ -243,22 +293,60 @@ def _single_pass(G: nx.DiGraph, q_emb: np.ndarray, q_dom: np.ndarray,
         if best_v is None:
             break
 
+        # ── Teleportation jump (Phase 2, Task 2.1) ───────────────────────
+        # When max marginal gain < θ_teleport and we haven't exhausted teleports,
+        # inject TopK global dense nodes (not already in S) into the frontier.
+        # This allows escaping disconnected graph components.
+        if (enable_teleport and best_gain < THETA_TELEPORT
+                and teleport_count < MAX_TELEPORTS
+                and global_dense_ranked is not None):
+            injected = 0
+            for cand in global_dense_ranked:
+                cand = int(cand)
+                if cand in S_set or cand in frontier:
+                    continue
+                if tok_count(cand, G) > rem:
+                    continue
+                # Inject into frontier with no graph parent (teleportation entry)
+                frontier[cand] = None  # None parent = teleportation jump
+                injected += 1
+                if injected >= TELEPORT_TOPK:
+                    break
+            if injected > 0:
+                teleport_count += 1
+                # Re-evaluate feasible with new teleport candidates
+                feasible = {v: p for v, p in frontier.items()
+                            if tok_count(v, G) <= rem}
+                if not feasible:
+                    break
+                # Re-select best from expanded frontier
+                best_v, best_gain = None, -1.0
+                for v in feasible:
+                    g = delta_full_fast(v, G, q_dom, phi_sem_q, weights, product_factor)
+                    if g > best_gain:
+                        best_gain, best_v = g, v
+                if best_v is None:
+                    break
+
         v_star      = best_v
         disc_parent = feasible[v_star]
 
         # Line 12 — add to S
         S.append(v_star)
         S_set.add(v_star)
-        parent[v_star] = disc_parent
+        parent[v_star] = disc_parent  # None if teleportation, else graph parent
 
         # Update coverage product factor (O(1))
         product_factor *= (1.0 - max(0.0, float(phi_sem_q[v_star])))
 
-        # Line 13 — update σ̃
-        w_edge = (G[disc_parent][v_star].get("weight", 0.0)
-                  if G.has_edge(disc_parent, v_star) else 0.0)
-        sigma_tilde *= max(0.0, w_edge) * G.nodes[v_star].get("phi_conf", 0.7)
-        sigma_tilde_edges += 1
+        # Line 13 — update σ̃ (skip edge weight for teleportation jumps)
+        if disc_parent is not None and G.has_edge(disc_parent, v_star):
+            w_edge = G[disc_parent][v_star].get("weight", 0.0)
+            sigma_tilde *= max(0.0, w_edge) * G.nodes[v_star].get("phi_conf", 0.7)
+            sigma_tilde_edges += 1
+        else:
+            # Teleportation jump: reset σ̃ to node confidence (fresh entry point)
+            sigma_tilde = min(sigma_tilde, G.nodes[v_star].get("phi_conf", 0.7))
 
         # Line 14 — update token count
         tok += tok_count(v_star, G)
@@ -299,7 +387,8 @@ def run_pathfinder(graph_data: dict,
                    tau_low: float = TAU_LOW,
                    tau_high: float = TAU_HIGH,
                    max_retries: int = MAX_RETRIES,
-                   auto_detect_uniform_temp: bool = True) -> TraversalResult:
+                   auto_detect_uniform_temp: bool = True,
+                   enable_teleport: bool = True) -> TraversalResult:
     """
     Run PATHFINDER Algorithm 1 with bounded re-traversal protocol.
 
@@ -307,6 +396,8 @@ def run_pathfinder(graph_data: dict,
         graph_data : output of KGBuilder.build()
         weights    : (α, β, γ, δ, ε). Defaults to paper values.
         k_tok      : token budget K_tok.
+        enable_teleport : if True, enables dynamic dense-frontier teleportation
+                          jumps (Phase 2, Task 2.1).
 
     Returns:
         TraversalResult
@@ -342,7 +433,8 @@ def run_pathfinder(graph_data: dict,
 
     for attempt in range(max_retries + 1):
         w = (weights[0], weights[1], weights[2], weights[3], eps_cur)
-        S, F, sigma, parent = _single_pass(G, q_emb, q_dom, phi_sem_q, N, w, k_tok)
+        S, F, sigma, parent = _single_pass(G, q_emb, q_dom, phi_sem_q, N, w, k_tok,
+                                            enable_teleport=enable_teleport)
 
         # Keep track of best result by sigma (in case all retries fail)
         if best_result is None or sigma > best_result[2]:
@@ -390,7 +482,8 @@ def run_pathfinder_multi_anchor(graph_data: dict,
                                  tau_low: float = TAU_LOW,
                                  tau_high: float = TAU_HIGH,
                                  max_retries: int = MAX_RETRIES,
-                                 auto_detect_uniform_temp: bool = True) -> TraversalResult:
+                                 auto_detect_uniform_temp: bool = True,
+                                 enable_teleport: bool = True) -> TraversalResult:
     """
     Multi-anchor PATHFINDER: run from top-n_anchors entry points,
     return the result with highest F(S,q).
@@ -451,7 +544,8 @@ def run_pathfinder_multi_anchor(graph_data: dict,
         for attempt in range(max_retries + 1):
             w = (weights[0], weights[1], weights[2], weights[3], eps_cur)
             S, F, sigma, parent = _single_pass(G, q_emb, q_dom,
-                                                phi_sem_q_copy, N, w, k_tok)
+                                                phi_sem_q_copy, N, w, k_tok,
+                                                enable_teleport=enable_teleport)
 
             if local_best is None or sigma > local_best[2]:
                 local_best = (S, F, sigma, parent)
