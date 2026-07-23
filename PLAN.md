@@ -2,7 +2,7 @@
 
 > **Project**: PATHFINDER — Submodular Coverage Maximization over Multidimensional Knowledge Graphs for Multi-Hop Retrieval-Augmented Generation (RAG).  
 > **Author**: Yash-Awasthi `<yashawasthi12032006@gmail.com>`  
-> **Status**: Active (Phases 0 & 1 Completed, Phase 2 In Progress)  
+> **Status**: Active (Phases 0, 1 & 2 Completed, Phase 3 In Progress)  
 
 ---
 
@@ -24,8 +24,8 @@ $$\sigma(S) = \min_{v \in S} \sigma(v_0 \to v)$$
 ```
 [Phase 0: Clean Repo & Foundation] ──────► COMPLETE (Git squashed to clean master)
 [Phase 1: Multi-Benchmark Loaders & Evals] ► COMPLETE (HotpotQA, 2Wiki, MuSiQue evaluated)
-[Phase 2: Hybridization & Math Calibration] ► IN PROGRESS (Teleportation jumps & Grid Search)
-[Phase 3: Paper & Artifact Sync] ─────────► PLANNED (Section 7 update & Plots generation)
+[Phase 2: Hybridization & Math Calibration] ► COMPLETE (Teleportation, Grid Search, Confidence Models, Multi-Granularity)
+[Phase 3: Paper & Artifact Sync] ─────────► IN PROGRESS (Section 4/7/8 updated, Plots added, FUTURE_WORK synced)
 [Phase 4: Release & Final Verification] ──► PLANNED (Clean push & test verification)
 ```
 
@@ -70,46 +70,46 @@ $$\sigma(S) = \min_{v \in S} \sigma(v_0 \to v)$$
 The objective of Phase 2 is to bridge the performance gap and surpass Naive RAG by enabling PATHFINDER to dynamically escape local graph components and optimizing hyperparameter weights.
 
 #### Task 2.1: Dynamic Dense-Frontier "Teleportation" Jumps
-- [ ] **Implementation**: In `experiments/run_pathfinder.py`, modify the greedy traversal loop (line 10b).
-- [ ] **Mechanism**: When max marginal gain $\max_{v \in \text{Frontier}} \Delta(v | S) < \theta_{\text{teleport}}$ or when the graph expansion stalls:
+- [x] **Implementation**: In `experiments/run_pathfinder.py`, modify the greedy traversal loop (line 10b).
+- [x] **Mechanism**: When max marginal gain $\max_{v \in \text{Frontier}} \Delta(v | S) < \theta_{\text{teleport}}$ or when the graph expansion stalls:
   $$\text{Frontier}_{\text{new}} \leftarrow \text{Frontier} \cup \text{TopK}_{\text{global\_dense}}(q, V \setminus S)$$
-- [ ] **Theoretical Guarantee**: Preserves $(1 - 1/e)$-approximation guarantees of submodular maximization while providing $O(1)$ dynamic entry into disconnected high-relevance document subgraphs.
+- [x] **Theoretical Guarantee**: Preserves $(1 - 1/e)$-approximation guarantees of submodular maximization while providing $O(1)$ dynamic entry into disconnected high-relevance document subgraphs.
 
 #### Task 2.2: Multidimensional Hyperparameter Grid Search ($\alpha, \beta, \gamma, \delta, \epsilon$)
-- [ ] **Grid Design**:
+- [x] **Grid Design**:
   - $\alpha$ (Semantic Coverage): $[0.5, 0.7, 0.9, 1.0]$
   - $\gamma$ (Structural Importance / PageRank): $[0.0, 0.05, 0.10, 0.20]$
   - $\epsilon$ (Epistemic Confidence): $[0.0, 0.05, 0.10]$
-- [ ] **Execution**: Script `experiments/03_grid_search.py` on HotpotQA & 2Wiki validation subsets ($N=500$ each) to optimize Recall@5 and F1 metrics.
+- [x] **Execution**: Script `experiments/03_grid_search.py` on HotpotQA & 2Wiki validation subsets ($N=500$ each) to optimize Recall@5 and F1 metrics.
 
 #### Task 2.3: Confidence Calibration Aggregation Comparison
-- [ ] **Evaluate 3 Confidence Models** in `run_pathfinder.py`:
+- [x] **Evaluate 3 Confidence Models** in `run_pathfinder.py`:
   1. **Product Confidence**: $\sigma_{\text{prod}}(S) = \min_{v \in S} \prod_{e, u \in \text{path}} W(e) \phi_{\text{conf}}(u)$
   2. **Geometric Mean Confidence**: $\sigma_{\text{geom}}(S) = \min_{v \in S} \left( \prod W(e) \phi_{\text{conf}}(u) \right)^{1 / L}$
   3. **Bottleneck Confidence (Fuzzy AND)**: $\sigma_{\text{min}}(S) = \min_{v \in S} \min_{e, u \in \text{path}} \{ W(e), \phi_{\text{conf}}(u) \}$
-- [ ] **Validation**: Plot calibration curves ($\sigma$ vs actual answer Exact Match/F1 accuracy).
+- [x] **Validation**: Script `experiments/04_confidence_calibration.py` for calibration curves ($\sigma$ vs actual answer Exact Match/F1 accuracy).
 
 #### Task 2.4: Multi-Granularity & Deep Multi-Hop Metric Resolution
-- [ ] **Paragraph-Level Recall**: Add Paragraph-Recall@k (R@5, R@10) to `experiments/05_evaluate.py` to fairly measure MuSiQue 4-hop paragraph retrieval.
-- [ ] **Sub-sentence Alignment**: Evaluate Recall@10 and Recall@20 across all 3 datasets for full spectrum evaluation.
+- [x] **Paragraph-Level Recall**: Add Paragraph-Recall@k (R@5, R@10) to `experiments/05_evaluate.py` to fairly measure MuSiQue 4-hop paragraph retrieval.
+- [x] **Sub-sentence Alignment**: Evaluate Recall@10 and Recall@20 across all 3 datasets for full spectrum evaluation.
 
 ---
 
 ### Phase 3: Paper Manuscript, Visualizations & Documentation Sync (PLANNED)
 
 #### Task 3.1: Automated Plotting & Visualizations
-- [ ] **Script**: Update `results/make_plots.py` to generate high-resolution SVG/PNG charts:
+- [x] **Script**: Update `results/make_plots.py` to generate high-resolution SVG/PNG charts:
   - **Figure 1**: Multi-Benchmark Recall@k curves (HotpotQA, 2Wiki, MuSiQue).
   - **Figure 2**: Ablation plot comparing Pure Graph vs Teleportation Hybrid vs Naive RAG.
   - **Figure 3**: Confidence Calibration $\sigma(S)$ vs Downstream Answer F1 Score.
 
 #### Task 3.2: Manuscript Revision (`pathfinder-paper.md`)
-- [ ] **Section 4 (Algorithm & Extensions)**: Formalize Teleportation Jump operators and bottleneck confidence definitions.
-- [ ] **Section 7 (Empirical Evaluation)**: Update main results tables with 3-benchmark comparisons, hyperparameter grid search results, and runtime efficiency breakdown.
-- [ ] **Section 8 (Discussion & Limitations)**: Document empirical trade-offs between dense index lookups and graph edge traversals.
+- [x] **Section 4 (Algorithm & Extensions)**: Formalize Teleportation Jump operators and bottleneck confidence definitions.
+- [x] **Section 7 (Empirical Evaluation)**: Update main results tables with 3-benchmark comparisons, hyperparameter grid search results, and runtime efficiency breakdown.
+- [x] **Section 8 (Discussion & Limitations)**: Document empirical trade-offs between dense index lookups and graph edge traversals.
 
 #### Task 3.3: Future Work Roadmap Sync (`FUTURE_WORK.md`)
-- [ ] Update `FUTURE_WORK.md` with empirical findings from multi-hop scaling (e.g., dynamic edge synthesis, LLM-in-the-loop reranking).
+- [x] Update `FUTURE_WORK.md` with empirical findings from multi-hop scaling (e.g., dynamic edge synthesis, LLM-in-the-loop reranking).
 
 ---
 

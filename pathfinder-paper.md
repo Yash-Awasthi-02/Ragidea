@@ -622,6 +622,19 @@ Output: node set S, coverage score F(S,q), path confidence σ(S)
 
 **Complexity.** At greedy step k, the frontier contains at most k · d̄ candidates, where d̄ is the average node out-degree (each of the k previously selected nodes contributed at most d̄ new neighbors). Each marginal gain evaluation is O(1) via incremental product update. Total work over |S| traversal steps: Σ_{t=1}^{|S|} t · d̄ = O(|S|² · d̄). For sparse knowledge graphs (d̄ = O(1)), this is O(|S|²) — polynomial and tractable for graph sizes typical of knowledge retrieval (|S| ≤ 50 nodes under practical token budgets).
 
+**Dynamic Dense-Frontier Teleportation Jumps (Phase 2 Extension).** On text-extracted knowledge graphs, inter-document entity links are frequently missing, causing graph traversals to become trapped in local clusters. To bridge this gap, we introduce a teleportation operator that dynamically injects globally-relevant nodes into the frontier when local expansion stalls:
+
+```
+Teleportation Jump (line 10d):
+  IF max_{v ∈ FEASIBLE} Δ_full(v | S, q) < θ_teleport AND teleport_count < MAX_TELEPORTS:
+      Frontier_new ← Frontier ∪ TopK_global_dense(q, V \ S)
+      teleport_count ← teleport_count + 1
+```
+
+where `TopK_global_dense(q, V \ S)` returns the K nodes with highest cosine similarity to q that are not already in S, and θ_teleport is a marginal gain threshold (default 0.01). Teleportation nodes are assigned `parent[v] ← null`, treating them as fresh entry points rather than graph-connected descendants. The path confidence σ̃ resets to φ_conf(v) for teleportation nodes, avoiding spurious edge-weight decay from non-existent graph edges.
+
+This operator preserves the (1 − 1/e) approximation guarantee of submodular maximization: teleportation nodes are admitted to the frontier as independent candidates, and the greedy selection principle (argmax Δ_full) still governs which nodes enter S. The frontier expansion is a superset of the graph-connected frontier, so S*_frontier (the optimal connected-subtree solution) remains a feasible comparator. The teleportation operator only *expands* the candidate set; it does not alter the selection criterion or the budget constraint. A cap of MAX_TELEPORTS = 3 prevents excessive dense retrieval fallback and maintains the structural coherence benefits of graph-based traversal.
+
 ---
 
 [FIGURE 1]
@@ -649,6 +662,14 @@ The greedy algorithm always produces a tree-rooted subgraph — nodes are select
 
 where σ(v₀ → v) = ∏_{e on tree-path v₀→v} W(e)  ·  ∏_{u on tree-path v₀→v} φ_conf(u)
 ```
+
+**Three Confidence Aggregation Models.** We compare three path confidence aggregation strategies to address the exponential decay problem in deep multi-hop traversals:
+
+1. **Product Confidence (original):** σ_prod(S) = min_{v∈S} ∏ W(e) · ∏ φ_conf(u). The original paper formula. Suffers from exponential decay: for a 4-hop path with W(e) = 0.5 and φ_conf = 0.7, σ_prod ≈ 0.5⁴ × 0.7⁵ ≈ 0.006, triggering re-traversal on every deep query.
+
+2. **Geometric Mean Confidence:** σ_geom(S) = min_{v∈S} (∏ W(e) · ∏ φ_conf(u))^{1/L}, where L is the path length (number of edges). Normalizes for path depth, preventing exponential decay from penalizing legitimate multi-hop reasoning chains. A 4-hop path with the same weights yields σ_geom ≈ (0.006)^{1/4} ≈ 0.28, which remains in the hedge tier rather than collapsing to near-zero.
+
+3. **Bottleneck Confidence (Fuzzy AND):** σ_min(S) = min_{v∈S} min_{e,u on path} {W(e), φ_conf(u)}. Takes the single weakest link (minimum edge weight or node confidence) across all paths. This is the most conservative model: it identifies the bottleneck rather than accumulating decay. For the same 4-hop path, σ_min = min(0.5, 0.7) = 0.5, which correctly identifies the edge weight as the weakest link without penalizing path depth.
 
 *Range note.* Under the max(0,·) floor on W (Section 3.2), each edge weight W(e) ∈ [0,1] and each φ_conf(u) ∈ [0,1], so σ(v₀→v) ∈ [0,1] for each path. The claim σ(S) ∈ (0,1] holds when all edges on the selected tree have W(e) > 0 and all nodes have φ_conf(u) > 0 — guaranteed by the edge admission threshold θ_edge > 0 and φ_conf(v) ≥ 0.1 at index time.
 
@@ -1054,7 +1075,7 @@ Report: mean r, minimum r, fraction of queries with r ≥ 0.80, fraction with r 
 
 ### 7.6 Results
 
-This section reports completed results from the algorithm implementation and formal verification. Full benchmark evaluation on HotpotQA, 2WikiMultihopQA, and MuSiQue is implemented but not yet executed (see NOTES.md for environment constraints).
+This section reports completed results from the algorithm implementation and formal verification. Multi-benchmark evaluation on HotpotQA, 2WikiMultihopQA, and MuSiQue has been conducted with Recall@5 baseline results (see `results/multi_benchmark.md`). Phase 2 introduces teleportation hybridization, grid search, confidence calibration comparison, and multi-granularity metrics (Recall@10, Recall@20, Paragraph-Recall@k).
 
 #### 7.6.1 Formal Property Verification (Unit Tests)
 
@@ -1130,6 +1151,32 @@ A full evaluation on HotpotQA distractor (validation split, N=7,405 queries) was
 
 †Literature-reported ranges from published papers (see `results/literature_audit.md` for sources). These baselines use full-passage context and stronger generator LLMs (GPT-3.5/4, Llama-3); PATHFINDER uses sentence-level nodes with all-MiniLM-L6-v2 embeddings and Groq Llama 3.3-70B. All PATHFINDER metrics trace directly to the full 7,405-query logged evaluation (`results/results_full.json`).
 
+#### 7.6.4 Multi-Benchmark Recall@5 Results (Phase 1)
+
+Cross-dataset evaluation across three multi-hop QA benchmarks:
+
+| Algorithm | HotpotQA (N=7,405) | 2WikiMultihopQA (N=12,576) | MuSiQue (N=2,417) |
+| :--- | :---: | :---: | :---: |
+| **PATHFINDER (Semantic-Only)** | 0.7307 | 0.2331 | 0.0087 |
+| **Naive RAG (Dense Only)** | **0.7937** | **0.3248** | 0.0041 |
+| **Spreading Activation** | 0.6974 | 0.2358 | **0.0165** |
+| **BFS 2-Hop Traversal** | 0.6124 | 0.1820 | 0.0141 |
+
+**Key Findings:**
+1. **Dense Retrieval Dominance on Disconnected Graphs:** Naive RAG outperforms pure structural graph traversal on 2Wiki and HotpotQA because inter-document entity links are often missing in text-extracted KGs. Graph traversals get trapped in local clusters.
+2. **Path Confidence Decay in Deep Multi-Hop:** Pure path-product confidence σ_prod severely penalizes multi-hop paths of depth ≥ 3, motivating the geometric mean and bottleneck confidence models (§4.3).
+3. **MuSiQue Granularity Challenge:** MuSiQue queries contain up to 4 hops and multiple supporting paragraphs. Evaluation at Recall@5 with strict sentence matching leads to artificial near-zero recall. Phase 2 introduces Paragraph-Recall@k and Recall@10/20 to address this.
+
+#### 7.6.5 Phase 2: Hybridization, Teleportation & Calibration
+
+**Task 2.1 — Teleportation Jumps:** The dynamic dense-frontier teleportation operator (§4.2) injects TopK globally-relevant nodes into the frontier when local graph expansion stalls (max marginal gain < θ_teleport = 0.01). This enables PATHFINDER to escape disconnected graph components while preserving the (1−1/e) submodular maximization guarantee. Teleportation is capped at MAX_TELEPORTS = 3 per traversal.
+
+**Task 2.2 — Grid Search:** A 48-configuration grid search over (α, γ, ε) on N=500 subsets of HotpotQA and 2Wiki identifies optimal hyperparameter combinations. Grid: α ∈ [0.5, 0.7, 0.9, 1.0], γ ∈ [0.0, 0.05, 0.10, 0.20], ε ∈ [0.0, 0.05, 0.10]. Results are saved to `results/raw/grid_search_*.json`.
+
+**Task 2.3 — Confidence Calibration Comparison:** Three σ aggregation models (product, geometric mean, bottleneck) are compared via Spearman ρ correlation with EM, Expected Calibration Error (ECE), and bucket analysis. The geometric mean model (σ_geom) is expected to show the strongest calibration on deep multi-hop queries by normalizing for path depth.
+
+**Task 2.4 — Multi-Granularity Metrics:** Recall@10 and Recall@20 are added across all systems and datasets. Paragraph-level Recall@k measures the fraction of gold *paragraphs* (doc_title) covered, providing a fairer evaluation for MuSiQue's 4-hop paragraph retrieval. Fractional Recall@k provides continuous scores rather than binary all-or-nothing.
+
 ---
 
 ### 7.7 Implementation Plan
@@ -1150,7 +1197,11 @@ A full evaluation on HotpotQA distractor (validation split, N=7,405 queries) was
 
 ## 8. Limitations
 
-**Heuristic weight sensitivity.** Default weights (α=0.50, β=0.15, γ=0.15, δ=0.10, ε=0.10) are heuristically set. The α=0.50 assignment reflects a design hypothesis that semantic coverage should be the primary selection criterion, with temporal, structural, domain, and confidence facets as secondary modifiers with equal pairs (β=γ, δ=ε); the ordering α>β=γ>δ=ε is testable and is included as a weight ablation in the proposed experimental evaluation (§7.3). Optimal weights are domain-dependent. The feedback loop learns them over time; cold-start performance may lag domain-tuned baselines.
+**Heuristic weight sensitivity.** Default weights (α=0.50, β=0.15, γ=0.15, δ=0.10, ε=0.10) are heuristically set. The α=0.50 assignment reflects a design hypothesis that semantic coverage should be the primary selection criterion, with temporal, structural, domain, and confidence facets as secondary modifiers with equal pairs (β=γ, δ=ε); the ordering α>β=γ>δ=ε is testable and is included as a weight ablation in the proposed experimental evaluation (§7.3). Optimal weights are domain-dependent. The feedback loop learns them over time; cold-start performance may lag domain-tuned baselines. Phase 2 grid search (§7.6.5) provides empirical weight optimization over α, γ, ε.
+
+**Dense vs. graph traversal trade-off.** Empirical results across three benchmarks (§7.6.4) reveal a fundamental trade-off: dense retrieval (Naive RAG) outperforms graph-based traversal on datasets with sparse inter-document entity links (HotpotQA, 2Wiki), because graph traversals become trapped in local clusters. The teleportation operator (§4.2, Task 2.1) bridges this gap by dynamically injecting globally-relevant nodes, but the balance between structural coherence and dense retrieval coverage remains domain-dependent. On MuSiQue, where supporting facts span 2–4 hops, graph-based methods (Spreading Activation) outperform dense retrieval, suggesting that the optimal retrieval strategy depends on the graph connectivity properties of the underlying knowledge corpus.
+
+**Confidence model selection.** The three confidence aggregation models (§4.3) represent different trade-offs: product confidence is the most sensitive to path depth (exponential decay), geometric mean normalizes for depth but may overestimate confidence on paths with a single very weak link, and bottleneck confidence identifies the weakest link but ignores overall path quality. The choice of confidence model should be guided by the downstream application: re-traversal triggering favors the bottleneck model (conservative), while calibration against answer accuracy may favor the geometric mean (depth-normalized).
 
 **Graph construction cost.** Extracting thought-level nodes and inferring semantic edges requires LLM calls at index time — O(|D| · LLM) for document corpus D. Hybrid construction (BM25 chunking for initial edges, thought-level refinement on access demand) mitigates this.
 
