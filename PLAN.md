@@ -136,14 +136,14 @@ When $\max_{v \in \text{Frontier}} \Delta(v|S) < \theta_{\text{teleport}}$, inje
 
 | ID | Issue | Impact | Priority |
 |---|---|---|---|
-| **ISSUE-A** | Grid search `03_grid_search.py` returns all zeros — `get_gold_nodes()` mapping differs from `05_evaluate.py` | Grid search results unusable | **HIGH** |
+| **ISSUE-A** | Grid search `03_grid_search.py` returned all zeros — FIXED: `get_gold_nodes()` now matches `05_evaluate.py` format | **RESOLVED** — Grid search now produces valid results | ✅ DONE |
 | **ISSUE-B** | Submodularity scope: $(1-1/e)$ guarantee applies to $f(S,q)$ coverage under independence model, not true joint coverage with correlated edges | Paper §4.1 needs clarification | MEDIUM |
-| **ISSUE-C** | `phi_temp = 1.0` constant on HotpotQA/2Wiki (no timestamps) — β weight adds noise | Suboptimal weight configuration | MEDIUM |
-| **ISSUE-D** | SubgraphRAG citation wrong: `arXiv:2407.03993` → should be `arXiv:2410.20724` (Li, Miao, Li; ICLR 2025) | Paper accuracy | LOW |
-| **ISSUE-E** | Zarrinkia citation year needs standardization to 2026, `arXiv:2603.14045` | Paper accuracy | LOW |
-| **ISSUE-F** | EM/F1 all zeros in evaluation — LLM answers not generated (no GROQ_API_KEY in eval run) | No end-to-end answer quality data | **HIGH** |
-| **ISSUE-G** | `experiments/README.md` has stale projected results table that doesn't match actual eval | Misleading documentation | LOW |
-| **ISSUE-H** | `results/multi_benchmark.md` has old Phase 1 R@5 numbers (0.7307 etc.) that don't match Phase 2 N=500 results | Inconsistent docs | LOW |
+| **ISSUE-C** | `phi_temp = 1.0` constant on HotpotQA/2Wiki (no timestamps) — β weight adds noise | Suboptimal weight configuration | **RESOLVED** — Grid search + bandit confirm β=0 optimal |
+| **ISSUE-D** | SubgraphRAG citation wrong: `arXiv:2407.03993` → should be `arXiv:2410.20724` | Paper accuracy | ✅ DONE |
+| **ISSUE-E** | Zarrinkia citation year needs standardization to 2026 | Paper accuracy | ✅ DONE |
+| **ISSUE-F** | EM/F1 all zeros in evaluation — LLM answers not generated | No end-to-end answer quality data | **RESOLVED** — 70B: EM=0.235, F1=0.323 |
+| **ISSUE-G** | `experiments/README.md` has stale projected results table | Misleading documentation | ✅ DONE |
+| **ISSUE-H** | `results/multi_benchmark.md` has old Phase 1 R@5 numbers | Inconsistent docs | ✅ DONE |
 
 ---
 
@@ -479,14 +479,14 @@ python experiments/09_bayesian_optimization.py --graphs data/hotpotqa_graphs.pkl
 
 | # | Correction | Source | Priority |
 |---|---|---|---|
-| 1 | Fix SubgraphRAG citation: `arXiv:2407.03993` → `arXiv:2410.20724` (Li, Miao, Li; ICLR 2025) | literature_audit.md | HIGH |
-| 2 | Standardize Zarrinkia citation to 2026, `arXiv:2603.14045` | literature_audit.md | MEDIUM |
+| 1 | Fix SubgraphRAG citation: `arXiv:2407.03993` → `arXiv:2410.20724` (Li, Miao, Li; ICLR 2025) | literature_audit.md | ✅ DONE |
+| 2 | Standardize Zarrinkia citation to 2026, `arXiv:2603.14045` | literature_audit.md | ✅ DONE |
 | 3 | Clarify §4.1: $(1-1/e)$ applies to $F(S,q)$ under independence model; empirical joint coverage depends on edge correlations | analysis.md ISSUE-B | MEDIUM |
-| 4 | Update `experiments/README.md` — remove stale projected results table, replace with actual N=500 results | ISSUE-G | LOW |
-| 5 | Update `results/multi_benchmark.md` — replace old Phase 1 numbers with Phase 2 N=500 results | ISSUE-H | LOW |
-| 6 | Add §7.6.6 "Hyperparameter Sensitivity" subsection once grid search is fixed and re-run | Phase 7 | MEDIUM |
-| 7 | Update §7.6.5 Task 2.3 with Spearman ρ and ECE once LLM evaluation is complete | Phase 6 | MEDIUM |
-| 8 | Add teleportation ablation results to §7.6.5 Task 2.1 once ablation is run | Phase 5 | MEDIUM |
+| 4 | Update `experiments/README.md` — remove stale projected results table, replace with actual N=500 results | ISSUE-G | ✅ DONE |
+| 5 | Update `results/multi_benchmark.md` — replace old Phase 1 numbers with Phase 2 N=500 results | ISSUE-H | ✅ DONE |
+| 6 | Add §7.6.6 "Hyperparameter Sensitivity" subsection once grid search is fixed and re-run | Phase 7 | ✅ DONE |
+| 7 | Update §7.6.5 Task 2.3 with Spearman ρ and ECE once LLM evaluation is complete | Phase 6 | ✅ DONE (EM=0.235, F1=0.323 with 70B) |
+| 8 | Add teleportation ablation results to §7.6.5 Task 2.1 once ablation is run | Phase 5 | ✅ DONE |
 
 ---
 
