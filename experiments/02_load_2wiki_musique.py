@@ -9,6 +9,7 @@ import os
 import argparse
 import pickle
 import importlib
+from tqdm import tqdm
 from datasets import load_dataset
 
 kg_mod = importlib.import_module("01_build_kg")
@@ -71,18 +72,34 @@ if __name__ == "__main__":
 
         rec = builder.build(question, docs)
         if rec is not None:
-            rec["id"] = item.get("id", str(idx))
-            rec["answer"] = item.get("answer", "")
-            sf = item.get("supporting_facts", {"title": [], "sent_id": []})
-            if isinstance(sf, list):
-                # 2Wiki supporting_facts is list of [title, sent_idx]
-                rec["supporting_facts"] = {
-                    "title": [s[0] for s in sf if len(s) > 1],
-                    "sent_id": [s[1] for s in sf if len(s) > 1]
-                }
+            if args.dataset == "2wiki":
+                sf = item.get("supporting_facts", {"title": [], "sent_id": []})
+                if isinstance(sf, list):
+                    # 2Wiki supporting_facts is list of [title, sent_idx]
+                    sf_dict = {
+                        "title": [s[0] for s in sf if len(s) > 1],
+                        "sent_id": [s[1] for s in sf if len(s) > 1]
+                    }
+                else:
+                    sf_dict = sf
             else:
-                rec["supporting_facts"] = sf
-            records.append(rec)
+                # MuSiQue supporting facts are in paragraphs with is_supporting
+                gold_titles = [p["title"] for p in item.get("paragraphs", []) if p.get("is_supporting")]
+                # We record the matching titles and sentences directly from the built graph
+                t_list, s_list = [], []
+                for node in rec["nodes"]:
+                    if node["doc_title"] in gold_titles:
+                        t_list.append(node["doc_title"])
+                        s_list.append(node["sent_idx"])
+                sf_dict = {"title": t_list, "sent_id": s_list}
+                
+            records.append({
+                "id": item.get("id", str(idx)),
+                "question": question,
+                "answer": item.get("answer", ""),
+                "supporting_facts": sf_dict,
+                "graph": rec
+            })
 
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
     with open(args.output, "wb") as f:
