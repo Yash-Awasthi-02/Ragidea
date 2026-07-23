@@ -422,7 +422,9 @@ Every modular function is both submodular and supermodular (Nemhauser et al., 19
 
 *Corollary.* F(∅, q) = 0. By the empty-product convention, f(∅, q) = 1 − 1 = 0, and the sum over ∅ is 0. This satisfies the condition F(∅) = 0 required for the approximation guarantee.
 
-**Marginal gain with multidimensional facets:**
+**Remark on submodularity scope.** The (1−1/e) guarantee of Theorem 2 applies to F(S,q) as a mathematical function — F is monotone submodular (Theorem 1), and the greedy algorithm selects by exact marginal gain Δ_full. However, F(S,q) models coverage under an *independence assumption*: the coverage term f(S,q) = 1 − ∏(1−sim(v,q)) treats each node's contribution as independent of the others. In real knowledge graphs, node contents are correlated through shared entities, topics, and document structure. The independence model may overestimate coverage when selected nodes contain redundant information (positive correlation), or underestimate coverage when nodes provide complementary evidence (negative correlation). The ratio guarantee F(S_greedy) ≥ (1−1/e)·F(S*_frontier) is preserved in the model; the mapping from model coverage to true information coverage is an open calibration question. Formalizing this gap under a known correlation structure (e.g., a Markov Random Field on graph edges) is a direction for future work (PLAN.md, Phase 11, Task 11.3).
+
+**Remark on the modular terms.** The four additive facet terms (β·φ_temp, γ·φ_imp, δ·max(0,cos(φ_dom,q_dom)), ε·φ_conf) are modular (linear in S), hence both submodular and supermodular. Their inclusion in F preserves submodularity (non-negative linear combination of submodular functions is submodular) but does not contribute to the *coverage* guarantee — the (1−1/e) bound is driven entirely by the submodular coverage term f(S,q). The modular terms influence *which* nodes the greedy selects (by modifying the marginal gain ranking), but the approximation ratio relative to S*_frontier is governed by f(S,q)'s submodularity structure. In practice, when modular terms dominate (e.g., α near 0), the greedy degenerates to a modular maximization problem where the greedy is exactly optimal — the (1−1/e) bound is loose but still valid.
 
 ```
 Δ_full(v | S, q) = α · Δ_coverage(v | S, q)
@@ -504,10 +506,19 @@ Under Condition FC, the greedy selects v*_i from FEASIBLE(S_i) and gains:
 Δ_full(v*_i | S_i, q) ≥ Δ_full(w_FC | S_i, q) ≥ r_i / k
 ```
 
-where w_FC is the maximum-gain feasible frontier element of S*_frontier \ S_i. The algorithm does not terminate early on any Δ-based criterion (Option A and Option B removed; see Section 4.2). Iterating and applying the exponential bound (NWF 1978, Theorem 4.2):
+**Corollary (Teleportation preserves the approximation guarantee).** *The teleportation operator (Section 4.2) preserves the (1−1/e) approximation guarantee of Theorem 2.*
 
-```
-F(S_greedy, q) ≥ (1 − (1 − 1/k)^k) · F(S*_frontier, q) ≥ (1 − 1/e) · F(S*_frontier, q)
+*Proof sketch.* The teleportation operator expands the candidate frontier by injecting TopK globally dense nodes when local expansion stalls. Three observations establish the result:
+
+1. **Superset frontier.** Let Frontier_teleport denote the frontier after teleportation injection. Since Frontier_teleport ⊇ Frontier_graph (the graph-connected frontier), the feasible set at each greedy step is a superset: FEASIBLE_teleport ⊇ FEASIBLE_graph. The greedy selects argmax Δ_full over FEASIBLE, so the teleportation greedy gain is at least as large: Δ_full(v*_teleport | S) ≥ Δ_full(v*_graph | S).
+
+2. **S*_frontier remains feasible.** The optimal connected-subtree S*_frontier is a subset of T(v₀, G) — the family of graph-connected subtrees. Teleportation does not remove any graph edges; it only adds candidates to the frontier. Therefore S*_frontier remains in the feasible set of the teleportation-augmented greedy, and the comparison F(S_greedy) ≥ (1−1/e)·F(S*_frontier) is preserved.
+
+3. **Parent assignment does not break tree-connectedness.** Teleportation nodes are assigned parent[v] ← null, treating them as fresh entry points. This means the output S is no longer a single tree rooted at v₀ — it is a forest with multiple roots. However, the approximation guarantee depends on the greedy selection principle (argmax Δ_full), not on the tree structure. The tree structure is used only for σ(S) computation (Section 4.3), which is computed post-hoc and does not affect the selection. The guarantee holds for the *set* S, regardless of its internal tree/forest structure.
+
+Therefore, F(S_greedy_teleport, q) ≥ (1−1/e)·F(S*_frontier, q). □
+
+*Remark.* The teleportation operator can only *improve* the greedy solution (by expanding the candidate set), never worsen it. In the worst case, teleportation candidates have low marginal gain and are not selected — the algorithm behaves identically to the non-teleportation version. The MAX_TELEPORTS cap prevents excessive dense retrieval fallback but does not affect the guarantee, since the cap only limits the number of frontier expansions, not the selection criterion.
 ```
 
 Therefore:

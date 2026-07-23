@@ -137,7 +137,7 @@ When $\max_{v \in \text{Frontier}} \Delta(v|S) < \theta_{\text{teleport}}$, inje
 | ID | Issue | Impact | Priority |
 |---|---|---|---|
 | **ISSUE-A** | Grid search `03_grid_search.py` returned all zeros — FIXED: `get_gold_nodes()` now matches `05_evaluate.py` format | **RESOLVED** — Grid search now produces valid results | ✅ DONE |
-| **ISSUE-B** | Submodularity scope: $(1-1/e)$ guarantee applies to $f(S,q)$ coverage under independence model, not true joint coverage with correlated edges | Paper §4.1 needs clarification | MEDIUM |
+| **ISSUE-B** | Submodularity scope: $(1-1/e)$ guarantee applies to $f(S,q)$ coverage under independence model, not true joint coverage with correlated edges | Paper §4.1 clarified with scope remark + modular terms remark | ✅ DONE |
 | **ISSUE-C** | `phi_temp = 1.0` constant on HotpotQA/2Wiki (no timestamps) — β weight adds noise | Suboptimal weight configuration | **RESOLVED** — Grid search + bandit confirm β=0 optimal |
 | **ISSUE-D** | SubgraphRAG citation wrong: `arXiv:2407.03993` → should be `arXiv:2410.20724` | Paper accuracy | ✅ DONE |
 | **ISSUE-E** | Zarrinkia citation year needs standardization to 2026 | Paper accuracy | ✅ DONE |
@@ -481,7 +481,7 @@ python experiments/09_bayesian_optimization.py --graphs data/hotpotqa_graphs.pkl
 |---|---|---|---|
 | 1 | Fix SubgraphRAG citation: `arXiv:2407.03993` → `arXiv:2410.20724` (Li, Miao, Li; ICLR 2025) | literature_audit.md | ✅ DONE |
 | 2 | Standardize Zarrinkia citation to 2026, `arXiv:2603.14045` | literature_audit.md | ✅ DONE |
-| 3 | Clarify §4.1: $(1-1/e)$ applies to $F(S,q)$ under independence model; empirical joint coverage depends on edge correlations | analysis.md ISSUE-B | MEDIUM |
+| 3 | Clarify §4.1: $(1-1/e)$ applies to $F(S,q)$ under independence model; empirical joint coverage depends on edge correlations | analysis.md ISSUE-B | ✅ DONE |
 | 4 | Update `experiments/README.md` — remove stale projected results table, replace with actual N=500 results | ISSUE-G | ✅ DONE |
 | 5 | Update `results/multi_benchmark.md` — replace old Phase 1 numbers with Phase 2 N=500 results | ISSUE-H | ✅ DONE |
 | 6 | Add §7.6.6 "Hyperparameter Sensitivity" subsection once grid search is fixed and re-run | Phase 7 | ✅ DONE |
