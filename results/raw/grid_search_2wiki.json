@@ -1,0 +1,508 @@
+{
+  "dataset": "data/2wiki_graphs.pkl",
+  "max_samples": 500,
+  "k": 5,
+  "grid": {
+    "alpha": [
+      0.5,
+      0.7,
+      0.9,
+      1.0
+    ],
+    "gamma": [
+      0.0,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "epsilon": [
+      0.0,
+      0.05,
+      0.1
+    ],
+    "beta_fixed": 0.0,
+    "delta_fixed": 0.0
+  },
+  "results": [
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.5,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.7,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 0.9,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.0,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.05,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.1,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.0,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.05,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    },
+    {
+      "alpha": 1.0,
+      "beta": 0.0,
+      "gamma": 0.2,
+      "delta": 0.0,
+      "epsilon": 0.1,
+      "mean_recall_at_5": 0.0,
+      "std_recall_at_5": 0.0,
+      "n_samples": 500
+    }
+  ]
+}
