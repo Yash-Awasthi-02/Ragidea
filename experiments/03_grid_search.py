@@ -44,36 +44,44 @@ DELTA_FIXED = 0.0   # no domain signal
 def get_gold_nodes(record: dict) -> set[int]:
     """
     Map supporting facts to graph node indices.
-    Supports both HotpotQA/2Wiki (sentence-level) and MuSiQue (paragraph-level).
+    Uses the same mapping logic as 05_evaluate.py for consistency.
     """
     gold = set()
     G = record["graph"]["G"]
-    supporting_facts = record.get("supporting_facts", [])
+    nodes = record["graph"]["nodes"]
+    sf = record.get("supporting_facts", {})
 
-    # HotpotQA / 2Wiki: list of [title, sent_idx] pairs
-    for sf in supporting_facts:
-        if isinstance(sf, (list, tuple)) and len(sf) == 2:
-            title, sent_idx = sf
-            for node in G.nodes:
-                if (G.nodes[node].get("doc_title") == title and
-                        G.nodes[node].get("sent_idx") == sent_idx):
-                    gold.add(node)
+    # HotpotQA/2Wiki format: {"title": [...], "sent_id": [...]}
+    if isinstance(sf, dict) and "title" in sf:
+        gold_set = set(zip(sf["title"], sf["sent_id"]))
+        for i, node in enumerate(nodes):
+            if (node["doc_title"], node["sent_idx"]) in gold_set:
+                gold.add(i)
+
+    # Fallback: list of [title, sent_idx] pairs
+    elif isinstance(sf, list):
+        for pair in sf:
+            if isinstance(pair, (list, tuple)) and len(pair) == 2:
+                title, sent_idx = pair
+                for i, node in enumerate(nodes):
+                    if node["doc_title"] == title and node["sent_idx"] == sent_idx:
+                        gold.add(i)
 
     # MuSiQue: paragraph-level is_supporting flag
     if not gold:
-        for node in G.nodes:
-            if G.nodes[node].get("is_supporting", False):
-                gold.add(node)
+        for i, node in enumerate(nodes):
+            if node.get("is_supporting", False):
+                gold.add(i)
 
     return gold
 
 
 def recall_at_k(selected: list[int], gold: set[int], k: int = 5) -> float:
-    """Recall@k: fraction of gold nodes in top-k selected."""
+    """Recall@k: fraction of gold nodes in top-k selected (binary: 1.0 if all gold in top-k, else 0.0)."""
     if not gold:
-        return 0.0
+        return 1.0
     top_k = set(selected[:k])
-    return len(top_k & gold) / len(gold)
+    return float(all(g in top_k for g in gold))
 
 
 def run_grid_search(records: list[dict], max_samples: int = 500,
