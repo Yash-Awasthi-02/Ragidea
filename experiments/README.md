@@ -10,79 +10,81 @@ No-cost experiment pipeline for evaluating PATHFINDER on HotpotQA, 2WikiMultihop
 | NER | spaCy `en_core_web_sm` | Free, local |
 | Graph ops + PageRank | networkx | Free, local |
 | Domain embeddings | scikit-learn PCA | Free, local |
-| LLM generation | Groq API (Llama 3.3-70B) | Free tier, no credit card |
+| LLM generation | Groq API (Llama 3.3-70B) | Free tier |
 | Datasets | HuggingFace `datasets` | Free |
-
-**Estimated compute cost: < $0** (Groq free tier covers all queries)
-**Estimated disk: ~1.1 GB packages + ~650 MB data/output**
 
 ## Setup
 
 ```bash
-# 1. Install PyTorch CPU-only (saves ~4 GB vs default)
-pip install torch --index-url https://download.pytorch.org/whl/cpu
-
-# 2. Install remaining dependencies
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
-
-# 3. Get Groq API key (free, no credit card)
-# https://console.groq.com/keys
-export GROQ_API_KEY=gsk_...
 ```
 
-## Run
+## Quick Start
 
 ```bash
-# Smoke test — 100 queries, ~5 min
-bash run_all.sh --fast
+# Build sentence-level KGs (HotpotQA, 500 samples)
+python experiments/01_build_kg.py --max_samples 500 --output data/hotpotqa_graphs.pkl
 
-# No LLM — Recall@5 only, no Groq needed
-bash run_all.sh --no_llm
+# Build passage-level KGs (Phase A2 — recommended)
+python experiments/01b_build_kg_passage.py --max_samples 500 --output data/hotpotqa_graphs_passage.pkl
 
-# Full run — 7405 queries, ~3 hours
-bash run_all.sh
+# Load 2Wiki / MuSiQue
+python experiments/02_load_2wiki_musique.py --dataset 2wiki --max_samples 500 --output data/2wiki_graphs.pkl
+python experiments/02_load_2wiki_musique.py --dataset musique --max_samples 500 --output data/musique_graphs.pkl
 
-# Visualise σ calibration after run
-python 06_plot_sigma.py --results results/results.json
+# Evaluate (no LLM needed)
+python experiments/05_evaluate.py --graphs data/hotpotqa_graphs.pkl --max_samples 500 --output results/hotpotqa_eval.json
+
+# Print consolidated metrics
+python experiments/print_metrics.py
+
+# Generate plots
+python results/make_plots.py
 ```
 
-## Files
+## Experiment Scripts
 
-| File | Purpose |
-|---|---|
-| `01_build_kg.py` | Build per-query KGs from HotpotQA candidate documents |
-| `02_load_2wiki_musique.py` | Load 2WikiMultihopQA and MuSiQue datasets |
-| `03_grid_search.py` | Hyperparameter grid search (α, γ, ε) — 48 configs |
-| `04_confidence_calibration.py` | Compare 3 σ models (product, geometric mean, bottleneck) |
-| `run_pathfinder.py` | Algorithm 1 — greedy submodular traversal with teleportation |
-| `run_baselines.py` | Naive RAG, BFS 2-hop, Spreading Activation |
-| `generate_answers.py` | Groq LLM generation + HotpotQA EM/F1 |
-| `05_evaluate.py` | All metrics (§7.5.1–7.5.9) with multi-granularity recall |
-| `06_plot_sigma.py` | σ calibration plots (bucket analysis + calibration curve) |
-| `print_metrics.py` | Print consolidated metrics from all benchmark evals |
-| `run_all.sh` | End-to-end orchestrator |
+| File | Phase | Purpose | API Key? |
+|---|---|---|---|
+| `01_build_kg.py` | — | Build sentence-level KGs from HotpotQA | No |
+| `01b_build_kg_passage.py` | A2 | Build passage-level KGs (~13 nodes/query) | No |
+| `02_load_2wiki_musique.py` | — | Load 2Wiki/MuSiQue datasets | No |
+| `03_grid_search.py` | 7 | Hyperparameter grid search (48 configs) | No |
+| `04_confidence_calibration.py` | 6 | Compare 3 σ models (product, geom, bottleneck) | Optional |
+| `05_evaluate.py` | — | Full evaluation (all metrics, multi-granularity) | Optional |
+| `05b_teleportation_ablation.py` | 5 | Pure Graph vs Teleport vs Naive RAG | No |
+| `05c_teleportation_sensitivity.py` | 5 | Sweep θ/TopK/MAX_TELEPORTS | No |
+| `05d_teleportation_impact.py` | 5 | Per-query teleportation impact | No |
+| `06_plot_sigma.py` | — | σ calibration plots | No |
+| `07_confidence_model_selection.py` | 6 | Train classifier to select σ model per query | No |
+| `08_nli_sufficiency.py` | 6 | NLI-based sufficiency check | No |
+| `09_bayesian_optimization.py` | 7 | Optuna TPE weight optimization | No |
+| `10_faiss_teleport.py` | 8 | FAISS vs numpy teleportation lookup | No |
+| `11_multi_vector_teleport.py` | 8 | Domain-aware teleportation | No |
+| `12_learned_teleport_threshold.py` | 8 | Learn when to trigger teleportation | No |
+| `13_dynamic_edge_synthesis.py` | 8 | Synthesize edges between clusters | No |
+| `14_bandit_weight_learning.py` | 9 | Thompson Sampling weight exploration | No |
+| `15_llm_reranking.py` | 10 | LLM reranking of PATHFINDER candidates | **Yes** |
+| `16_llm_guided_traversal.py` | 10 | LLM selects frontier nodes | **Yes** |
+| `17_nli_path_verification.py` | 10 | NLI entailment on root-to-leaf paths | No |
+| `18_llm_sufficiency_oracle.py` | 10 | LLM-based sufficiency check | **Yes** |
+| `19_heterogeneous_llms.py` | 12 | Evaluate with different Groq models | **Yes** |
+| `20_latency_profiling.py` | 12 | Fine-grained timing breakdown | No |
+| `21_graph_connectivity.py` | 8 | Correlate connectivity with R@5 gap | No |
+| `23_hybrid_retrieval.py` | B | Dense-anchor, interleaving, two-stage | No |
+| `25_rerank_eval.py` | C | Full eval with LLM reranking integrated | **Yes** |
+| `run_pathfinder.py` | — | Algorithm 1 implementation | No |
+| `run_baselines.py` | — | Naive RAG, BFS, Spreading Activation | No |
+| `generate_answers.py` | — | Groq LLM generation + EM/F1 | **Yes** |
+| `print_metrics.py` | — | Print consolidated metrics | No |
 
-## Metrics
+## Key Results
 
-| Metric | What it validates |
-|---|---|
-| Recall@5 | Retrieval coverage vs. baselines |
-| EM / F1 | End-to-end answer quality |
-| Node Expansion Rate | Traversal efficiency |
-| Latency p50/p95 | Production viability |
-| **σ Calibration** | **Core claim: path confidence predicts answer correctness** |
-| Post-feedback Δ Recall@5 | Online learning effectiveness |
-| Anchor quality rank | Entry node selection quality |
-| Weight ablation | Validates α>β=γ>δ=ε ordering |
-
-## Expected Results (empirical — N=500 per dataset)
-
-| System | HotpotQA Recall@5 | HotpotQA Recall@10 |
+| Configuration | R@5 | vs Naive RAG |
 |---|---|---|
-| Naive RAG | 0.3100 | 0.3100 |
-| BFS 2-hop | 0.1400 | 0.3020 |
-| Spreading Activation | 0.1900 | 0.3520 |
-| **PATHFINDER** | **0.2680** | **0.3500** |
-
-σ calibration: Product σ collapses to min=0.0077; geometric mean (min=0.272) and bottleneck (min=0.300) models address decay. Spearman ρ pending LLM evaluation.
+| PATHFINDER (sentence, original) | 0.257 | -12.3% |
+| PATHFINDER (passage, original) | 0.644 | -9.0% |
+| Dense-Anchor Hybrid (passage) | **0.708** | **0.0%** (matches) |
+| Naive RAG (passage) | 0.708 | — |
+| PATHFINDER + LLM Rerank (sentence) | 0.320 | +3.2% |
