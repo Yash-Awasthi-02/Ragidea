@@ -1147,42 +1147,44 @@ A full evaluation on HotpotQA distractor (validation split, N=7,405 queries) was
 
 **Full Benchmark Comparison Table (§7.6.3):**
 
-| System | HotpotQA R@5 | HotpotQA EM | 2Wiki R@5 | 2Wiki EM | MuSiQue EM |
-|---|---|---|---|---|---|
-| Naive RAG | 0.2932 | not run | not run | not run | not run |
-| Spreading Activation | 0.1939 | not run | not run | not run | not run |
-| BFS 2-hop | 0.1483 | not run | not run | not run | not run |
-| IRCoT (Trivedi et al., 2022) | 0.81–0.87† | 56.5–61.2† | not run | not run | not run |
-| SubgraphRAG (Li et al., 2024) | N/A† | 41.2–47.8† | not run | not run | not run |
-| PCR (arXiv:2511.18313) | 0.785–0.820† | 45.0–50.3† | not run | not run | not run |
-| HippoRAG 2 (Gutiérrez et al., 2025) | 0.864–0.891† | 49.8–54.2† | not run | not run | not run |
-| **PATHFINDER** | **0.1642** | **0.0066** | not run | not run | not run |
+| System | HotpotQA R@5 | HotpotQA EM | 2Wiki R@5 | 2Wiki EM | MuSiQue R@5 | MuSiQue EM |
+|---|---|---|---|---|---|---|
+| Naive RAG | 0.2930 | 0.0068† | 0.3247 | 0.0020† | 0.0041 | 0.0017† |
+| Spreading Activation | 0.1926 | — | 0.2348 | — | 0.0157 | — |
+| BFS 2-hop | 0.1490 | — | 0.1817 | — | 0.0145 | — |
+| IRCoT (Trivedi et al., 2022) | 0.81–0.87‡ | 56.5–61.2‡ | not run | not run | not run | not run |
+| SubgraphRAG (Li et al., 2025) | N/A‡ | 41.2–47.8‡ | not run | not run | not run | not run |
+| PCR (arXiv:2511.18313) | 0.785–0.820‡ | 45.0–50.3‡ | not run | not run | not run | not run |
+| HippoRAG 2 (Gutiérrez et al., 2025) | 0.864–0.891‡ | 49.8–54.2‡ | not run | not run | not run | not run |
+| **PATHFINDER** | **0.2567** | **0.0068†** | **0.2347** | **0.0020†** | **0.0083** | **0.0017†** |
+| **PATHFINDER R@10** | **0.3352** | — | **0.3725** | — | **0.0124** | — |
 
-†Literature-reported ranges from published papers (see `results/literature_audit.md` for sources). These baselines use full-passage context and stronger generator LLMs (GPT-3.5/4, Llama-3); PATHFINDER uses sentence-level nodes with all-MiniLM-L6-v2 embeddings and Groq Llama 3.3-70B. All PATHFINDER metrics trace directly to the full 7,405-query logged evaluation (`results/results_full.json`).
+†EM/F1 near-zero because no GROQ_API_KEY was set for full-scale runs (LLM answers not generated). N=200 subset with 70B LLM achieved EM=0.235, F1=0.323.
+‡Literature-reported ranges from published papers (see `results/literature_audit.md` for sources). These baselines use full-passage context and stronger generator LLMs (GPT-3.5/4, Llama-3); PATHFINDER uses sentence-level nodes with all-MiniLM-L6-v2 embeddings.
 
-#### 7.6.4 Multi-Benchmark Evaluation Results (Phase 2, N=500 per dataset)
+#### 7.6.4 Full-Scale Multi-Benchmark Evaluation Results (N=7,405 / 12,576 / 2,417)
 
-Cross-dataset evaluation across three multi-hop QA benchmarks with multi-granularity metrics:
+Full-scale evaluation across all three multi-hop QA benchmarks with multi-granularity metrics:
 
 **Sentence-Level Recall@k:**
 
 | Algorithm | HotpotQA R@5 | HotpotQA R@10 | HotpotQA R@20 | 2Wiki R@5 | 2Wiki R@10 | 2Wiki R@20 | MuSiQue R@5 | MuSiQue R@10 | MuSiQue R@20 |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **PATHFINDER** | 0.2680 | **0.3500** | 0.3500 | 0.2260 | **0.3340** | 0.3360 | 0.0060 | 0.0100 | 0.0100 |
-| **Naive RAG** | **0.3100** | 0.3100 | 0.3100 | **0.3040** | 0.3040 | 0.3040 | 0.0040 | 0.0040 | 0.0040 |
-| **Spreading Activation** | 0.1900 | 0.3520 | **0.6360** | 0.2340 | 0.4440 | **0.6780** | 0.0320 | 0.0740 | **0.1560** |
-| **BFS 2-Hop** | 0.1400 | 0.3020 | 0.5800 | 0.1680 | 0.3680 | 0.6300 | 0.0280 | 0.0660 | 0.1420 |
+| **PATHFINDER** | 0.2567 | **0.3352** | 0.3373 | 0.2347 | **0.3725** | 0.3781 | 0.0083 | 0.0124 | 0.0124 |
+| **Naive RAG** | **0.2930** | 0.2930 | 0.2930 | **0.3247** | 0.3247 | 0.3247 | 0.0041 | 0.0041 | 0.0041 |
+| **Spreading Activation** | 0.1926 | 0.3456 | **0.5991** | 0.2348 | 0.4404 | **0.6984** | **0.0157** | 0.0455 | **0.0976** |
+| **BFS 2-Hop** | 0.1490 | 0.2998 | 0.5561 | 0.1817 | 0.3714 | 0.6118 | 0.0145 | 0.0372 | 0.0869 |
 
 **Paragraph-Level Recall@5:**
 
-| Algorithm | HotpotQA | 2WikiMultihopQA | MuSiQue |
+| Algorithm | HotpotQA (N=7,405) | 2Wiki (N=12,576) | MuSiQue (N=2,417) |
 | :--- | :---: | :---: | :---: |
-| **PATHFINDER** | 0.7080 | 0.6907 | 0.6170 |
-| **Naive RAG** | **0.7530** | **0.7488** | 0.6160 |
-| **Spreading Activation** | 0.6490 | 0.7205 | **0.6630** |
-| **BFS 2-Hop** | 0.5540 | 0.6312 | 0.5460 |
+| **PATHFINDER** | 0.7080 | 0.6942 | 0.5323 |
+| **Naive RAG** | **0.7474** | **0.7641** | **0.5531** |
+| **Spreading Activation** | 0.6531 | 0.7143 | 0.5430 |
+| **BFS 2-Hop** | 0.5660 | 0.6369 | 0.4558 |
 
-**Fractional Recall@k (PATHFINDER only, continuous metric):**
+**Fractional Recall@k (PATHFINDER):**
 
 | Dataset | FracR@5 | FracR@10 | FracR@20 |
 | :--- | :---: | :---: | :---: |
@@ -1190,19 +1192,53 @@ Cross-dataset evaluation across three multi-hop QA benchmarks with multi-granula
 | 2WikiMultihopQA | 0.5183 | 0.6068 | 0.6078 |
 | MuSiQue | 0.2689 | 0.3071 | 0.3087 |
 
-**Key Findings:**
+**Latency and Efficiency:**
 
-1. **PATHFINDER Surpasses Naive RAG at Recall@10:** On both HotpotQA (0.3500 vs 0.3100) and 2Wiki (0.3340 vs 0.3040), PATHFINDER outperforms Naive RAG when the retrieval budget is expanded from k=5 to k=10. Naive RAG plateaus at all k values because it returns a fixed top-5 dense ranking. PATHFINDER's graph traversal discovers additional relevant nodes through structural expansion that dense retrieval misses.
+| Dataset | N | Mean Nodes/Query | Latency p50 (ms) | Latency p95 (ms) |
+| :--- | :---: | :---: | :---: | :---: |
+| HotpotQA | 7,405 | 6.08 | 1.61 | 6.54 |
+| 2Wiki | 12,576 | 6.71 | 1.30 | 5.86 |
+| MuSiQue | 2,417 | 7.21 | 3.32 | 14.39 |
 
-2. **Dense Retrieval Advantage at k=5:** Naive RAG maintains an edge at Recall@5 on HotpotQA (0.3100 vs 0.2680) and 2Wiki (0.3040 vs 0.2260) due to disconnected graph components. The teleportation operator (§4.2) is designed to bridge this gap; full teleportation ablation results are pending.
+**Coverage Ratio (Theorem 2 Verification):**
 
-3. **Spreading Activation Dominates at k=20:** SA achieves the highest Recall@20 across all datasets (HotpotQA: 0.6360, 2Wiki: 0.6780, MuSiQue: 0.1560) because its activation propagation covers a broader graph neighborhood. However, this comes at the cost of lower precision at k=5.
+| Dataset | Mean Ratio | ≥ 63.2% (Bound) | ≥ 80% | FC Violations |
+| :--- | :---: | :---: | :---: | :---: |
+| HotpotQA | 1.0097 | 100.00% | 99.50% | 0 (0.00%) |
+| 2Wiki | 1.0093 | 100.00% | 97.00% | 0 (0.00%) |
+| MuSiQue | 0.9954 | 100.00% | 100.00% | 0 (0.00%) |
 
-4. **Paragraph-Level Competitiveness:** PATHFINDER achieves Paragraph-Recall@5 of 0.7080 on HotpotQA and 0.6907 on 2Wiki, within 5-6% of Naive RAG (0.7530, 0.7488). On MuSiQue, PATHFINDER matches Naive RAG exactly (0.6170 vs 0.6160), demonstrating that graph-based retrieval identifies the correct supporting paragraphs even when sentence-level matching is too strict.
+**σ Calibration:**
 
-5. **MuSiQue Sentence-Level Challenge:** All systems produce near-zero sentence-level Recall@5 on MuSiQue due to 4-hop queries with many supporting sentences per paragraph. Paragraph-Recall@5 (0.617) and Fractional Recall@5 (0.269) provide more meaningful signal, confirming that the retrieval is finding relevant content but the strict sentence-matching metric is artificially punitive.
+| Dataset | Spearman ρ | p-value | ECE | Proceed EM | Hedge EM | Re-trav EM |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| HotpotQA | -0.0078 | 0.5037 | 0.4105 | 0.0085 | 0.0032 | 0.0141 |
+| 2Wiki | -0.0315 | 0.0004 | 0.4056 | 0.0011 | 0.0006 | 0.0057 |
+| MuSiQue | 0.0092 | 0.6523 | 0.3714 | 0.0036 | 0.0014 | 0.0014 |
 
-6. **Fractional Recall Reveals Partial Coverage:** PATHFINDER's Fractional Recall@5 of 0.5591 on HotpotQA means that on average, 56% of gold sentences are in the top-5 retrieved — a substantially more optimistic picture than the binary Recall@5 of 0.2680 (which requires *all* gold sentences to be in top-5).
+**Anchor Quality:**
+
+| Dataset | Median Rank | Top-1 % | Top-3 % | Top-5 % |
+| :--- | :---: | :---: | :---: | :---: |
+| HotpotQA | 1.0 | 57.81% | 80.13% | 87.42% |
+| 2Wiki | 1.0 | 63.48% | 82.05% | 88.35% |
+| MuSiQue | 1.0 | 70.05% | 86.43% | 91.31% |
+
+**Key Findings (Full-Scale):**
+
+1. **PATHFINDER Surpasses Naive RAG at Recall@10 on HotpotQA (+14.4%) and 2Wiki (+14.7%):** At full scale (N=7,405 and N=12,576), PATHFINDER's graph traversal discovers relevant nodes that dense retrieval misses when given a slightly larger budget. Naive RAG plateaus at all k values because it returns a fixed top-5 ranking.
+
+2. **Naive RAG Wins at Recall@5:** Dense retrieval outperforms graph traversal at k=5 on HotpotQA (0.293 vs 0.257) and 2Wiki (0.325 vs 0.235) due to disconnected graph components limiting frontier expansion.
+
+3. **Coverage Ratio Confirms (1−1/e) Guarantee:** 100% of tested graphs meet the theoretical bound (mean ratio 1.01, zero FC violations across all datasets). The greedy algorithm achieves near-optimal coverage on real knowledge graphs.
+
+4. **σ Calibration is Poor:** Spearman ρ is near-zero or slightly negative on all datasets (HotpotQA: -0.008, 2Wiki: -0.032, MuSiQue: 0.009). The product confidence model does not predict answer correctness. ECE is high (0.37–0.41). This confirms that the product σ model requires replacement with geometric mean or bottleneck models (§4.3), and that EM/F1 are near-zero without a capable generator LLM (no GROQ_API_KEY was set for full-scale runs).
+
+5. **Anchor Quality is Strong:** The entry node (argmax cosine similarity) is in the top-1 gold node 58–70% of the time, and in the top-5 87–91% of the time. Entry node selection is not the bottleneck.
+
+6. **Latency is Production-Viable:** Mean traversal time 1.3–3.3ms (p50), 5.9–14.4ms (p95) across all datasets. The algorithm processes 7,405 queries in ~9 hours (including ablation and coverage ratio computation), or ~4.5ms/query for traversal alone.
+
+7. **Weight Ablation Confirms Semantic-Only Optimal:** On all three datasets, semantic-only weights (α=1.0, β=γ=δ=ε=0) achieve the highest Recall@5. Adding structural weight (γ=0.15) reduces R@5 by 52% on HotpotQA (0.257→0.121) and 17% on 2Wiki (0.235→0.196).
 
 #### 7.6.5 Phase 2: Hybridization, Teleportation & Calibration
 
