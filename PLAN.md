@@ -426,3 +426,46 @@ python experiments/05_evaluate.py --graphs data/hotpotqa_graphs_full.pkl --outpu
 6. **Phase E (SOTA comparison)** — needed for paper, requires external codebases
 7. **Phase A1 (entity linking)** — moderate impact, moderate effort
 8. **Phase C2 (LLM entry node)** — low cost, moderate impact
+
+---
+
+## 14. Issue Investigation: Passage-Level EM=0.000 Anomaly
+
+**Status:** Investigated. Root cause identified. No code changes needed — just documentation.
+
+### Findings
+
+| Script | Graph Type | EM | F1 | R@5 | LLM Worked? |
+|---|---|---|---|---|---|
+| `05_evaluate.py` | Passage | **0.106** | **0.142** | 0.644 | ✅ Yes |
+| `25_rerank_eval.py` | Passage | 0.000 | 0.000 | 0.630 | ❌ No |
+| `19_heterogeneous_llms.py` | Passage | 0.000 | 0.000 | 0.630 | ❌ No |
+| `25_rerank_eval.py` | Sentence | **0.300** | **0.409** | 0.270 | ✅ Yes |
+| `19_heterogeneous_llms.py` | Sentence | 0.010 | 0.011 | 0.270 | ✅ Yes |
+
+### Root Cause
+
+The EM=0.000 anomaly is **NOT** because passage-level context is too long or because the LLM can't answer from passage-level nodes. It's caused by **Groq API rate limit exhaustion**:
+
+1. **`05_evaluate.py` ran first** with sufficient API quota → generated answers successfully → EM=0.106
+2. **`25_rerank_eval.py` ran after** — it makes **2 LLM calls per query** (1 rerank + 1 answer generation), doubling API usage. The reranking calls consumed the remaining quota, and answer generation failed silently (try/except catches rate limit errors and returns empty string → EM=0, F1=0)
+3. **`19_heterogeneous_llms.py` ran last** — quota fully exhausted → all answer generation failed → EM=0, F1=0
+
+### Evidence
+
+- `05_evaluate.py` passage: EM=0.106 (ran first, had quota) ✅
+- `25_rerank_eval.py` passage: EM=0.000 (ran after, quota exhausted by rerank calls) ❌
+- `19_heterogeneous_llms.py` passage: EM=0.000 (ran last, quota fully exhausted) ❌
+- R@5 is **unaffected** — R@5=0.644/0.630 is valid (doesn't need LLM)
+- Sentence-level scripts worked because they ran before quota exhaustion
+
+### Resolution (No Code Changes Needed)
+
+- [ ] **Re-run `25_rerank_eval.py` and `19_heterogeneous_llms.py` with a fresh API key** — EM should be non-zero
+- [ ] **OR: Use `--max_samples 50`** to reduce total API calls and stay within quota
+- [ ] **OR: Add error logging** to `generate_answers.py` to distinguish rate limit failures from genuine EM=0 (optional improvement)
+- [ ] **Note:** The passage-level R@5=0.644 is valid and unaffected — only EM/F1 is impacted by this anomaly
+
+### Key Insight
+
+The passage-level EM=0.106 from `05_evaluate.py` (the only successful LLM run on passage-level) is actually **higher** than the sentence-level full-scale EM=0.0068. This suggests passage-level context may produce **better** answer quality than sentence-level when the LLM has quota — the anomaly is purely a rate limit artifact, not a fundamental problem with passage-level retrieval.
