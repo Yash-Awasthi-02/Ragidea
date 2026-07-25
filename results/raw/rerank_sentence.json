@@ -1,0 +1,2023 @@
+{
+  "summary": {
+    "n_queries": 100,
+    "pathfinder": {
+      "r5": 0.27,
+      "r10": 0.33,
+      "em": 0.3,
+      "f1": 0.4077
+    },
+    "pathfinder_rerank": {
+      "r5": 0.33,
+      "r10": 0.33,
+      "em": 0.29,
+      "f1": 0.4088
+    },
+    "naive_rag": {
+      "r5": 0.36,
+      "r10": 0.49
+    }
+  },
+  "per_query": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in t",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of comp",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.6667
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York ci",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 3
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their pe",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 10
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.6667,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.125
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.2963
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 13
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What is the name of the fight song of the university whose main campus is in Law",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.75,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.75
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas ",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.5
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzen",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "The football manager who recruited David Beckham managed Manchester United durin",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.5333
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Brown State Fishing Lake is in a country that has a population of how many inhab",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "The Vermont Catamounts men's soccer team currently competes in a conference that",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 3
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs durin",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.8571,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.6667
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Which other Mexican Formula One race car driver has held the podium besides the ",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.5714
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Aside from the Apple Remote, what other device can control the program Apple Rem",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy o",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.4,
+        "n_nodes": 13
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.4
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "What was the father of Kasper Schmeichel voted to be by the IFFHS in 1992?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.8571,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.8571
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Who was the writer of These Boots Are Made for Walkin' and who died in 2007?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.25,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.25
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "The 2011\u201312 VCU Rams men's basketball team, led by third year head coach Shaka S",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 3
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Are both Dictyosperma, and Huernia described as a genus?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Kaiser Ventures corporation was founded by an American industrialist who became ",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.4444,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.4444
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What is the name for the adventure in \"Tunnels and Trolls\", a game designed by K",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "When was Poison's album \"Shut Up, Make Love\" released?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.2857,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.2857
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.25,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.25
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Alexander Kerensky was defeated and destroyed by the Bolsheviks in the course of",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Seven Brief Lessons on Physics was written by an Italian physicist that has work",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "The Livesey Hal War Memorial commemorates the fallen of which war, that had over",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Are both Elko Regional Airport and Gerald R. Ford International Airport located ",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.25,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Ralph Hefferline was a psychology professor at a university that is located in w",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier o",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Where is the company that Sachin Warrier worked for as a software engineer headq",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.25,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "A Japanese manga series based on a 16 year old high school student Ichitaka Seto",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "The battle in which Giuseppe Arimondi lost his life secured what for Ethiopia?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.6667,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.6667
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Alfred Balk served as the secretary of the Committee on the Employment of Minori",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 9
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "A medieval fortress in Dirleton, East Lothian, Scotland borders on the south sid",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Who is the writer of this song that was inspired by words on a tombstone and was",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "What type of forum did a former Soviet statesman initiate?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Are Ferocactus and Silene both types of plant?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Which British first-generation jet-powered medium bomber was used in the South W",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Which year and which conference was the 14th season for this conference as part ",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "In 1991 Euromarch\u00e9 was bought by a chain that operated how any hypermarkets at t",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What race track in the midwest hosts a 500 mile race eavery May?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "In what city did the \"Prince of tenors\" star in a film based on an opera by Giac",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Ellie Goulding worked with what other writers on her third studio album, Deliriu",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 3
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Which Australian city founded in 1838 contains a boarding school opened by a Pri",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "D1NZ is a series based on what oversteering technique?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 11
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "who is younger Keith Bostic or Jerry Glanville ?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "According to the 2001 census, what was the population of the city in which Kirto",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Are both Cypress and Ajuga genera?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.2,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.1538
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What distinction is held by the former NBA player who was a member of the Charlo",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "What is the name of the executive producer of the film that has a score composed",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 3
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Who was born earlier, Emma Bull or Virginia Woolf?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 2
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What was the Roud Folk Song Index of the nursery rhyme inspiring What Are Little",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Scott Parkin has been a vocal critic of Exxonmobil and another corporation that ",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.8889,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.8889
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What WB supernatrual drama series was Jawbreaker star Rose Mcgowan best known fo",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Vince Phillips held a junior welterweight title by an organization recognized by",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "What is the name of the singer who's song was released as the lead single from t",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "who is the younger brother of The episode guest stars of The Hard Easy ",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 10
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "The 2017\u201318 Wigan Athletic F.C. season will be a year in which the team competes",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.5,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.5
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Which of Tara Strong major voice role in animated series is an American animated",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.9091,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.9091
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What is the inhabitant of the city where  122nd SS-Standarte was formed in2014",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 10
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What color clothing do people of the Netherlands wear during Oranjegekte or to c",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What was the name of the 1996 loose adaptation of William Shakespeare's \"Romeo &",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Robert Suettinger was the national intelligence officer under which former Gover",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.4,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.4
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "What American professional Hawaiian surfer born 18 October 1992 won the Rip Curl",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "What is the middle name of the actress who plays Bobbi Bacha in Suburban Madness",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Alvaro Mexia had a diplomatic mission with which tribe of indigenous people?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 9
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "What nationality were social anthropologists Alfred Gell and Edmund Leach?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "In which year was the King who made the 1925 Birthday Honours born?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "What is the county seat of the county where East Lempster, New Hampshire is loca",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 3
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "The Album Against the Wind was the 11th Album of a Rock singer Robert C Seger bo",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Rostker v. Goldberg held that the practice of what way of filling armed forces v",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Handi-Snacks are a snack food product line sold by what American multinational c",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.8,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.8
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "What was the name of a woman from the book titled \"Their Lives: The Women Target",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "When was the American lawyer, lobbyist and political consultant who was a senior",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "In what year was the novel that Louren\u00e7o Mutarelli based \"Nina\" on based first p",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 8
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Where are Teide National Park and Garajonay National Park located?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.25,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.25
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "How many copies of Roald Dahl's variation on a popular anecdote sold?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "What occupation do Chris Menges and Aram Avakian share?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.6667,
+        "n_nodes": 16
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 0,
+        "f1": 0.6667
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Andrew Jaspan was the co-founder of what not-for-profit media outlet?",
+      "pathfinder": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 9
+      },
+      "pathfinder_rerank": {
+        "r5": 1,
+        "r10": 1,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Which American film director hosted the 18th Independent Spirit Awards in 2002?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Where does the hotel and casino located in which Bill Cosby's third album was re",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 5
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Do the drinks Gibson and Zurracapote both contain gin?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "In what month is the annual documentary film festival, that is presented by the ",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 7
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Tysons Galleria is located in what county?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 4
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Bordan Tkachuk was the CEO of a company that provides what sort of products?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0,
+        "n_nodes": 9
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    },
+    {
+      "question": "Which filmmaker was known for animation, Lev Yilmaz or Pamela B. Green?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0588,
+        "n_nodes": 2
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.0465
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "In which city is the ambassador of the Rabat-Sal\u00e9-K\u00e9nitra administrative region ",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0,
+        "n_nodes": 2
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 1,
+        "r10": 1
+      }
+    },
+    {
+      "question": "Are Yingkou and Fuding the same level of city?",
+      "pathfinder": {
+        "r5": 0,
+        "r10": 0,
+        "em": 0,
+        "f1": 0.1667,
+        "n_nodes": 6
+      },
+      "pathfinder_rerank": {
+        "r5": 0,
+        "r10": 0,
+        "em": 1,
+        "f1": 1.0
+      },
+      "naive_rag": {
+        "r5": 0,
+        "r10": 0
+      }
+    }
+  ]
+}
