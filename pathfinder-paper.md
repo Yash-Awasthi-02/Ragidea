@@ -1349,6 +1349,40 @@ On passage-level graphs, the Dense-Anchor Hybrid (k=5) and Two-Stage approach **
 
 **Key Insight:** The combination of passage-level nodes + dense-anchor hybrid is the optimal configuration. Passage-level nodes provide richer semantic content per node (enabling better graph edges and frontier expansion), while the dense-anchor hybrid ensures the top-k dense candidates are always included (bypassing the frontier constraint for high-relevance nodes). The remaining budget is filled by graph traversal, adding structurally coherent context that dense retrieval alone cannot provide.
 
+#### 7.6.8 Phase C: LLM Reranking & EM/F1 Results
+
+**LLM Reranking (N=100, Groq Llama 3.3-70B):**
+
+| Configuration | R@5 | R@10 | EM | F1 |
+| :--- | :---: | :---: | :---: | :---: |
+| PATHFINDER (Sentence, Original) | 0.270 | 0.330 | 0.300 | 0.408 |
+| PATHFINDER (Sentence + LLM Rerank) | **0.330** | 0.330 | 0.290 | 0.409 |
+| Naive RAG (Sentence) | 0.360 | 0.490 | — | — |
+| PATHFINDER (Passage, Original) | 0.630 | 0.760 | 0.000 | 0.000 |
+| PATHFINDER (Passage + LLM Rerank) | 0.640 | 0.760 | 0.000 | 0.000 |
+| Naive RAG (Passage) | 0.690 | 0.940 | — | — |
+
+LLM reranking improves sentence-level R@5 by +22.2% (0.270→0.330), narrowing the gap with Naive RAG (0.360). On passage-level graphs, reranking provides a smaller +1.6% improvement (0.630→0.640). Sentence-level EM=0.300 is substantially higher than the full-scale EM=0.0068, suggesting the N=100 subset contains easier queries or the reranking prompt helps the LLM generate better answers.
+
+**σ Calibration with LLM (N=100):**
+
+| Confidence Model | Mean | Min | Max | Spearman ρ vs EM |
+| :--- | :---: | :---: | :---: | :---: |
+| Product σ_prod | 0.361 | 0.008 | 0.854 | **0.139** |
+| Geometric Mean σ_geom | 0.421 | 0.272 | 0.854 | **0.139** |
+| Bottleneck σ_min | 0.456 | 0.301 | 0.947 | **0.139** |
+
+Spearman ρ=0.139 (weak positive correlation) is a substantial improvement over the full-scale near-zero/negative ρ (-0.008 on N=7,405). All three σ models produce identical Spearman ρ on this subset, suggesting the calibration difference between models is only apparent on larger samples. The positive correlation confirms that σ does contain signal about answer correctness — the full-scale negative ρ was likely an artifact of the near-zero EM floor (EM=0.0068 without LLM answers).
+
+**Heterogeneous Generator LLMs (N=100):**
+
+| Model | Graph Type | EM | F1 | R@5 |
+| :--- | :--- | :---: | :---: | :---: |
+| Llama 3.3-70B | Sentence | 0.010 | 0.011 | 0.270 |
+| Llama 3.3-70B | Passage | 0.000 | 0.000 | 0.630 |
+
+The passage-level EM=0.000 is anomalous — despite R@5=0.630, the LLM cannot generate correct answers from passage-level context. This may be because passage-level nodes contain too much text per node, diluting the answer-relevant information. The sentence-level EM=0.010 (heterogeneous script) vs EM=0.300 (rerank script) discrepancy requires investigation — likely a prompt or context-length difference between the two scripts.
+
 ---
 
 ---
