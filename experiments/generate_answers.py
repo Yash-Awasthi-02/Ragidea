@@ -63,7 +63,8 @@ def generate_answer(question: str,
                     G: nx.DiGraph,
                     client: Groq,
                     model: str = PRIMARY_MODEL,
-                    max_retries: int = 4) -> str:
+                    max_retries: int = 4,
+                    _prebuilt_context: str = None) -> str:
     """
     Generate answer for a question given a list of retrieved node indices.
     Handles Groq rate limits with exponential backoff.
@@ -71,11 +72,17 @@ def generate_answer(question: str,
     Returns RATE_LIMITED sentinel if every retry failed due to rate-limit /
     quota exhaustion, so callers never mistake a corrupted run for EM=0.
     Returns "" only for non-rate-limit persistent failures.
+
+    `_prebuilt_context` (optional): a pre-assembled context string supplied by
+    answer_helper.answer_one so the UNIFIED context path and the legacy path
+    share this single rate-limit-safe retry loop (no duplicated API logic).
+    When provided, node_indices is used only for the empty-set guard.
     """
     if not node_indices:
         return "unanswerable"
 
-    context = build_context(node_indices, G)
+    context = _prebuilt_context if _prebuilt_context is not None \
+        else build_context(node_indices, G)
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user",   "content": f"Context:\n{context}\n\nQuestion: {question}"},

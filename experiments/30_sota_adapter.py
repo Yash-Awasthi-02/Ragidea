@@ -149,6 +149,87 @@ def list_pending() -> list:
     return [k for k, v in SYSTEMS.items() if "PENDING" in v]
 
 
+# ── Fairness gate (Inspection §F / PLAN §5.2) ────────────────────────────────
+# The inspection's C2-8 warning: comparing a 384-d MiniLM system to GPT-4-based
+# SOTA and calling the gap a "method gap" is not a comparison. This gate makes
+# the fairness requirement EXPLICIT and ENFORCED before any number is reported.
+
+# Our system's declared configuration (the reference every system is matched to).
+OUR_CONFIG = {
+    "encoder": "all-MiniLM-L6-v2",            # 384-d; BGE variant noted separately
+    "generator": "llama-3.3-70b-versatile",   # via Groq
+    "max_context_chars": 12000,
+}
+
+# Fairness verdicts
+FAIR = "FAIR"
+FAIR_WITH_NOTE = "FAIR_WITH_NOTE"
+UNFAIR = "UNFAIR"
+
+
+def fairness_check(system_name: str,
+                   encoder: str,
+                   generator: str) -> dict:
+    """
+    Gate every SOTA comparison through a matched-encoder / matched-generator
+    check BEFORE scoring. Returns a verdict + the note to attach to the table.
+
+    Rules:
+      * encoder != ours  → the retrieval comparison is confounded by embedding
+        strength (BGE/E5/GPT-embeddings lift EVERY system). Mark UNFAIR unless
+        explicitly reported as a separate "stronger-encoder" row.
+      * generator != ours → the EM/F1 comparison is confounded by generator
+        strength (GPT-4-class vs Llama-70B). Mark FAIR_WITH_NOTE and flag it.
+
+    A row may be reported only if verdict != UNFAIR, OR if it is clearly
+    labelled "different capacity" in the Notes column of the SOTA protocol table (paper §7.6.11).
+    """
+    notes = []
+    verdict = FAIR
+
+    if encoder != OUR_CONFIG["encoder"]:
+        verdict = UNFAIR
+        notes.append(
+            f"encoder mismatch: {system_name} uses '{encoder}' vs ours "
+            f"'{OUR_CONFIG['encoder']}' — retrieval gap is confounded by "
+            f"embedding strength, NOT a method gap. Report as a separate "
+            f"'stronger-encoder' row or re-run with the matched encoder."
+        )
+    if generator != OUR_CONFIG["generator"]:
+        if verdict == FAIR:
+            verdict = FAIR_WITH_NOTE
+        notes.append(
+            f"generator mismatch: {system_name} uses '{generator}' vs ours "
+            f"'{OUR_CONFIG['generator']}' — EM/F1 gap is confounded by "
+            f"generator strength. Flag in Notes; do NOT present as equal-capacity."
+        )
+
+    return {
+        "system": system_name,
+        "verdict": verdict,
+        "reportable": verdict != UNFAIR,
+        "notes": " ".join(notes) if notes else "matched encoder + generator",
+        "our_config": dict(OUR_CONFIG),
+    }
+
+
+def enforce_fairness(system_name: str,
+                     encoder: str,
+                     generator: str) -> None:
+    """
+    Hard gate: raise if the comparison is UNFAIR. Call this in the §6 adapter
+    for each external system BEFORE scoring, so an unfair row can never be
+    silently produced.
+    """
+    res = fairness_check(system_name, encoder, generator)
+    if not res["reportable"]:
+        raise ValueError(
+            f"UNFAIR comparison blocked for {system_name}: {res['notes']}"
+        )
+    if res["verdict"] == FAIR_WITH_NOTE:
+        print(f"  [fairness] NOTE for {system_name}: {res['notes']}")
+
+
 if __name__ == "__main__":
     # Smoke test on a toy in-memory example (no dataset, no LLM, no API).
     print("30_sota_adapter smoke test (toy data, no dataset/LLM)\n")

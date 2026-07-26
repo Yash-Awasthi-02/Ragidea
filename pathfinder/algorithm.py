@@ -208,10 +208,20 @@ def _greedy_traverse(
     tau_low: float = TAU_LOW,
     use_sufficiency: bool = True,
     use_sigma_break: bool = True,
+    cost_benefit: bool = False,
 ) -> TraversalResult:
     """
     Execute Algorithm 1 exactly as written in Section 4.2.
     Returns TraversalResult with S, F, σ, parent, confidence_flag.
+
+    If cost_benefit=True (Theorem 3 / D4), line 10c selects
+        v* ← argmax_{v ∈ FEASIBLE} Δ_full(v | S, q) / token_count(v)
+    instead of argmax Δ_full. This is the cost-benefit greedy of
+    Sviridenko (2004); combined with the partial-enumeration prefix in
+    `run_cost_benefit_greedy`, it yields the (1−1/e) guarantee for
+    HETEROGENEOUS token costs — which the plain greedy (uniform-cost
+    assumption of Theorem 2) does not. Default False preserves the
+    uniform-cost Algorithm 1 behaviour used by Theorem 2.
     """
     G = kg.G
 
@@ -266,12 +276,17 @@ def _greedy_traverse(
             break
 
         # ── Line 10c: v* ← argmax_{v ∈ FEASIBLE} Δ_full(v | S, q) ──────────
+        # Theorem 3 / D4 (cost_benefit=True): use gain-per-cost
+        #   v* ← argmax Δ_full(v|S,q) / token_count(v)
+        # so the shipped algorithm satisfies the heterogeneous-cost guarantee.
         best_v = None
         best_gain = -1.0
         for v in feasible:
             gain = marginal_gain(
                 v, rho, kg, alpha, beta, gamma, delta, epsilon
             )
+            if cost_benefit:
+                gain = gain / max(1, kg.token_count(v))
             if gain > best_gain:
                 best_gain = gain
                 best_v = v
@@ -353,6 +368,7 @@ class PathfinderGreedy:
         sufficiency_threshold: float = SUFFICIENCY_THRES,
         use_sufficiency: bool = True,
         use_sigma_break: bool = True,
+        cost_benefit: bool = False,
     ):
         self.k_tok = k_tok
         self.alpha = alpha
@@ -368,6 +384,7 @@ class PathfinderGreedy:
         self.sufficiency_threshold = sufficiency_threshold
         self.use_sufficiency = use_sufficiency
         self.use_sigma_break = use_sigma_break
+        self.cost_benefit = cost_benefit
 
     def run(self, kg: KnowledgeGraph) -> TraversalResult:
         """
@@ -402,6 +419,7 @@ class PathfinderGreedy:
                 tau_low=self.tau_low,
                 use_sufficiency=self.use_sufficiency,
                 use_sigma_break=self.use_sigma_break,
+                cost_benefit=self.cost_benefit,
             )
             result.retries = retry_count
             best_result = result
@@ -479,3 +497,11 @@ def brute_force_optimum(
     _enumerate([v0], initial_frontier)
 
     return best_F, best_S
+
+
+# NOTE: The Theorem-3 heterogeneous-cost algorithm (Sviridenko three-phase
+# cost-benefit greedy with partial-enumeration prefix) is implemented in
+# pathfinder/theory.py::cost_benefit_greedy, which is the canonical version.
+# The `cost_benefit` flag on _greedy_traverse (line 10c) is the theorem's
+# core change — gain-per-cost selection — kept here so the main algorithm
+# class can run in the theorem-satisfying mode directly.
