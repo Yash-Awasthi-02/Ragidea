@@ -248,7 +248,7 @@ def plot_multibenchmark_recall_curves():
     """
     Figure 1: Multi-Benchmark Recall@k curves.
     Reads results/raw/multibenchmark_recall.json if available.
-    Falls back to results/multi_benchmark.md values if raw data missing.
+    Falls back to hardcoded R@5 values (paper §7.6.4) if raw data missing.
     """
     raw_path = os.path.join(RAW_DIR, "multibenchmark_recall.json")
 
@@ -276,7 +276,7 @@ def plot_multibenchmark_recall_curves():
                 ax.plot(k_values, r_vals, marker="o", linewidth=2, markersize=8,
                         label=label, color=color)
         else:
-            # Fallback: use known R@5 values from multi_benchmark.md, extrapolate
+            # Fallback: use known R@5 values (paper §7.6.4), extrapolate
             fallback = {
                 "hotpotqa": {"pathfinder": 0.7307, "naive_rag": 0.7937,
                              "spreading_activation": 0.6974, "bfs_2hop": 0.6124},

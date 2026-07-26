@@ -29,7 +29,7 @@ PR_MAX_ITER = 100    # PageRank max iterations
 PHI_CONF_INIT = 0.95  # initial epistemic confidence (0.70 caused path-product σ to
                        # collapse: 0.70^5 × 0.50^4 ≈ 0.01, triggering re-traversal on
                        # every query and limiting mean node selection to 2.23/query vs
-                       # 7.18 at 0.95 — see experiments/analysis.md)
+                       # 7.18 at 0.95 — see paper §7.6.3)
 
 # ── Algorithm 1 (Section 4.2) ─────────────────────────────────────────────
 K_TOK             = 2048    # default token budget
