@@ -4,3 +4,7 @@ __pycache__/
 .pytest_cache/
 data/
 *.egg-info/
+
+# Raw evaluation dumps — keep committed history, ignore NEW eval outputs
+results/raw/
+*.log

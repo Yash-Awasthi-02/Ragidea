@@ -222,16 +222,25 @@ def sufficiency_check(product_factor: float,
 def _single_pass(G: nx.DiGraph, q_emb: np.ndarray, q_dom: np.ndarray,
                  phi_sem_q: np.ndarray, N: int,
                  weights: tuple, k_tok: int,
-                 enable_teleport: bool = True) -> tuple:
+                 enable_teleport: bool = True,
+                 always_dense: bool = False,
+                 teleport_gate: str = "gain") -> tuple:
     """
     One complete run of Algorithm 1.
     Returns (S, F, sigma, parent).
 
-    When enable_teleport=True, implements dynamic dense-frontier teleportation
-    jumps (Phase 2, Task 2.1): when max marginal gain on the frontier falls below
-    θ_teleport, inject TopK global dense nodes into the frontier to escape
-    disconnected graph components.
+    Teleportation modes (Phase 2, Task 2.1 / PLAN §2.5):
+      - enable_teleport=True, teleport_gate="gain"  : inject TopK dense nodes only
+        when max frontier marginal gain < θ_teleport (original behaviour).
+      - always_dense=True : add TopK global dense nodes to the frontier at EVERY
+        greedy step (teleportation becomes the default — "PATHFINDER-Flat").
+      - teleport_gate="connectivity" : only allow teleportation when the entry
+        node's connected component cannot already reach the dense candidates.
+
+    always_dense weakens the graph-coherence story; report as PATHFINDER-Flat vs
+    PATHFINDER-Coherent in the paper.
     """
+    import networkx as _nx  # local alias to avoid shadowing
     alpha, beta, gamma, delta, epsilon = weights
 
     # Line 0a — empty graph
@@ -293,13 +302,25 @@ def _single_pass(G: nx.DiGraph, q_emb: np.ndarray, q_dom: np.ndarray,
         if best_v is None:
             break
 
-        # ── Teleportation jump (Phase 2, Task 2.1) ───────────────────────
-        # When max marginal gain < θ_teleport and we haven't exhausted teleports,
-        # inject TopK global dense nodes (not already in S) into the frontier.
-        # This allows escaping disconnected graph components.
-        if (enable_teleport and best_gain < THETA_TELEPORT
-                and teleport_count < MAX_TELEPORTS
-                and global_dense_ranked is not None):
+        # ── Teleportation jump (Phase 2, Task 2.1 / PLAN §2.5) ───────────
+        # Decide whether to inject global dense nodes into the frontier now.
+        #   always_dense           → every step (PATHFINDER-Flat)
+        #   teleport_gate="gain"   → only when frontier gain < θ_teleport
+        #   teleport_gate="connectivity" → only when top dense nodes are NOT
+        #                            already reachable from S ∪ frontier
+        teleport_allowed = False
+        if enable_teleport and teleport_count < MAX_TELEPORTS \
+                and global_dense_ranked is not None:
+            if always_dense:
+                teleport_allowed = True
+            elif teleport_gate == "connectivity":
+                reachable = set(S_set) | set(frontier.keys())
+                top_dense = [int(c) for c in global_dense_ranked[:TELEPORT_TOPK]]
+                teleport_allowed = not any(c in reachable for c in top_dense)
+            else:  # "gain" gate (default)
+                teleport_allowed = best_gain < THETA_TELEPORT
+
+        if teleport_allowed:
             injected = 0
             for cand in global_dense_ranked:
                 cand = int(cand)
@@ -582,6 +603,195 @@ def run_pathfinder_multi_anchor(graph_data: dict,
                            confidence_flag=flag,
                            retries=0,  # multi-anchor doesn't track retries per anchor
                            parent=parent)
+
+
+# ── FIX 4: Dense-Anchor Hybrid (default retrieval mode) ───────────────────────
+def run_pathfinder_hybrid(graph_data: dict,
+                          n_anchors: int = 3,
+                          weights: tuple = None,
+                          k_tok: int = K_TOK) -> TraversalResult:
+    """
+    Dense-Anchor Hybrid retrieval (Phase B1, promoted to default).
+
+    Mechanism: take the top-`n_anchors` dense nodes as primary anchors (bypassing
+    the frontier constraint for anchors), then run greedy marginal-gain frontier
+    expansion from all anchors' neighbors to fill the remaining token budget.
+    Merge + deduplicate. Matches Naive RAG's recall while preserving graph-coherent
+    expansion context.
+
+    Guarantee: the (1−1/e) coverage bound applies to the greedy EXPANSION phase
+    per connected component anchored at a dense seed — NOT to the union across
+    anchors (anchors are injected outside any single connected frontier). See
+    paper §5 corollary (hybrid per-anchor guarantee).
+
+    Returns:
+        TraversalResult with S = anchors + expanded nodes in selection order.
+    """
+    if weights is None:
+        weights = (ALPHA, BETA, GAMMA, DELTA, EPSILON)
+
+    G         = graph_data["G"]
+    q_emb     = graph_data["q_emb"]
+    q_dom     = graph_data["q_dom"]
+    embs      = graph_data["embeddings"]
+    N         = graph_data["N"]
+    phi_sem_q = embs @ q_emb
+
+    if N == 0 or np.linalg.norm(q_emb) < 1e-8:
+        return TraversalResult(S=[], F=0.0, sigma=1.0,
+                               confidence_flag="HIGH", retries=0, parent={})
+
+    # Attach phi_dom arrays
+    phi_dom_matrix = graph_data["phi_dom_matrix"]
+    for i in range(N):
+        G.nodes[i]["phi_dom"] = phi_dom_matrix[i]
+
+    # Top-n_anchors dense nodes as primary anchors
+    ranked  = np.argsort(phi_sem_q)[::-1]
+    anchors = [int(a) for a in ranked[:n_anchors]]
+
+    S      = list(anchors)
+    S_set  = set(anchors)
+    parent = {a: None for a in anchors}
+
+    tok            = sum(tok_count(a, G) for a in anchors)
+    product_factor = 1.0
+    for a in anchors:
+        product_factor *= (1.0 - max(0.0, float(phi_sem_q[a])))
+
+    # Frontier = union of all anchors' successors
+    frontier: dict[int, int] = {}
+    for a in anchors:
+        for u in G.successors(a):
+            if u not in S_set and u not in frontier:
+                frontier[u] = a
+
+    # Greedy marginal-gain expansion within budget
+    while frontier and tok < k_tok:
+        rem      = k_tok - tok
+        feasible = {v: p for v, p in frontier.items()
+                    if tok_count(v, G) <= rem}
+        if not feasible:
+            break
+
+        best_v, best_gain = None, -1.0
+        for v in feasible:
+            g = delta_full_fast(v, G, q_dom, phi_sem_q, weights, product_factor)
+            if g > best_gain:
+                best_gain, best_v = g, v
+        if best_v is None:
+            break
+
+        S.append(best_v)
+        S_set.add(best_v)
+        parent[best_v] = feasible[best_v]
+        product_factor *= (1.0 - max(0.0, float(phi_sem_q[best_v])))
+        tok += tok_count(best_v, G)
+
+        del frontier[best_v]
+        for u in G.successors(best_v):
+            if u not in S_set and u not in frontier:
+                frontier[u] = best_v
+
+    sigma = compute_sigma(S, parent, G)
+    F     = compute_F(S, G, q_dom, phi_sem_q, weights)
+    flag  = "HIGH" if sigma >= TAU_HIGH else ("HEDGE" if sigma >= TAU_LOW else "LOW")
+
+    return TraversalResult(S=S, F=F, sigma=sigma,
+                           confidence_flag=flag, retries=0, parent=parent)
+
+
+# ── FIX 5: LLM Reranking as first-class post-processing + semantic cache ─────
+# Semantic cache: avoid re-calling the LLM for (near-)duplicate queries.
+_RERANK_CACHE: dict = {}   # {rounded_query_embedding_bytes: reranked_S}
+CACHE_THETA = 0.92         # cosine similarity threshold for a cache hit
+
+
+def _cache_key(q_emb: np.ndarray) -> bytes:
+    """Quantize embedding to 3 decimals for a stable, collision-tolerant key."""
+    return np.round(np.asarray(q_emb, dtype=np.float32), 3).tobytes()
+
+
+def _cache_lookup(q_emb: np.ndarray):
+    """Return cached reranked S if a cached query has cosine ≥ CACHE_THETA."""
+    q = np.asarray(q_emb, dtype=np.float32)
+    qn = np.linalg.norm(q)
+    if qn < 1e-8 or not _RERANK_CACHE:
+        return None
+    key = _cache_key(q_emb)
+    if key in _RERANK_CACHE:
+        return _RERANK_CACHE[key]
+    # Soft match: compare against cached keys
+    q_unit = q / qn
+    for k_bytes, val in _RERANK_CACHE.items():
+        cached = np.frombuffer(k_bytes, dtype=np.float32)
+        cn = np.linalg.norm(cached)
+        if cn < 1e-8:
+            continue
+        if float(np.dot(q_unit, cached / cn)) >= CACHE_THETA:
+            return val
+    return None
+
+
+def llm_rerank(question: str,
+               S: list[int],
+               G: nx.DiGraph,
+               client,
+               q_emb: np.ndarray = None,
+               model: str = "llama-3.3-70b-versatile",
+               use_cache: bool = True) -> list[int]:
+    """
+    Rerank PATHFINDER's selected set S with an LLM (relevance to question).
+
+    Post-retrieval monotone re-ordering of the *retrieved* set: it does NOT change
+    the (1−1/e) coverage guarantee, which holds at retrieval time. See paper note
+    on retrieval-time vs rerank-time guarantees.
+
+    Uses a semantic cache (cosine ≥ 0.92 on q_emb) to avoid duplicate API calls.
+    Falls back to original S on any error (never crashes the pipeline).
+    """
+    if not S or client is None:
+        return S
+
+    # Semantic cache hit → skip API call entirely
+    if use_cache and q_emb is not None:
+        cached = _cache_lookup(q_emb)
+        if cached is not None and set(cached) == set(S):
+            return cached
+
+    passages = []
+    for i, v in enumerate(S):
+        text = G.nodes[v].get("text", "")[:200]
+        passages.append(f"[{i}] {text}")
+
+    prompt = (f"Question: {question}\n\n"
+              f"Context passages (in PATHFINDER selection order):\n"
+              + "\n".join(passages) +
+              "\n\nRank these passages by relevance to answering the question. "
+              "Return ONLY a comma-separated list of indices, most to least "
+              "relevant. Example: 3,0,1,2,4\n\nRanking:")
+
+    try:
+        resp = client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0,
+            max_tokens=100,
+        )
+        ranking_str = resp.choices[0].message.content.strip()
+        indices  = [int(x.strip()) for x in ranking_str.split(",")
+                    if x.strip().isdigit()]
+        reranked = [S[i] for i in indices if i < len(S)]
+        for v in S:                       # append any nodes the LLM dropped
+            if v not in reranked:
+                reranked.append(v)
+
+        if use_cache and q_emb is not None:
+            _RERANK_CACHE[_cache_key(q_emb)] = reranked
+        return reranked
+    except Exception as e:                # never break the pipeline on rerank
+        print(f"  [llm_rerank] error (returning original order): {e}")
+        return S
 
 
 # ── CLI smoke test ────────────────────────────────────────────────────────────

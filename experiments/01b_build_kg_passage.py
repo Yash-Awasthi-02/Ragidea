@@ -19,6 +19,7 @@ nltk.download("punkt_tab", quiet=True)
 nltk.download("punkt", quiet=True)
 from nltk.tokenize import sent_tokenize
 
+# Default encoder; override with --encoder_model (PLAN §2.7).
 MODEL_NAME     = "all-MiniLM-L6-v2"
 THETA_EDGE     = 0.30
 W_ENTITY       = 0.70
@@ -29,9 +30,11 @@ MIN_PASSAGE_WORDS = 15  # minimum words for a passage to become a node
 
 
 class PassageKGBuilder:
-    def __init__(self):
-        print(f"Loading embedding model: {MODEL_NAME}")
-        self.embedder = SentenceTransformer(MODEL_NAME)
+    def __init__(self, encoder_model: str = MODEL_NAME):
+        print(f"Loading embedding model: {encoder_model}")
+        self.encoder_model = encoder_model
+        self.embedder = SentenceTransformer(encoder_model)
+
         print("Loading spaCy NER pipeline")
         self.nlp = spacy.load("en_core_web_sm", disable=["parser", "tagger", "lemmatizer"])
 
@@ -202,7 +205,11 @@ if __name__ == "__main__":
     parser.add_argument("--split", default="validation")
     parser.add_argument("--max_samples", type=int, default=None)
     parser.add_argument("--output", default="data/hotpotqa_graphs_passage.pkl")
+    parser.add_argument("--encoder_model", default=MODEL_NAME,
+                        help="Sentence-transformer encoder (default all-MiniLM-L6-v2). "
+                             "Use BAAI/bge-large-en-v1.5 or intfloat/e5-large-v2 (PLAN §2.7).")
     args = parser.parse_args()
+
 
     Path("data").mkdir(exist_ok=True)
 
@@ -210,8 +217,9 @@ if __name__ == "__main__":
     dataset = load_hotpotqa(args.split, args.max_samples)
     print(f"  {len(dataset)} examples")
 
-    builder = PassageKGBuilder()
+    builder = PassageKGBuilder(encoder_model=args.encoder_model)
     records = []
+
     skipped = 0
 
     for ex in tqdm(dataset, desc="Building passage KGs"):

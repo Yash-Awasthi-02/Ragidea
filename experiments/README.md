@@ -88,3 +88,14 @@ python results/make_plots.py
 | Dense-Anchor Hybrid (passage) | **0.708** | **0.0%** (matches) |
 | Naive RAG (passage) | 0.708 | — |
 | PATHFINDER + LLM Rerank (sentence) | 0.320 | +3.2% |
+
+## Data Validity Notice (2026-07-26)
+
+Four LLM-dependent result files were **deleted** because they were corrupted by
+**Groq free-tier rate-limit exhaustion**: `generate_answers.py` silently returned
+empty predictions after retries, which were scored as EM=0/F1=0. Affected files:
+`heterogeneous_llm_8b.json`, `heterogeneous_llm_70b_passage.json`,
+`heterogeneous_llm_70b_v2.json`, `rerank_passage.json`. Their **R@5 values were valid**
+(retrieval needs no LLM); only EM/F1 were garbage. They are **regenerated in PLAN.md
+§6.2** with a fresh API key. The generator now refuses to silently zero-out results —
+it flags `"quota_exhausted": true` and counts rate-limited queries instead.

@@ -37,6 +37,8 @@ nltk.download("punkt", quiet=True)
 from nltk.tokenize import sent_tokenize
 
 # ── Constants ─────────────────────────────────────────────────────────────────
+# Default encoder; override with --encoder_model (PLAN §2.7). MiniLM kept for
+# backward-compat; BGE/E5 give stronger semantic edges + dense retrieval.
 MODEL_NAME     = "all-MiniLM-L6-v2"
 THETA_EDGE     = 0.30   # semantic edge admission threshold
 W_ENTITY       = 0.70   # entity co-mention edge weight
@@ -48,9 +50,11 @@ MIN_SENT_LEN   = 8      # minimum words for a sentence to become a node
 
 # ── KG Builder ────────────────────────────────────────────────────────────────
 class KGBuilder:
-    def __init__(self):
-        print(f"Loading embedding model: {MODEL_NAME}")
-        self.embedder = SentenceTransformer(MODEL_NAME)
+    def __init__(self, encoder_model: str = MODEL_NAME):
+        print(f"Loading embedding model: {encoder_model}")
+        self.encoder_model = encoder_model
+        self.embedder = SentenceTransformer(encoder_model)
+
         print("Loading spaCy NER pipeline")
         # Only NER — disable parser and tagger for speed
         self.nlp = spacy.load("en_core_web_sm", disable=["parser", "tagger", "lemmatizer"])
@@ -219,7 +223,12 @@ if __name__ == "__main__":
     parser.add_argument("--max_samples", type=int, default=None,
                         help="Limit number of queries (None = full split)")
     parser.add_argument("--output",      default="data/hotpotqa_graphs.pkl")
+    parser.add_argument("--encoder_model", default=MODEL_NAME,
+                        help="Sentence-transformer encoder (default all-MiniLM-L6-v2). "
+                             "Use BAAI/bge-large-en-v1.5 or intfloat/e5-large-v2 for "
+                             "stronger edges/retrieval (PLAN §2.7).")
     args = parser.parse_args()
+
 
     Path("data").mkdir(exist_ok=True)
 
@@ -227,8 +236,9 @@ if __name__ == "__main__":
     dataset = load_hotpotqa(args.split, args.max_samples)
     print(f"  {len(dataset)} examples")
 
-    builder = KGBuilder()
+    builder = KGBuilder(encoder_model=args.encoder_model)
     records = []
+
     skipped = 0
 
     for ex in tqdm(dataset, desc="Building KGs"):

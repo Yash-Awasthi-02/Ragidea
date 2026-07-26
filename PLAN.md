@@ -1,471 +1,237 @@
-# PATHFINDER — Singular Master Plan & Optimization Pathway
+# PATHFINDER — Master Plan (v2)
 
 > **Project**: PATHFINDER — Submodular Coverage Maximization over Multidimensional Knowledge Graphs for Multi-Hop RAG
-> **Author**: Yash-Awasthi `<yashawasthi12032006@gmail.com>`
 > **Repo**: `https://github.com/Yash-Awasthi-02/Ragidea`
-> **Last Updated**: 2026-07-23
+> **Last Updated**: 2026-07-26
+> **Supersedes**: previous PLAN.md optimization pathway
 
 ---
 
-## Table of Contents
+## §0. CRITICAL OPERATING RULES — READ FIRST
 
-1. [Current State](#1-current-state)
-2. [Empirical Results Summary](#2-empirical-results-summary)
-3. [Honest Assessment](#3-honest-assessment)
-4. [Optimization Pathway — Phase A: Graph Construction](#4-optimization-pathway--phase-a-graph-construction)
-5. [Optimization Pathway — Phase B: Hybrid Retrieval](#5-optimization-pathway--phase-b-hybrid-retrieval)
-6. [Optimization Pathway — Phase C: LLM Integration](#6-optimization-pathway--phase-c-llm-integration)
-7. [Optimization Pathway — Phase D: Embedding & Scale](#7-optimization-pathway--phase-d-embedding--scale)
-8. [Optimization Pathway — Phase E: SOTA Comparison](#8-optimization-pathway--phase-e-sota-comparison)
-9. [Theoretical Work Remaining](#9-theoretical-work-remaining)
-10. [Repo Cleanup Checklist](#10-repo-cleanup-checklist)
-11. [Verification Commands](#11-verification-commands)
+These rules override everything else in this document.
 
----
+| # | Rule | Reason |
+|---|------|--------|
+| 1 | **NEVER run evaluations.** Evals take **9–18 hours**. They are the **ABSOLUTE LAST STEP** (§6), executed manually by the user. | Time / quota cost |
+| 2 | **NEVER run** `experiments/05*.py`, `15*.py`–`19*.py`, `25*.py`, `generate_answers.py`, or anything touching a dataset or the Groq API. | These are evals |
+| 3 | **NEVER push, open PRs, or rewrite git history.** Git PAT is provided by the user only when explicitly needed. | Repo safety |
+| 4 | When validation is required: state the **exact command**, the **expected output**, then **STOP and wait** for the user to run it and paste results. | Division of labor |
+| 5 | Everything that does **NOT** require an eval — cleaning, code fixes, theory, proofs, paper writing, refactors, test authoring — is done **FIRST** (§1–§5). | Maximize progress |
+| 6 | Before any code change: explain **WHY**, the **expected impact**, and the **theoretical implication** if applicable. | Scientific rigor |
 
-## 1. Current State
-
-```
-Phases 0–4:  COMPLETE (repo, benchmarks, teleportation, confidence, paper, tests)
-Phases 5–12: COMPLETE (18 experiment scripts, all evaluations run, results pushed)
-Issues:      8/8 RESOLVED
-Tests:       47/47 PASS
-Paper:       §4.1 submodularity scope clarified, §4.2 teleportation proof added,
-             §7.6.4–7.6.6 empirical results, §8 limitations updated
-```
-
-### What Works
-- Theoretical foundation is solid: proven submodularity, (1−1/e) guarantee, teleportation corollary
-- 47 unit tests verify all formal properties
-- Latency is production-viable (3.5ms mean, 7.1ms p95)
-- LLM reranking improves R@5 by +33.3% (0.24→0.32)
-- LLM-guided traversal improves R@5 by +50% (0.20→0.30)
-- Bandit weight learning converges (0.18→0.30)
-- 70B LLM achieves EM=0.235, F1=0.323 on retrieved context
-
-### What Doesn't Work (Yet)
-- Naive RAG beats PATHFINDER at R@5 on all datasets (0.31 vs 0.27 on HotpotQA)
-- Teleportation triggers on only 9.8% of queries, helps 0 at R@5
-- 8B LLM completely fails on sentence-level context (EM=F1=0)
-- NLI sufficiency (lexical fallback) agrees with heuristic only 8.5% of the time
-- Graph connectivity doesn't explain the R@5 gap (all p > 0.36)
-- Dynamic edge synthesis synthesized 0 edges (teleport nodes already reachable)
-
----
-
-## 2. Empirical Results Summary
-
-### Sentence-Level Recall@k (N=500)
-
-| System | HotpotQA R@5 | R@10 | 2Wiki R@5 | R@10 | MuSiQue R@5 | R@10 |
-|---|---|---|---|---|---|---|
-| PATHFINDER | 0.268 | **0.350** | 0.226 | **0.334** | 0.006 | 0.010 |
-| Naive RAG | **0.310** | 0.310 | **0.304** | 0.304 | 0.004 | 0.004 |
-| Spreading Act. | 0.190 | 0.352 | 0.234 | 0.444 | **0.032** | 0.074 |
-| BFS 2-Hop | 0.140 | 0.302 | 0.168 | 0.368 | 0.028 | 0.066 |
-
-### Key Intervention Results
-
-| Intervention | R@5 Before | R@5 After | Delta | Cost |
-|---|---|---|---|---|
-| LLM Reranking (70B) | 0.240 | 0.320 | **+33.3%** | 1 LLM call/query |
-| LLM-Guided Traversal | 0.200 | 0.300 | **+50.0%** | O(\|S\|) LLM calls/query |
-| Bandit Weight Learning | 0.180 | 0.300 | **+66.7%** | Online, no inference cost |
-| Teleportation (R@10) | 0.330 | 0.350 | +6.1% | Free |
-| Hybrid LLM Sufficiency | 0.200 | 0.150 | **−25.0%** | LLM calls during traversal |
-
-### Generator LLM Comparison (N=200)
-
-| Model | EM | F1 | R@5 |
-|---|---|---|---|
-| Llama 3.3-70B | **0.235** | **0.323** | 0.240 |
-| Llama 3-8B | 0.000 | 0.000 | 0.240 |
-
----
-
-## 3. Honest Assessment
-
-**The theory is publishable. The empirical results are not yet SOTA-competitive.**
-
-The core problem: sentence-level graph traversal on sparse text-extracted KGs cannot beat dense retrieval at small k. The graph is too disconnected, the nodes are too granular, and the frontier constraint excludes relevant nodes that dense retrieval finds trivially.
-
-**The path to competitiveness requires 4 changes (Phases A–D below):**
-1. **Better graphs** — entity linking, cross-document edges, passage-level nodes
-2. **Hybrid retrieval** — dense top-k as anchors, graph traversal to expand
-3. **LLM reranking** — biggest single win (+33.3%), should be default
-4. **Better embeddings** — MiniLM is weak; BGE/E5 would improve both graph and dense
-
----
-
-## 4. Optimization Pathway — Phase A: Graph Construction
-
-**Goal**: Build better knowledge graphs with richer connectivity so PATHFINDER's frontier expansion actually reaches relevant nodes.
-
-### Task A1: Entity Linking with spaCy NER
-- [ ] **Current state**: Entity co-mention edges use spaCy NER but only within the same query's context documents. Cross-document entity links are missing.
-- [ ] **Fix**: During KG construction (`01_build_kg.py`), build a global entity index across all documents in the corpus. When two nodes in different documents share an entity, create an edge with W = W_ENTITY (0.70).
-- [ ] **Expected impact**: More inter-document edges → frontier can cross document boundaries → R@5 improves on multi-hop queries.
-- [ ] **Output**: Modified `experiments/01_build_kg.py` with `--global_entities` flag.
-
-### Task A2: Passage-Level Node Segmentation
-- [ ] **Current state**: Each sentence is a node. This creates ~50 nodes/query with ~15 tokens each. The graph is large and sparse.
-- [ ] **Alternative**: Each passage/paragraph is a node. This creates ~10 nodes/query with ~100 tokens each. The graph is smaller and denser.
-- [ ] **Implementation**: Add `--node_granularity passage` flag to `01_build_kg.py`. Map supporting facts to passage-level by checking if any sentence in the passage is a gold sentence.
-- [ ] **Expected impact**: Fewer nodes → denser graph → frontier reaches more relevant nodes within budget. Paragraph-Recall@5 is already 0.708 (vs sentence R@5 of 0.268), suggesting passage-level is the right granularity.
-- [ ] **Output**: Modified `01_build_kg.py`, new eval comparing sentence vs passage granularity.
-
-### Task A3: Cross-Document Semantic Edges
-- [ ] **Current state**: Semantic edges (cosine ≥ 0.30) are only created within the same query's context. No edges between documents from different queries.
-- [ ] **Fix**: For each query, also add semantic edges between nodes from different context documents if cosine ≥ 0.30. This creates inter-document bridges.
-- [ ] **Expected impact**: More edges → better connectivity → frontier can reach gold nodes in other documents.
-- [ ] **Output**: Modified `01_build_kg.py` with `--cross_doc_edges` flag.
-
-### Task A4: Graph Construction Quality Metrics
-- [ ] **Measure**: After building graphs, compute and log: n_components, edge_density, avg_degree, inter_doc_edge_fraction.
-- [ ] **Correlate**: Compare these metrics before and after Tasks A1–A3 to quantify improvement.
-- [ ] **Output**: `experiments/22_graph_quality.py` script.
-
-**Commands to run locally:**
+**Safe-to-run commands (seconds, no API, no dataset):**
 ```cmd
-:: Rebuild graphs with improvements (after implementing A1-A3)
-python experiments/01_build_kg.py --max_samples 500 --output data/hotpotqa_graphs_v2.pkl --global_entities --cross_doc_edges
-python experiments/02_load_2wiki_musique.py --dataset 2wiki --max_samples 500 --output data/2wiki_graphs_v2.pkl
-python experiments/02_load_2wiki_musique.py --dataset musique --max_samples 500 --output data/musique_graphs_v2.pkl
-
-:: Compare graph quality
-python experiments/22_graph_quality.py --graphs data/hotpotqa_graphs.pkl --label "v1_original" --output results/raw/graph_quality_v1.json
-python experiments/22_graph_quality.py --graphs data/hotpotqa_graphs_v2.pkl --label "v2_improved" --output results/raw/graph_quality_v2.json
-
-:: Re-evaluate on improved graphs
-python experiments/05_evaluate.py --graphs data/hotpotqa_graphs_v2.pkl --max_samples 500 --output results/hotpotqa_eval_v2.json
+pytest pathfinder/tests/            :: 47 unit tests, ~5s
+python -c "import ast,glob;[ast.parse(open(f).read()) for f in glob.glob('experiments/*.py')]"   :: syntax check
 ```
 
 ---
 
-## 5. Optimization Pathway — Phase B: Hybrid Retrieval
+## §1. PHASE 0 — REPO CLEANING (DO FIRST)
 
-**Goal**: Combine dense retrieval's broad coverage with graph traversal's structural coherence.
+> Goal: remove corrupted/stale artifacts so no future analysis reads poisoned data. All actions are file deletions / `.gitignore` edits — **no evals**.
 
-### Task B1: Dense-Anchor Hybrid (NR-First)
-- [ ] **Mechanism**: Take Naive RAG's top-k as primary anchors. Use PATHFINDER's frontier expansion to fill remaining budget slots with graph-connected nodes.
-- [ ] **Implementation**: New function `run_pathfinder_hybrid()` in `run_pathfinder.py`:
-  1. Get top-3 dense nodes by cosine similarity
-  2. Add all 3 to S immediately (bypass frontier constraint for anchors)
-  3. Run frontier expansion from each anchor for remaining budget
-  4. Merge and deduplicate
-- [ ] **Expected impact**: Matches Naive RAG's R@5 (0.31) while adding graph-coherent context. Previous "NR-First Hybrid" achieved R@5=0.2932 on full HotpotQA.
-- [ ] **Output**: `experiments/23_hybrid_retrieval.py`.
+### 1.1 Corrupted result files (silent Groq rate-limit → EM=0, predictions="")
+Root cause: `generate_answers.py::generate_answer()` returns `""` after retries exhaust and callers record it as a genuine wrong answer. Four files were produced after the daily quota was already consumed and are **scientifically invalid** (their R@5 is fine, but EM/F1 are garbage).
 
-### Task B2: Dense-Graph Interleaving
-- [ ] **Mechanism**: At each greedy step, consider BOTH frontier nodes AND global dense nodes as candidates. Select by Δ_full regardless of source.
-- [ ] **Implementation**: Modify `_single_pass()` to add top-5 global dense nodes to the frontier at each step (not just when teleportation triggers). This makes teleportation the default, not the exception.
-- [ ] **Expected impact**: Eliminates the R@5 gap by always considering dense candidates. May hurt structural coherence but improves recall.
-- [ ] **Output**: Modified `run_pathfinder.py` with `--always_dense` mode.
+- [ ] Delete `results/raw/heterogeneous_llm_8b.json` (EM=0.0, F1=0.0, all predictions empty)
+- [ ] Delete `results/raw/heterogeneous_llm_70b_passage.json` (EM=0.0, F1=0.0, predictions empty)
+- [ ] Delete `results/raw/heterogeneous_llm_70b_v2.json` (EM=0.02, F1=0.02, near-total failure)
+- [ ] Delete `results/raw/rerank_passage.json` (pathfinder EM=0.08 / rerank EM=0.12 — partial rate-limit contamination)
 
-### Task B3: Two-Stage Retrieval (Dense → Graph Rerank)
-- [ ] **Mechanism**: Stage 1: Dense retrieval gets top-20 candidates. Stage 2: PATHFINDER's submodular selection picks the best k=5 from those 20 using graph structure.
-- [ ] **Implementation**: Build a subgraph from the top-20 dense nodes, then run PATHFINDER on that subgraph.
-- [ ] **Expected impact**: Combines dense recall with graph-based diversity. The submodular coverage function ensures the selected k=5 are non-redundant.
-- [ ] **Output**: `experiments/24_two_stage_retrieval.py`.
+> **Do NOT delete** the R@5-only files — they don't use the LLM and are valid. Only the 4 above embed corrupted EM/F1. They will be **regenerated** in §6.2 with a fresh key.
 
-### Task B4: Adaptive k Selection
-- [ ] **Mechanism**: Instead of fixed k=5, use σ(S) to decide how many nodes to return. High σ → return fewer (confident). Low σ → return more (hedge).
-- [ ] **Implementation**: After traversal, if σ ≥ τ_high, return top-5. If σ ∈ [τ_low, τ_high), return top-10. If σ < τ_low, return top-20.
-- [ ] **Expected impact**: Better R@10/R@20 when PATHFINDER is uncertain, without hurting R@5 when confident.
-- [ ] **Output**: `experiments/25_adaptive_k.py`.
+### 1.2 Stale Phase-1 JSONs (superseded by full runs)
+- [ ] Delete `results/raw/anchor_quality_200.json`
+- [ ] Delete `results/raw/hotpotqa_200_*.json` (all)
+- [ ] Delete `results/raw/root_cause_analysis.json`
+- [ ] Delete `results/raw/sigma_calibration_200.json`
+- [ ] Delete `results/raw/coverage_ratio_*.json` (all)
 
-**Commands to run locally:**
+### 1.3 `.gitignore` hardening
+Current `.gitignore` already excludes `data/` and `__pycache__/`. Add result-dir ignores so future eval dumps never get committed accidentally:
+```gitignore
+# --- add below existing entries ---
+results/raw/
+*.log
+```
+> Keep the currently-tracked valid JSONs; the ignore only prevents *new* raw files from being staged. (If git still tracks existing ones, that is fine — we do not rewrite history.)
+
+### 1.4 Documentation sync
+- [ ] Update `experiments/README.md` — mark the 4 deleted files as "regenerated in Phase 5" and add a one-line warning about the rate-limit EM=0 failure mode.
+- [ ] Verify cleaning didn't break anything:
 ```cmd
-python experiments/23_hybrid_retrieval.py --graphs data/hotpotqa_graphs.pkl --max_samples 500 --output results/raw/hybrid_retrieval.json
-python experiments/24_two_stage_retrieval.py --graphs data/hotpotqa_graphs.pkl --max_samples 500 --output results/raw/two_stage_retrieval.json
-python experiments/25_adaptive_k.py --graphs data/hotpotqa_graphs.pkl --max_samples 500 --output results/raw/adaptive_k.json
+pytest pathfinder/tests/    :: expect 47/47 PASS
 ```
 
 ---
 
-## 6. Optimization Pathway — Phase C: LLM Integration
+## §2. PHASE 1 — CODE FIXES & FEATURES (no evals)
 
-**Goal**: Make LLM reranking the default and explore deeper LLM integration.
+> Each task lists WHY → expected impact → theoretical implication → files touched.
 
-### Task C1: LLM Reranking as Default
-- [ ] **Current state**: LLM reranking is a separate experiment (15_llm_reranking.py). It improved R@5 by +33.3%.
-- [ ] **Action**: Integrate LLM reranking into the main `run_pathfinder()` function as an optional post-processing step.
-- [ ] **Implementation**: Add `rerank=True` parameter. After traversal, if GROQ_API_KEY is set, rerank S using LLM. Cache reranking results by query embedding (semantic cache).
-- [ ] **Expected impact**: R@5 0.24→0.32 by default. With better graphs (Phase A), potentially 0.35+.
-- [ ] **Output**: Modified `run_pathfinder.py`.
+### 2.1 Fix the silent rate-limit bug (HIGHEST PRIORITY — blocks all LLM evals)
+- **WHY**: 4 result files were silently zeroed. A reviewer reproducing our pipeline could hit the same corruption and conclude the method fails. Reproducibility is a stated core objective.
+- **Change** in `experiments/generate_answers.py`:
+  - `generate_answer()` returns a sentinel `RATE_LIMITED` (or raises `RateLimitExhausted`) instead of `""` when all retries fail due to 429/quota.
+  - `evaluate_batch()` tracks `n_rate_limited`; if `> 0`, it prints a loud warning and writes `"quota_exhausted": true` + `n_rate_limited` into the output JSON summary.
+  - Add a per-query API-call counter and an estimated-remaining-quota print every 25 queries.
+- **Expected impact**: No future silent corruption; corrupted runs become detectable immediately.
+- **Theoretical implication**: none (infra), but it protects the validity of every downstream empirical claim.
 
-### Task C2: LLM-Guided Entry Node Selection
-- [ ] **Current state**: Entry node is argmax cosine similarity. This may not be the best starting point for multi-hop reasoning.
-- [ ] **Action**: Ask LLM to select the best entry node from top-5 dense candidates.
-- [ ] **Implementation**: Present top-5 nodes' texts to LLM, ask "Which passage should we start exploring from to answer this question?"
-- [ ] **Expected impact**: Better entry node → better traversal → higher R@5. Low cost (1 LLM call).
-- [ ] **Output**: `experiments/26_llm_entry_node.py`.
+### 2.2 Make LLM reranking a first-class default
+- **WHY**: LLM reranking gave the single biggest proven gain (+33.3% R@5, 0.24→0.32). It is currently an isolated script; it should be a toggle in the main pipeline.
+- **Change** in `experiments/run_pathfinder.py` and/or `run_pathfinder()` wrapper:
+  - Add `rerank: bool = False` and a `rerank_with_llm(S, question, client)` post-processing hook.
+  - Add a **semantic cache** (cosine ≥ `CACHE_THETA=0.92` on query embeddings) so repeated/near-duplicate queries don't burn API calls.
+  - Reuse the §2.1 rate-limit guard.
+- **Expected impact**: R@5 0.24→0.32 by default; higher with better graphs (Phase A).
+- **Theoretical implication**: reranking is a monotone post-selection on the *retrieved set* — it does **not** change the (1−1/e) coverage guarantee, which holds at retrieval time. State this explicitly in the paper to preempt a reviewer conflating the two stages.
 
-### Task C3: LLM-Based Edge Weighting
-- [ ] **Mechanism**: After graph construction, use LLM to reweight edges based on semantic relevance to common query types.
-- [ ] **Implementation**: For each edge (u,v), ask LLM: "How relevant are these two passages to each other?" Score ∈ [0,1]. Replace cosine-similarity edge weights with LLM-judged weights.
-- [ ] **Expected impact**: Better edge weights → better frontier expansion → higher R@5. High cost (O(|E|) LLM calls at index time).
-- [ ] **Output**: `experiments/27_llm_edge_weighting.py`.
+### 2.3 Passage-level as the default node granularity
+- **WHY**: Passage nodes give R@5=0.644 vs sentence 0.268, and the one successful passage LLM run (EM=0.106) beat full-scale sentence EM (0.0068). Sentence graphs are too sparse/disconnected.
+- **Change**:
+  - Promote `01b_build_kg_passage.py` to the default builder path in docs and eval scripts (`--node_granularity passage`).
+  - Ensure supporting-fact → passage mapping (any gold sentence ⇒ passage is gold) is the canonical labeling.
+- **Expected impact**: Primary metric jumps ~2.4×. This becomes the headline retrieval number.
+- **Theoretical implication**: larger nodes ⇒ denser graph ⇒ the frontier constraint excludes fewer relevant nodes, so the connected-subtree feasible set is closer to the unconstrained optimum. Worth a short remark: the (1−1/e) bound is unchanged, but the *gap to Naive RAG* narrows empirically.
 
-### Task C4: Chain-of-Thought Path Scoring
-- [ ] **Mechanism**: After traversal, score each root-to-leaf path using LLM CoT: "Given this question, does this reasoning chain (passage1 → passage2 → passage3) support answering it?"
-- [ ] **Implementation**: Extract paths from parent tree, send each to LLM for CoT scoring, rerank S by path scores.
-- [ ] **Expected impact**: Better reranking than flat passage reranking. Medium cost (O(paths) LLM calls).
-- [ ] **Output**: `experiments/28_cot_path_scoring.py`.
+### 2.4 Dense-Anchor Hybrid as the default retrieval mode
+- **WHY**: Dense-Anchor Hybrid already **matches** Naive RAG at passage level (R@5=0.708) while keeping graph-coherent subtrees. This is the strongest honest result we have.
+- **Change**:
+  - Promote `run_pathfinder_hybrid()` (dense top-3 anchors bypass frontier → greedy expansion fills budget → merge/dedupe) into `run_pathfinder.py` as `mode="hybrid"`.
+- **Expected impact**: Neutralizes the "Naive RAG beats you" reviewer objection on the primary benchmark.
+- **Theoretical implication**: anchors are injected *outside* the connected frontier; the (1−1/e) guarantee then applies to the **expansion phase per anchor**, not the union. Add a corollary clarifying the guarantee is per-connected-component anchored at a dense seed.
 
-**Commands to run locally:**
-```cmd
-set GROQ_API_KEY=your_key_here
-python experiments/26_llm_entry_node.py --graphs data/hotpotqa_graphs.pkl --max_samples 50 --output results/raw/llm_entry_node.json
-python experiments/27_llm_edge_weighting.py --graphs data/hotpotqa_graphs.pkl --max_samples 50 --output results/raw/llm_edge_weighting.json
-python experiments/28_cot_path_scoring.py --graphs data/hotpotqa_graphs.pkl --max_samples 50 --output results/raw/cot_path_scoring.json
-```
+### 2.5 Fix / re-scope teleportation
+- **WHY**: Teleportation fires on only 9.8% of queries and adds **0** at R@5 (helps only R@10: 0.330→0.350). As-is it is a weak claim reviewers will attack.
+- **Change** (two options, implement BOTH behind flags, decide from §6 data):
+  - `--always_dense`: add top-5 global dense nodes to the frontier at *every* greedy step (teleportation becomes default, not exception).
+  - `--teleport_gate connectivity`: only allow teleportation when the entry node's component is provably disconnected from ≥1 dense top-k node.
+- **Expected impact**: closes the R@5 gap on sparse sentence graphs.
+- **Theoretical implication**: `--always_dense` weakens the "graph-coherent" story — the paper must frame this as "PATHFINDER-Flat" vs "PATHFINDER-Coherent" and report both, preserving the theoretical contribution on the coherent variant.
+
+### 2.6 Recalibrate NLI sufficiency
+- **WHY**: NLI sufficiency agrees with the σ-heuristic only 8.5% of the time (heuristic says sufficient 96%, NLI says 5.5%). Either the NLI threshold is miscalibrated or the lexical fallback is broken.
+- **Change** in `experiments/08_nli_sufficiency.py`:
+  - Sweep the entailment threshold; report agreement vs threshold.
+  - Replace the lexical fallback with a calibrated score; log confusion matrix (heuristic × NLI).
+- **Expected impact**: a sufficiency signal that actually tracks answerability → fewer wasted re-traversals.
+- **Theoretical implication**: sufficiency is orthogonal to the coverage guarantee; it's the *stopping criterion*. A calibrated stopping rule improves the precision/recall trade-off, not the bound.
+
+### 2.7 Embedding model upgrade flag
+- **WHY**: `all-MiniLM-L6-v2` (384-d) is weak. BGE/E5 improve both graph edges *and* dense retrieval — lifts every system, PATHFINDER most (edges improve too).
+- **Change**: add `--encoder_model` to `01_build_kg.py`, `01b`, `01c`; default remains MiniLM for backward-compat; support `BAAI/bge-large-en-v1.5`, `intfloat/e5-large-v2`.
+- **Expected impact**: uniform lift; graph connectivity improves.
+- **Theoretical implication**: none to the bound; improves the *constant-factor* empirical coverage.
 
 ---
 
-## 7. Optimization Pathway — Phase D: Embedding & Scale
+## §3. PHASE 2 — THEORY (pure writing/proofs, no evals)
 
-**Goal**: Upgrade embedding model and run full-scale evaluation.
+| Task | Status | Deliverable |
+|------|--------|-------------|
+| **3.1 Bound tightness (Feige-style)** | TODO | Construct a graph family where greedy achieves exactly (1−1/e); add as Proposition in §5 + unit test |
+| **3.2 Heterogeneous token cost** | TODO | Extend remark → full theorem via knapsack-constrained submodular maximization (Sviridenko 2004), giving (1−1/e) for non-uniform `tok_count` |
+| **3.3 Joint correlation modeling** | TODO | MRF/GNN coverage model replacing the independence assumption in `f(S,q)=1−Π(1−sim)`; discuss submodularity preservation |
+| **3.4 Hybrid per-anchor guarantee** | TODO | Corollary formalizing §2.4's per-component (1−1/e) bound |
+| **3.5 Tests** | TODO | Add formal-property tests for each new theorem to `pathfinder/tests/test_formal_properties.py` (keep 47/47 → target 55+) |
 
-### Task D1: Embedding Model Upgrade
-- [ ] **Current state**: `all-MiniLM-L6-v2` (384-dim, fast but weak).
-- [ ] **Upgrade path**: Test `BAAI/bge-large-en-v1.5` (1024-dim), `intfloat/e5-large-v2` (1024-dim), `OpenAI/text-embedding-3-small` (1536-dim).
-- [ ] **Implementation**: Add `--encoder_model` flag to `01_build_kg.py`. Re-embed all nodes with the new model.
-- [ ] **Expected impact**: Better embeddings → better cosine similarity → better graph edges AND better dense retrieval. This lifts ALL systems, but PATHFINDER benefits more because graph edges also improve.
-- [ ] **Output**: Modified `01_build_kg.py`, comparison eval.
+---
 
-### Task D2: Full-Scale Evaluation (N=7,405)
-- [ ] **Run full HotpotQA**: All 7,405 validation queries with LLM answers.
-- [ ] **Run full 2Wiki**: All 12,576 validation queries.
-- [ ] **Run full MuSiQue**: All 2,417 validation queries.
-- [ ] **Output**: Full-scale results for paper §7.6.
+## §4. PHASE 3 — PAPER REVISION (writing only)
 
-### Task D3: Multi-Vector FAISS Index
-- [ ] **Build FAISS index** at KG construction time for O(log|V|) entry node selection and teleportation lookup.
-- [ ] **Benchmark**: Compare latency on |V| = 100, 1,000, 10,000.
-- [ ] **Output**: Production-ready indexing pipeline.
+- [ ] **4.1** Lead §7 with **passage-level** results (0.644 / hybrid 0.708) as primary; demote sentence-level to an ablation.
+- [ ] **4.2** Rewrite §7.6 with an explicit **data-validity note**: the 4 corrupted LLM runs, their cause (Groq quota), and that they are regenerated in Phase 5. (Transparency is a *strength* to reviewers.)
+- [ ] **4.3** Sharpen §2 positioning vs HippoRAG 2, SubgraphRAG, IRCoT — one tight paragraph each on what we guarantee that they cannot.
+- [ ] **4.4** Update §8 limitations honestly: teleportation weakness, NLI miscalibration, MuSiQue near-zero, MiniLM dependence.
+- [ ] **4.5** Insert new theorems from §3 (tightness, heterogeneous cost, hybrid corollary).
+- [ ] **4.6** Add the "retrieval-time vs rerank-time guarantee" clarification (§2.2) to preempt reviewer confusion.
 
-### Task D4: Batch Query Processing
-- [ ] **Vectorize**: Process multiple queries in parallel using batched numpy operations.
-- [ ] **Target**: 100 queries/second on CPU for production deployment.
-- [ ] **Output**: `experiments/29_batch_processing.py`.
+---
 
-**Commands to run locally:**
+## §5. PHASE 4 — SOTA COMPARISON SETUP (code only, NO runs)
+
+> Write adapters + harness now; the actual runs happen in §6. Do **not** clone-and-run — only prepare scripts and docs.
+
+- [ ] **5.1** `experiments/30_sota_adapter.py`: uniform interface that takes any system's (question, retrieved_passages) → (EM, F1, R@5, R@10) using our `exact_match`/`f1_score`.
+- [ ] **5.2** Document exact setup/run commands for IRCoT, SubgraphRAG, HippoRAG 2, LightRAG in `results/sota_comparison.md` (skeleton table with "pending Phase 5" cells).
+- [ ] **5.3** Fair-comparison protocol: same 500-query subset, same generator (Llama-3.3-70B via Groq), note where SOTA uses GPT-4/stronger embeddings.
+
+---
+
+## §6. PHASE 5 — EVALUATIONS (LAST STEP — USER RUNS, 9–18 hrs)
+
+> **I do not run these.** I provide exact commands + expected output; the user executes and pastes results. Order matters: **quota-heavy LLM runs go FIRST with a fresh key**, then the long non-LLM rebuilds.
+
+### 6.1 Pre-flight (seconds)
 ```cmd
-:: D1 — Rebuild with better embeddings
-python experiments/01_build_kg.py --max_samples 500 --output data/hotpotqa_graphs_bge.pkl --encoder_model BAAI/bge-large-en-v1.5
-python experiments/05_evaluate.py --graphs data/hotpotqa_graphs_bge.pkl --max_samples 500 --output results/hotpotqa_eval_bge.json
+set GROQ_API_KEY=<fresh_key>
+pytest pathfinder/tests/                :: expect all PASS (target 55+)
+```
 
-:: D2 — Full-scale eval (LONG RUN)
-set GROQ_API_KEY=your_key_here
-python experiments/01_build_kg.py --output data/hotpotqa_graphs_full.pkl
+### 6.2 Regenerate the 4 corrupted LLM results (fresh key, small N first)
+```cmd
+python experiments/19_heterogeneous_llms.py --model llama3-8b-8192 --max_samples 200 --output results/raw/heterogeneous_llm_8b.json
+python experiments/19_heterogeneous_llms.py --model llama-3.3-70b-versatile --node_granularity passage --max_samples 50 --output results/raw/heterogeneous_llm_70b_passage.json
+python experiments/19_heterogeneous_llms.py --model llama-3.3-70b-versatile --max_samples 50 --output results/raw/heterogeneous_llm_70b_v2.json
+python experiments/25_rerank_eval.py --node_granularity passage --max_samples 50 --output results/raw/rerank_passage.json
+```
+**Expected**: non-zero EM/F1; each JSON summary contains `"quota_exhausted": false`. If `true`, STOP — quota is still exhausted; wait for reset.
+
+### 6.3 Rebuild graphs (passage + BGE + hybrid), non-LLM
+```cmd
+python experiments/01b_build_kg_passage.py --max_samples 500 --encoder_model BAAI/bge-large-en-v1.5 --output data/hotpotqa_graphs_passage_bge.pkl
+python experiments/02_load_2wiki_musique.py --dataset 2wiki --max_samples 500 --output data/2wiki_graphs.pkl
+python experiments/02_load_2wiki_musique.py --dataset musique --max_samples 500 --output data/musique_graphs.pkl
+```
+
+### 6.4 Core retrieval evals (no LLM)
+```cmd
+python experiments/05_evaluate.py --graphs data/hotpotqa_graphs_passage_bge.pkl --max_samples 500 --output results/hotpotqa_eval_passage_bge.json
+python experiments/23_hybrid_retrieval.py --graphs data/hotpotqa_graphs_passage_bge.pkl --max_samples 500 --output results/raw/hybrid_passage_bge.json
+```
+
+### 6.5 Full-scale runs (LONG — the 9–18 hr block)
+```cmd
+python experiments/01b_build_kg_passage.py --output data/hotpotqa_graphs_full.pkl
 python experiments/05_evaluate.py --graphs data/hotpotqa_graphs_full.pkl --output results/hotpotqa_eval_full.json
-
 python experiments/02_load_2wiki_musique.py --dataset 2wiki --output data/2wiki_graphs_full.pkl
 python experiments/05_evaluate.py --graphs data/2wiki_graphs_full.pkl --output results/2wiki_eval_full.json
-
 python experiments/02_load_2wiki_musique.py --dataset musique --output data/musique_graphs_full.pkl
 python experiments/05_evaluate.py --graphs data/musique_graphs_full.pkl --output results/musique_eval_full.json
 ```
 
----
+### 6.6 SOTA baseline runs (using §5 adapters) — fill `results/sota_comparison.md`
 
-## 8. Optimization Pathway — Phase E: SOTA Comparison
-
-**Goal**: Direct comparison against published systems on the same benchmarks.
-
-### SOTA Systems to Compare
-
-| System | Paper | Repo | Expected HotpotQA EM |
-|---|---|---|---|
-| IRCoT | Trivedi et al. 2022 | `github.com/stonybrooknlp/ircot` | 56.5–61.2 |
-| SubgraphRAG | Li et al. 2024 (ICLR 2025) | `github.com/Graph-COM/SubgraphRAG` | 41.2–47.8 |
-| HippoRAG 2 | Gutiérrez et al. 2025 | `github.com/OSU-NLP-Group/HippoRAG` | 49.8–54.2 |
-| PCR | arXiv:2511.18313 | (check paper) | 45.0–50.3 |
-| GraphRAG | Edge et al. 2024 | `github.com/microsoft/graphrag` | N/A |
-| LightRAG | Guo et al. 2024 | `github.com/HKUDS/LightRAG` | N/A |
-
-### Task E1: Download and Setup SOTA Systems
-
+### 6.7 Regenerate all figures + consolidated metrics
 ```cmd
-:: Create a siblings directory for SOTA baselines
-mkdir C:\Users\yasha\.gemini\antigravity\scratch\baselines
-cd C:\Users\yasha\.gemini\antigravity\scratch\baselines
-
-:: IRCoT
-git clone https://github.com/stonybrooknlp/ircot.git
-cd ircot
-pip install -r requirements.txt
-cd ..
-
-:: SubgraphRAG (ICLR 2025)
-git clone https://github.com/Graph-COM/SubgraphRAG.git
-cd SubgraphRAG
-pip install -r requirements.txt
-cd ..
-
-:: HippoRAG 2
-git clone https://github.com/OSU-NLP-Group/HippoRAG.git
-cd HippoRAG
-pip install -r requirements.txt
-cd ..
-
-:: LightRAG
-git clone https://github.com/HKUDS/LightRAG.git
-cd LightRAG
-pip install -r requirements.txt
-cd ..
-
-:: GraphRAG (Microsoft)
-git clone https://github.com/microsoft/graphrag.git
-cd graphrag
-pip install -r requirements.txt
-cd ..
-
-cd C:\Users\yasha\.gemini\antigravity\scratch\Ragidea
-```
-
-### Task E2: Run SOTA Baselines on HotpotQA
-
-```cmd
-:: IRCoT — uses GPT-3.5/4, needs OpenAI API key
-set OPENAI_API_KEY=your_openai_key
-cd C:\Users\yasha\.gemini\antigravity\scratch\baselines\ircot
-python run.py --dataset hotpotqa --split validation --max_samples 500 --output ../../Ragidea/results/raw/ircot_hotpotqa.json
-cd C:\Users\yasha\.gemini\antigravity\scratch\Ragidea
-
-:: SubgraphRAG — check their README for exact run commands
-cd C:\Users\yasha\.gemini\antigravity\scratch\baselines\SubgraphRAG
-:: Typically: python main.py --dataset hotpotqa --max_samples 500
-cd C:\Users\yasha\.gemini\antigravity\scratch\Ragidea
-
-:: HippoRAG 2 — check their README
-cd C:\Users\yasha\.gemini\antigravity\scratch\baselines\HippoRAG
-:: Typically: python eval.py --dataset hotpotqa --max_samples 500
-cd C:\Users\yasha\.gemini\antigravity\scratch\Ragidea
-
-:: LightRAG
-cd C:\Users\yasha\.gemini\antigravity\scratch\baselines\LightRAG
-:: Typically: python evaluate.py --dataset hotpotqa --max_samples 500
-cd C:\Users\yasha\.gemini\antigravity\scratch\Ragidea
-```
-
-### Task E3: Fair Comparison Protocol
-- [ ] **Same embedding model**: Run all systems with `all-MiniLM-L6-v2` for fair comparison. Some SOTA systems use stronger embeddings by default — note this.
-- [ ] **Same generator LLM**: Use Llama 3.3-70B via Groq for all systems. Some SOTA systems use GPT-4 — note this.
-- [ ] **Same N**: Evaluate all systems on the same 500-query subset.
-- [ ] **Same metrics**: EM, F1, Recall@5, Recall@10.
-- [ ] **Output**: `results/sota_comparison.md` with unified comparison table.
-
-### Task E4: Paper Comparison Table
-- [ ] **Update §7.6.3**: Replace "not run" entries with actual numbers.
-- [ ] **Add PATHFINDER + LLM reranking** as a separate row (best configuration).
-- [ ] **Add caveat**: PATHFINDER uses sentence-level nodes + MiniLM + Groq 70B; SOTA systems use passage-level + stronger embeddings + GPT-4. Fair comparison requires same-stack evaluation.
-
----
-
-## 9. Theoretical Work Remaining
-
-| Task | Status | Notes |
-|---|---|---|
-| Teleportation (1−1/e) proof | ✅ DONE | Corollary added to §5.1 |
-| Submodularity scope clarification | ✅ DONE | Remarks added to §4.1 |
-| Bound tightness (Feige construction) | TODO | Phase 11, Task 11.2 — requires constructing a graph family where greedy achieves exactly (1−1/e) |
-| Joint correlation modeling | TODO | Phase 11, Task 11.4 — MRF or GNN-based coverage model |
-| Heterogeneous token cost bound | TODO | Phase 11, Task 11.5 — knapsack-constrained submodular maximization |
-
----
-
-## 10. Repo Cleanup Checklist
-
-- [x] Delete `FUTURE_WORK.md` (consolidated into PLAN.md)
-- [x] Delete `experiments/analysis.md` (issues captured in PLAN.md)
-- [x] Delete `experiments/evaluate_fixes.py` (stale one-off script)
-- [x] Delete `experiments/results/results_full.json` (14MB stale data)
-- [x] Fix SubgraphRAG citation in paper
-- [x] Standardize Zarrinkia citation
-- [x] Remove §7.7 Implementation Plan from paper (merged into PLAN.md)
-- [x] Remove TODO placement note from §6
-- [x] Update `experiments/README.md` with actual results
-- [x] Update `results/multi_benchmark.md` with Phase 2 data
-- [ ] Clean stale JSON files in `results/raw/` from Phase 1 (anchor_quality_200.json, hotpotqa_200_*.json, root_cause_analysis.json, sigma_calibration_200.json, coverage_ratio_*.json)
-- [ ] Add `results/raw/` to `.gitignore` for future evals (keep current results, ignore new ones)
-- [ ] Add `README.md` at repo root with quickstart guide
-
----
-
-## 11. Verification Commands
-
-```cmd
-:: Unit tests
-pytest pathfinder/tests/
-
-:: Quick eval (N=500, no LLM)
-python experiments/05_evaluate.py --graphs data/hotpotqa_graphs.pkl --max_samples 500 --output results/hotpotqa_eval.json
-
-:: Print metrics
 python experiments/print_metrics.py
-
-:: Generate plots
 python results/make_plots.py
-
-:: Full eval with LLM (LONG RUN)
-set GROQ_API_KEY=your_key_here
-python experiments/05_evaluate.py --graphs data/hotpotqa_graphs_full.pkl --output results/hotpotqa_eval_full.json
 ```
 
 ---
 
-## Priority Order for Maximum Impact
+## §7. RUNNING TODO TRACKER
 
-1. **Phase A2 (passage-level nodes)** — easiest, biggest expected impact
-2. **Phase B1 (dense-anchor hybrid)** — second biggest impact, moderate effort
-3. **Phase C1 (LLM reranking as default)** — already proven (+33.3%), just integrate
-4. **Phase D1 (better embeddings)** — lifts all systems, moderate effort
-5. **Phase B3 (two-stage retrieval)** — novel contribution, moderate effort
-6. **Phase E (SOTA comparison)** — needed for paper, requires external codebases
-7. **Phase A1 (entity linking)** — moderate impact, moderate effort
-8. **Phase C2 (LLM entry node)** — low cost, moderate impact
+- [ ] §1 cleaning (deletions + .gitignore + README)
+- [ ] §2.1 rate-limit guard
+- [ ] §2.2 rerank default + cache
+- [ ] §2.3 passage default
+- [ ] §2.4 hybrid default
+- [ ] §2.5 teleportation flags
+- [ ] §2.6 NLI recalibration
+- [ ] §2.7 encoder flag
+- [ ] §3 theorems + tests
+- [ ] §4 paper revision
+- [ ] §5 SOTA adapters
+- [ ] §6 evals (USER, last)
 
 ---
 
-## 14. Issue Investigation: Passage-Level EM=0.000 Anomaly
-
-**Status:** Investigated. Root cause identified. No code changes needed — just documentation.
-
-### Findings
-
-| Script | Graph Type | EM | F1 | R@5 | LLM Worked? |
-|---|---|---|---|---|---|
-| `05_evaluate.py` | Passage | **0.106** | **0.142** | 0.644 | ✅ Yes |
-| `25_rerank_eval.py` | Passage | 0.000 | 0.000 | 0.630 | ❌ No |
-| `19_heterogeneous_llms.py` | Passage | 0.000 | 0.000 | 0.630 | ❌ No |
-| `25_rerank_eval.py` | Sentence | **0.300** | **0.409** | 0.270 | ✅ Yes |
-| `19_heterogeneous_llms.py` | Sentence | 0.010 | 0.011 | 0.270 | ✅ Yes |
-
-### Root Cause
-
-The EM=0.000 anomaly is **NOT** because passage-level context is too long or because the LLM can't answer from passage-level nodes. It's caused by **Groq API rate limit exhaustion**:
-
-1. **`05_evaluate.py` ran first** with sufficient API quota → generated answers successfully → EM=0.106
-2. **`25_rerank_eval.py` ran after** — it makes **2 LLM calls per query** (1 rerank + 1 answer generation), doubling API usage. The reranking calls consumed the remaining quota, and answer generation failed silently (try/except catches rate limit errors and returns empty string → EM=0, F1=0)
-3. **`19_heterogeneous_llms.py` ran last** — quota fully exhausted → all answer generation failed → EM=0, F1=0
-
-### Evidence
-
-- `05_evaluate.py` passage: EM=0.106 (ran first, had quota) ✅
-- `25_rerank_eval.py` passage: EM=0.000 (ran after, quota exhausted by rerank calls) ❌
-- `19_heterogeneous_llms.py` passage: EM=0.000 (ran last, quota fully exhausted) ❌
-- R@5 is **unaffected** — R@5=0.644/0.630 is valid (doesn't need LLM)
-- Sentence-level scripts worked because they ran before quota exhaustion
-
-### Resolution (No Code Changes Needed)
-
-- [ ] **Re-run `25_rerank_eval.py` and `19_heterogeneous_llms.py` with a fresh API key** — EM should be non-zero
-- [ ] **OR: Use `--max_samples 50`** to reduce total API calls and stay within quota
-- [ ] **OR: Add error logging** to `generate_answers.py` to distinguish rate limit failures from genuine EM=0 (optional improvement)
-- [ ] **Note:** The passage-level R@5=0.644 is valid and unaffected — only EM/F1 is impacted by this anomaly
-
-### Key Insight
-
-The passage-level EM=0.106 from `05_evaluate.py` (the only successful LLM run on passage-level) is actually **higher** than the sentence-level full-scale EM=0.0068. This suggests passage-level context may produce **better** answer quality than sentence-level when the LLM has quota — the anomaly is purely a rate limit artifact, not a fundamental problem with passage-level retrieval.
+## Verification (safe, seconds)
+```cmd
+pytest pathfinder/tests/
+python -c "import ast,glob;[ast.parse(open(f).read()) for f in glob.glob('experiments/*.py')]"
+```

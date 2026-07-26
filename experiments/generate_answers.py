@@ -21,6 +21,14 @@ FALLBACK_MODEL = "llama3-8b-8192"            # higher rate limit if needed
 TEMPERATURE    = 0
 MAX_TOKENS     = 100
 
+# Sentinel returned when the Groq quota is exhausted after all retries.
+# Distinct from a genuine "unanswerable" so callers can detect corrupted runs.
+RATE_LIMITED = "__RATE_LIMITED__"
+
+
+class RateLimitExhausted(RuntimeError):
+    """Raised when all retries fail due to rate-limit / quota exhaustion."""
+
 SYSTEM_PROMPT = (
     "Answer the question using ONLY the provided context. "
     "Be concise — one sentence or a short phrase. "
@@ -59,7 +67,10 @@ def generate_answer(question: str,
     """
     Generate answer for a question given a list of retrieved node indices.
     Handles Groq rate limits with exponential backoff.
-    Returns empty string on persistent failure.
+
+    Returns RATE_LIMITED sentinel if every retry failed due to rate-limit /
+    quota exhaustion, so callers never mistake a corrupted run for EM=0.
+    Returns "" only for non-rate-limit persistent failures.
     """
     if not node_indices:
         return "unanswerable"
@@ -71,6 +82,7 @@ def generate_answer(question: str,
     ]
 
     current_model = model
+    saw_rate_limit = False
     for attempt in range(max_retries):
         try:
             resp = client.chat.completions.create(
@@ -83,7 +95,8 @@ def generate_answer(question: str,
 
         except Exception as e:
             err = str(e).lower()
-            if "rate_limit" in err or "429" in err:
+            if "rate_limit" in err or "429" in err or "quota" in err:
+                saw_rate_limit = True
                 wait = 2 ** attempt          # 1, 2, 4, 8 seconds
                 time.sleep(wait)
                 if attempt == 1 and current_model == PRIMARY_MODEL:
@@ -94,7 +107,9 @@ def generate_answer(question: str,
                 # Non-rate-limit error; wait briefly and retry
                 time.sleep(1)
 
-    return ""   # all retries failed
+    # All retries failed — flag quota exhaustion distinctly so the run is
+    # detectable as corrupted rather than silently scored as EM=0.
+    return RATE_LIMITED if saw_rate_limit else ""
 
 
 # ── EM / F1 evaluation ─────────────────────────────────────────────────────────
@@ -145,7 +160,12 @@ def evaluate_batch(records: list[dict],
         groq_api_key     : Groq API key
 
     Returns:
-        dict: {"system_name": {"em": float, "f1": float, "predictions": [str, ...]}}
+        dict: {"system_name": {"em", "f1", "predictions",
+                                "n_rate_limited", "quota_exhausted"}}
+
+    EM/F1 are computed over NON-rate-limited predictions only. If any query hit
+    the rate limit, "quota_exhausted" is True and the run should be treated as
+    INVALID and re-run with a fresh key — never silently scored as EM=0.
     """
     client = Groq(api_key=groq_api_key)
     output = {}
@@ -153,22 +173,46 @@ def evaluate_batch(records: list[dict],
     for system_name, node_lists in system_results.items():
         print(f"  Generating answers: {system_name}...")
         ems, f1s, preds = [], [], []
-        for rec, nodes in zip(records, node_lists):
+        n_rate_limited = 0
+        n_api_calls = 0
+        for i, (rec, nodes) in enumerate(zip(records, node_lists)):
             G    = rec["graph"]["G"]
             q    = rec["question"]
             gold = rec["answer"]
             pred = generate_answer(q, nodes, G, client)
+            n_api_calls += 1
+
+            if pred == RATE_LIMITED:
+                n_rate_limited += 1
+                preds.append(RATE_LIMITED)
+                continue  # exclude from EM/F1 — do not score as a wrong answer
+
             ems.append(exact_match(pred, gold))
             f1s.append(f1_score(pred, gold))
             preds.append(pred)
 
+            if (i + 1) % 25 == 0:
+                print(f"    ... {i+1}/{len(records)} queries "
+                      f"({n_api_calls} API calls, {n_rate_limited} rate-limited)")
+
+        quota_exhausted = n_rate_limited > 0
+        n_scored = len(ems)
         output[system_name] = {
-            "em":          sum(ems) / len(ems) if ems else 0.0,
-            "f1":          sum(f1s) / len(f1s) if f1s else 0.0,
-            "predictions": preds,
+            "em":              sum(ems) / n_scored if n_scored else 0.0,
+            "f1":              sum(f1s) / n_scored if n_scored else 0.0,
+            "predictions":     preds,
+            "n_scored":        n_scored,
+            "n_rate_limited":  n_rate_limited,
+            "quota_exhausted": quota_exhausted,
         }
+        status = "VALID" if not quota_exhausted else \
+                 f"INVALID — {n_rate_limited}/{len(records)} rate-limited"
         print(f"    EM={output[system_name]['em']:.3f}  "
-              f"F1={output[system_name]['f1']:.3f}")
+              f"F1={output[system_name]['f1']:.3f}  "
+              f"(scored {n_scored}/{len(records)})  [{status}]")
+        if quota_exhausted:
+            print(f"    ⚠ QUOTA EXHAUSTED for {system_name}: re-run with a fresh "
+                  f"GROQ_API_KEY. Do NOT report these EM/F1 values.")
 
     return output
 
