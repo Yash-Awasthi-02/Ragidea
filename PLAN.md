@@ -1,26 +1,26 @@
-# PATHFINDER — Research Master Plan (v4)
+# PATHFINDER — Research Master Plan (v5)
 
 | Field | Value |
 |-------|-------|
 | **Project** | PATHFINDER — Submodular Coverage Maximization over Multidimensional KGs for Multi-Hop RAG |
 | **Repo** | https://github.com/Yash-Awasthi-02/Ragidea |
 | **Paper** | `pathfinder-paper.md` |
-| **Plan version** | **v4** (supersedes v3) |
+| **Plan version** | **v5** (supersedes v4) |
 | **Last updated** | 2026-07-26 |
-| **Status** | Thesis locked · offline work first · API/evals last |
+| **Status** | Deep prior-art map locked · offline → local → API-last · stronger deltas identified |
 
 ---
 
 ## How to use this document
 
-This is the **research operating system** for PATHFINDER. It encodes:
+1. **§0** — operating policy (offline first; evals local; API last).  
+2. **§1** — thesis lock (what we may claim).  
+3. **§2** — **prior-art map** (who already tried the idea; where we sit).  
+4. **§3** — locked evidence ledger.  
+5. **§4** — **stronger development directions** (only high-EV items).  
+6. **§5–§11** — protocol, workstreams, milestones, risks, next actions.
 
-1. What the literature says is safe vs a wall  
-2. What our locked numbers already prove  
-3. What the paper may claim (and must not claim)  
-4. An **offline-first** execution order (code → theory → paper → local retrieval evals → API last)
-
-Read **§0–§2** before changing code or the paper.
+This v5 is the result of an extensive literature sweep. If a direction is not listed in §4, it is either already done, low EV, or a known wall.
 
 ---
 
@@ -30,26 +30,26 @@ Read **§0–§2** before changing code or the paper.
 
 | Who | Does | Never does |
 |-----|------|------------|
-| **Agent** | Cleaning, code, tests, theory, paper edits, adapters, analysis scripts, docs | Full evals, Groq/API calls, multi-hour dataset runs, git force-push |
-| **User (local)** | Retrieval evals, graph builds that need data, long jobs | — |
-| **User (API last)** | `generate_answers.py`, rerank/LLM scripts, heterogeneous LLMs, anything with `GROQ_API_KEY` | Running API work “in the middle” of offline tasks |
+| **Agent** | Cleaning, code, tests, theory, paper, adapters, offline analysis scripts, docs | Full evals, Groq/API, multi-hour dataset runs, force-push |
+| **User (local)** | Retrieval evals, graph builds, long offline jobs | — |
+| **User (API last)** | Generation, LLM rerank, heterogeneous LLMs, any `GROQ_API_KEY` work | API work mid-refactor “just to check” |
 
 ### 0.2 Hard rules
 
-| # | Rule | Why |
-|---|------|-----|
-| R1 | **Offline work first.** Everything that needs no dataset dump and no API is finished before any eval queue. | Throughput + no quota waste |
-| R2 | **Evals run locally on the user’s machine** (or Docker). Agent prints commands + expected output, then **stops**. | 9–18 h jobs; agent must not block |
-| R3 | **API / Groq work is last** (or only when a gate explicitly requires it and offline options are exhausted). No “quick API check” mid-refactor. | Rate-limit corruption already cost us 4 result files |
-| R4 | **Never run** from the agent: `05*.py`, `15–19*.py`, `25*.py`, `generate_answers.py`, full graph builds over full datasets, or any script that loads Hotpot/2Wiki/MuSiQue dumps or hits an LLM API. | Same |
-| R5 | **Never push / rewrite history** unless the user explicitly provides a PAT and asks. | Repo safety |
-| R6 | **One variable per experiment.** No multi-factor confounds. | Causal claims |
-| R7 | **One scorer for all systems** (`30_sota_adapter.py`). Never mix vendor EM/F1 into our tables. | Fair comparison |
-| R8 | Every run JSON must carry a **run card** (`meta`: git SHA, script, N, encoder, mode, seed, `quota_exhausted`). | Reproducibility |
-| R9 | Corrupted / rate-limited EM files are **deleted, not averaged**. | Data integrity |
-| R10 | Before any code change: **WHY → expected impact → theoretical implication → files touched**. | Scientific rigor |
+| # | Rule |
+|---|------|
+| R1 | **Offline first** — finish all no-dataset / no-API work before any eval queue. |
+| R2 | **Evals run locally** on the user’s machine. Agent prints command + expected output, then **stops**. |
+| R3 | **API / Groq is last** (or only when a gate requires it and offline options are exhausted). |
+| R4 | Agent never runs: `05*.py`, `15–19*.py`, `25*.py`, `generate_answers.py`, full-dataset graph builds, or LLM APIs. |
+| R5 | No push/history rewrite unless user provides PAT and asks. |
+| R6 | One variable per experiment. |
+| R7 | One scorer for all systems (`30_sota_adapter.py`). |
+| R8 | Every new JSON has a **run card** (`meta`). |
+| R9 | Rate-limited / empty-pred EM files are deleted, not averaged. |
+| R10 | Before code changes: WHY → impact → theory implication → files. |
 
-### 0.3 Safe agent checks (seconds, no API, no full dataset)
+### 0.3 Safe agent checks
 
 ```cmd
 pytest pathfinder/tests/
@@ -60,428 +60,422 @@ python experiments/print_metrics.py
 ### 0.4 Work order (never invert)
 
 ```
-Phase 0  Hygiene & correctness (offline)
-Phase 1  Code defaults & adapters (offline)
-Phase 2  Theory + paper surgery (offline)
-Phase 3  Analysis scripts only (offline; user may run on existing JSONs)
-Phase 4  Local retrieval evals (USER, no API)     ← only after 0–3 gates
-Phase 5  API / generator / LLM rerank (USER, last)
-Phase 6  External SOTA dumps + score (USER; API only if that system needs it)
+Phase 0  Hygiene (offline)
+Phase 1  Code defaults, adapters, diagnostics (offline)
+Phase 2  Theory + paper surgery + related-work rewrite (offline)
+Phase 3  Offline analysis on existing JSONs / gold labels
+Phase 4  Local retrieval evals (USER, no API)
+Phase 5  API / generator / LLM (USER, LAST)
+Phase 6  External SOTA dumps + score (USER)
 Phase 7  Paper lock + figures
 ```
 
 ---
 
-## §1. Thesis lock (from literature + our evidence)
+## §1. Thesis lock
 
-### 1.1 Defensible core claim
+### 1.1 Defensible claim
 
-> Under a **fixed token budget**, greedy submodular coverage maximization over a **passage-level** knowledge graph selects a **graph-coherent** evidence set with a **provable (1 − 1/e)** approximation to the optimal **frontier-feasible / connected-subtree** solution. Combined with **dense anchors** (hybrid), retrieval R@k **matches strong dense top-k** while preserving path structure. The contribution is a **principled coherent selector** for multi-hop RAG — not a claim of unrestricted flat-optimum optimality, and not a claim of agentic QA SOTA without matched runs.
+> Under a **fixed token budget**, greedy submodular coverage maximization over a **passage-level text graph**, optionally **seeded by dense anchors**, selects a **graph-coherent** evidence set with a **provable (1 − 1/e)** guarantee w.r.t. the optimal **frontier-feasible / connected-subtree** solution. On HotpotQA-style distractor multi-hop RAG, this yields **strong internal gains vs BFS/SA**, **hybrid parity with dense top-k at R@5**, and a **certificate dense top-k lacks** — without LLM calls during traversal.
 
-### 1.2 What the field already established (do not fight this)
+### 1.2 What we do **not** claim
 
-| Finding | Sources (representative) | Implication for us |
-|--------|---------------------------|--------------------|
-| Dense and GraphRAG are **complementary**; hybrid/routing wins | RAG vs GraphRAG systematic evals; adaptive GraphRAG routing | Default = **dense-anchor hybrid**, not pure graph |
-| Graph helps most on **true multi-hop**; dense often wins single-hop / R@5 | Same + HippoRAG notes Hotpot has weaker multi-hop signal | Error slices by hop/type matter more than average R@5 bragging |
-| **Passage-first** is standard; sentence is auxiliary | Hotpot pipelines, HopRetriever, PRISM | Passage = primary; sentence = ablation |
-| Iterative LLM retrieval (**IRCoT**) is strong and **expensive** | IRCoT; ColBERT/HippoRAG+IRCoT F1 often mid-60s–70s class | We compete on **single-pass / few-call** coherent retrieval + theory, not call-count wars unless we opt in |
-| Submodular selection for RAG **already exists** | **S-RAG** (flat knapsack coverage); **COSMOS** (connected subgraph submodular) | Soften “first ever”; position **difference** (Hotpot-style passage KG, frontier greedy, hybrid, multi-hop RAG stack) |
-| MuSiQue is built to kill shortcuts; large human–model gap | MuSiQue (Trivedi et al.) | Near-zero R@5 is a **construction/regime** problem until diagnosed — not a quiet table cell |
+| Banned | Why |
+|--------|-----|
+| “First submodular multi-hop / graph-coherent retrieval” | **S-RAG, GeoRAG, COSMOS, Bala’26 packing, Lin–Bilmes lineage** |
+| (1−1/e) vs unrestricted flat top-k OPT | Guarantee is frontier/connected only |
+| Pure graph beats dense @ R@5 as headline | Our data + RAG-vs-GraphRAG surveys disagree |
+| Multidimensional facets drive Hotpot gains | Semantic-only wins empirically |
+| QA SOTA vs IRCoT/HippoRAG without matched runs | Unfair + our EM mostly invalid |
+| Works on MuSiQue generally at R@5≈0 | Construction/regime failure until fixed |
+| σ is calibrated | Full-scale ρ≈0 |
 
-### 1.3 Pre-registered hypotheses
+### 1.3 Hypotheses
 
-| ID | Hypothesis | Primary metric | Status |
-|----|------------|----------------|--------|
-| **H1** | Passage nodes ≫ sentence nodes for multi-hop R@k | R@5, R@10 | ✅ Locked |
-| **H2** | Stronger bi-encoders lift PF and RAG; relative gap shrinks | R@5 Δ(PF−RAG) | ✅ Locked |
-| **H3** | Dense-anchor hybrid matches RAG R@5 and keeps path structure | R@5, tree connectivity | ✅ Locked (BGE-pass N=500) |
-| **H4** | Rerank (CE/LLM) helps on top of hybrid passage+BGE | R@5 Δ | ⬜ Offline prep; **API last** |
-| **H5** | Graph-coherent context improves EM/F1 vs equal-budget flat context | EM, F1 + bootstrap CI | ⬜ **API last**; kill criterion applies |
-| **H6** | Teleport helps sparse graphs; neutral/hurts dense well-linked graphs | R@5 by connectivity | ⚠ Partial; finish offline analysis on existing JSON |
-| **H7** | Under **matched** encoder/generator/budget, PF-hybrid is competitive with listed SOTA on retrieval and/or QA | R@5, EM, F1, calls/q | ⬜ Adapters offline; runs USER |
-| **H8** | σ correlates with correctness (Spearman ρ > 0.3) | ρ | ⚠ Weak today; demote from headline until fixed |
+| ID | Hypothesis | Status |
+|----|------------|--------|
+| H1 | Passage ≫ sentence | ✅ |
+| H2 | Stronger encoder lifts both; gap shrinks | ✅ |
+| H3 | Dense-anchor hybrid matches RAG R@5 | ✅ |
+| H4 | Packing/rerank improves **answer-in-context** / R@k on hybrid pool | ⬜ |
+| H5 | Coherent context improves EM/F1 at matched budget | ⬜ API last |
+| H6 | Teleport helps sparse graphs only | ⚠ partial |
+| H7 | Fair external SOTA competitive under matched protocol | ⬜ |
+| H8 | σ calibrates | ⚠ weak — demote |
+| **H9 (new)** | **Answer-in-context** predicts F1 better than R@5 on our packs | ⬜ offline metric |
+| **H10 (new)** | Cost-aware greedy (ΔF / tokens) beats cardinality greedy under heterogeneous passage lengths | ⬜ offline+local |
+| **H11 (new)** | Entity/OpenIE edges (HippoRAG-style) fix MuSiQue more than encoder alone | ⬜ local graph rebuild |
 
-### 1.4 Success bars
+### 1.4 Kill criteria
 
-| Tier | Bar | Status |
-|------|-----|--------|
-| **Minimum publishable** | Passage R@5 ≥ 0.65; hybrid parity with dense; theory scope correct; related work cites S-RAG/COSMOS; no poisoned EM in tables; ≥ internal graph baselines | Retrieval ✅ · writing ⚠ · SOTA ❌ |
-| **Strong** | Clean H5: EM/F1 PF ≥ RAG at matched R@5/budget, bootstrap p < 0.05, N≥500 | ❌ API last |
-| **Outstanding** | Fair external SOTA (HippoRAG/IRCoT/LightRAG class) under matched protocol + MuSiQue not ≈0 after fix | ❌ |
-
-### 1.5 Kill criteria (pivot, don’t deny)
-
-| If… | Then… |
-|-----|--------|
-| Clean H5 shows PF EM ≪ RAG at **matched** R@5 | Pivot paper to **structure + guarantee + hybrid parity**; downweight QA SOTA |
-| MuSiQue stays ~0 after passage+BGE + construction fix attempt | Confine claims to Hotpot/2Wiki; MuSiQue = negative/limitation |
-| Multidimensional non-semantic weights never help on wiki distractors | Keep facets as **interface**; default **semantic-only** on these benches |
-
-### 1.6 Banned claims (reviewer walls)
-
-| Do **not** claim | Why |
-|------------------|-----|
-| Pure graph beats dense @ R@5 as the main result | Our data + literature disagree |
-| (1−1/e) vs **unrestricted flat** top-k optimum | False; only frontier/connected-subtree OPT |
-| “First graph-coherent submodular retrieval” without COSMOS/S-RAG | Overclaim |
-| Multidimensional facets **drive** Hotpot gains | Bandit/grid: semantic-only wins |
-| QA SOTA vs HippoRAG/IRCoT from literature rows next to our EM≈0 | Unfair + poisoned optics |
-| σ “knows when uncertain” as a headline | Full-scale ρ ≈ 0 |
-| Works on MuSiQue “in general” at R@5≈0.008 | Not true yet |
+| If | Then |
+|----|------|
+| Clean H5: PF EM ≪ RAG at matched R@5 | Pivot to structure/guarantee/hybrid-parity paper |
+| MuSiQue stays ~0 after H11 attempt | Hotpot/2Wiki-only claims |
+| H9 fails (answer-in-context uncorrelated) | Do not center packing narrative; stick to retrieval R@k + theory |
 
 ---
 
-## §2. Locked evidence ledger
+## §2. Prior-art map — people already tried pieces of this
 
-> **Do not re-run these.** Cite them. Re-running wastes days.
+> **Conclusion of the sweep:** the *ingredients* are not new. The **combination + setting + honesty of scope** can still be a paper — only if we cite neighbors and pick deltas they do not cover.
 
-### 2.1 Primary retrieval (HotpotQA distractor)
+### 2.1 Lineage table (closest → farther)
 
-| Setting | N | Encoder | PF R@5 | RAG R@5 | PF R@10 | Notes |
-|---------|--:|---------|-------:|--------:|--------:|-------|
-| Sentence full | 7405 | MiniLM | 0.257 | 0.293 | **0.335** | Ablation / legacy |
-| Passage N=500 | 500 | MiniLM | **0.644** | 0.708 | 0.764 | Phase A |
-| Passage full | 7405 | MiniLM | **0.667** | 0.705 | **0.771** | Phase D2 |
-| Sentence N=500 | 500 | BGE | **0.466** | 0.484 | 0.480 | Phase D1 |
-| Passage N=500 | 500 | BGE | **0.864** | 0.870 | 0.866 | Phase D1 |
-| Hybrid dense-anchor BGE pass. | 500 | BGE | **0.870** | 0.870 | 0.964 | **Default stack target** |
+| Work | What they did | Graph? | Submodular? | Multi-hop RAG text? | Guarantee | Overlap with us | Our delta |
+|------|---------------|--------|-------------|---------------------|-----------|-----------------|-----------|
+| **Lin & Bilmes (2011)** | Coverage+diversity summarization | No | Yes | No | greedy | Product/coverage DNA | Apply under **graph frontier** |
+| **S-RAG** (OpenReview / ARR’26) | Knapsack submodular **doc** selection for RAG; beats top-k/MMR; Hotpot multi-hop gains | No (flat) | Yes | Yes | (1−1/e) knapsack | Same objective family | We add **connectivity / frontier** constraint |
+| **GeoRAG** (arXiv:2606.29328) | Information-demand coverage; facility-location style; Sinkhorn; +EM on Hotpot | No | Yes | Yes | (1−1/e) | Flat multi-aspect coverage | We use **passage graph structure**, not only sub-queries |
+| **Bala (arXiv:2607.00725)** | Budgeted **submodular evidence packing**; **answer-in-context** diagnostic; when packing helps (4 conditions); Hotpot +3B reader | Optional ACE graph heuristic | Yes (packer) | Yes | budgeted greedy | **Closest concurrent packing paper** | We are **retriever+traversal**, not post-hoc packer only; different F; graph-coherent tree |
+| **COSMOS** (ACL 2026) | Connectivity-oriented submodular **subgraph** retrieval; seed-greedy + MaxST; SACT | Yes (KB triples) | Yes | KBQA (WebQSP/CWQ/M3GQA) | (1−e^(−γ)) style | **Closest theory cousin** | We target **Hotpot-style text passage graphs + RAG**, not Freebase-style KBQA |
+| **G-Retriever** (NeurIPS 2024) | Connected subgraph via **PCST** (Steiner); GNN+LLM | Yes (textual graphs) | No (PCST) | GraphQA | opt. approx for PCST | Connected evidence | Different objective (prizes/costs vs coverage F); we stay LLM-free at retrieve |
+| **SubgraphRAG** | Learned triple scorer → size-bounded subgraph → LLM | Yes (KG) | No (MLP) | KGQA | None | Subgraph evidence | We are **training-free greedy** with certificate |
+| **SeedER** (arXiv:2605.23753) | Dense **seed** + **RL expand** on KG frontier | Yes | Notes greedy limits | KG / STaRK | None (learned) | Seed+expand skeleton | We keep **greedy submodular** (certificate) not RL |
+| **HippoRAG** | OpenIE KG + synonymy + **PPR** single-step multi-hop | Yes (entity) | No | Yes (MuSiQue/2Wiki strong) | None | Graph multi-hop RAG | Different graph (OpenIE vs passage); PPR vs submodular greedy |
+| **IRCoT** | Interleave CoT + retrieval | No | No | Yes (very strong) | None | Multi-hop SOTA class | Many LLM calls; we are single-pass / few-call |
+| **PathRetriever / HopRetriever / MDR / BeamDR / Beam Retrieval** | Learned multi-hop **paths** over wiki | Hyperlink/dense | No | Yes | None | Path evidence | No submodular F; usually supervised |
+| **LightRAG / Microsoft GraphRAG** | Entity/community graphs, summaries | Yes | No | Mixed | None | GraphRAG family | Different construction & no (1−1/e) coverage claim |
+| **MMR / DPP / ScalDPP** | Diversity subset selection | No | DPP related | Sometimes | DPP/MAP | Redundancy control | No connectivity; we should **beat them as packing baselines** |
+| **RECOMP** | Compress retrieved docs for reader | No | No | QA | None | Context budget | Orthogonal; can sit **after** us |
+| **DuP-RAG / STEM / HybRAG** | Hybrid structural+semantic paths, pruning | Yes | No | Yes | None | Hybrid theme | We formalize selection as submodular F |
 
-**Files:**  
-`results/hotpotqa_eval_full.json` · `hotpotqa_eval_passage.json` · `hotpotqa_eval_passage_full.json` · `hotpotqa_eval_bge.json` · `hotpotqa_eval_bge_passage.json` · `results/raw/hybrid_bge_passage.json`
+### 2.2 What the field already proved (do not re-discover)
 
-### 2.2 Cross-benchmark (sentence MiniLM full) — diagnostic, not headline
+1. **Dense ⊥ Graph are complementary** → hybrid/routing wins (RAG vs GraphRAG evals).  
+2. **Passage/chunk granularity** dominates sentence-only for multi-hop QA pipelines.  
+3. **Submodular packing helps multi-hop only conditionally** (Bala’26):  
+   (i) complementary multi-hop structure,  
+   (ii) retrieval already surfaces evidence,  
+   (iii) binding but not extreme budget,  
+   (iv) reader weak enough that **evidence density** is the bottleneck — gains **shrink/reverse** as reader scales (3B→14B).  
+4. **Answer-in-context ≫ recall** as predictor of budgeted QA F1 (Bala’26).  
+5. **MuSiQue** kills shortcut multi-hop; retrieval + reader both hard.  
+6. **Entity/OpenIE graphs** (HippoRAG) help 2Wiki/MuSiQue more than Hotpot’s weaker multi-hop signal.  
+7. **Greedy frontier can miss delayed connectors** (SeedER motivation) — teleport/dense anchors are the practical fix (we already hybridize).  
+8. **Learned multi-hop retrievers** (MDR/Beam) are strong but **supervised** and certificate-free.
 
-| Dataset | N | PF R@5 | RAG R@5 | PF R@10 |
-|---------|--:|-------:|--------:|--------:|
-| 2WikiMultihopQA | 12576 | 0.235 | 0.325 | 0.373 |
-| MuSiQue | 2417 | 0.008 | 0.004 | 0.012 |
+### 2.3 Honest novelty niches still open for PATHFINDER
 
-### 2.3 Valid component studies (R@k / systems; no poisoned EM)
+| Niche | Why still open | Risk |
+|-------|----------------|------|
+| **N1. Frontier-constrained product-coverage greedy on Hotpot *passage* graphs** with explicit OPT_frontier certificate | COSMOS is KB triples; S-RAG/GeoRAG/Bala are mostly flat packers | Must cite all four |
+| **N2. Dense-anchor hybrid that preserves tree coherence + per-anchor corollary** | Many hybrids exist; few with submodular certificate language | Don’t overclaim uniqueness of hybrid |
+| **N3. Training-free coherent selector vs learned path/PPR/RL** under **matched encoder/budget** | Fair compute story (ms traversal, 0 LLM calls) | Must measure calls/q for IRCoT/HippoRAG |
+| **N4. Mechanism: when connectivity helps** (bridge degree, hop, component) on *same* graphs | Surveys call for this; few papers do it on their own ablations | Needs error taxonomy (offline) |
+| **N5. Answer-in-context + R@k joint reporting for graph-coherent packs** | Bala did packing; we can apply diagnostic to **graph vs dense packs** | Offline-friendly metric |
+| **N6. Cost-aware (Δ/token) greedy on heterogeneous passage lengths** | Theory remark exists; empirical underused in our repo | Easy offline code + local pilot |
 
-| Study | Finding | File |
-|-------|---------|------|
-| Teleportation | Hybrid teleport helps R@10 modestly (e.g. Hotpot 0.330→0.350) | `raw/teleportation_ablation.json` |
-| Bandit weights | Semantic-only wins; late_recall > early | `raw/bandit_weight_learning.json` |
-| LLM rerank (sentence, small N) | R@5 0.24→0.32 | `raw/llm_reranking.json` |
-| Latency | ~3.5 ms mean retrieval | `raw/latency_profiling.json` |
-| NLI sufficiency | agreement 0.085 — **do not ship** | `raw/nli_sufficiency.json` |
+### 2.4 Crowded / low-EV ideas (do **not** pour months here)
 
-### 2.4 Deleted / invalid (never cite EM)
+| Idea | Why low EV now |
+|------|----------------|
+| More multidimensional weight grids on Hotpot | Already lost to α=1 |
+| LLM-guided traversal as default | ToG/PRISM/IRCoT own this; cost |
+| Claiming SOTA F1 from literature tables | Fatal review pattern |
+| Re-running locked full MiniLM sentence evals | Ledger frozen |
+| NLI sufficiency as product feature | 8.5% agreement |
+| Beating ColBERT+IRCoT with MiniLM single-pass | Wrong arena |
+| Synthetic coverage-ratio ≈1.0 as main theory result | Too easy instances |
 
-Silent Groq exhaustion → empty predictions:
+### 2.5 Required related-work rewrite (paper §2)
 
-- ~~`raw/rerank_passage.json`~~  
-- ~~`raw/heterogeneous_llm_70b_v2.json`~~  
-- ~~`raw/heterogeneous_llm_70b_passage.json`~~  
-- ~~`raw/heterogeneous_llm_8b.json`~~  
+Must cite and position against at minimum:
 
-**Code fix status:** `generate_answers.py` exposes `RATE_LIMITED` / `quota_exhausted` / `n_rate_limited`.  
-**Regenerate only in Phase 5 (API last).**
+**Submodular / packing:** Lin & Bilmes 2011; S-RAG; GeoRAG; Bala arXiv:2607.00725; (optional) DRAG/DPP/ScalDPP.  
+**Connected subgraph:** COSMOS; G-Retriever (PCST); SubgraphRAG; SR (ACL’22).  
+**Multi-hop retrieval:** PathRetriever; MDR; Beam Retrieval; IRCoT; HopRetriever.  
+**GraphRAG systems:** HippoRAG(+2); LightRAG; GraphRAG; SeedER.  
+**Diagnostics / when graph helps:** RAG vs GraphRAG surveys; Bala conditions; entity vs passage graph analyses.
 
-### 2.5 EM numbers currently in big eval JSONs
+**One-sentence positioning (paper-ready):**
 
-Most `hotpotqa_eval_*.json` EM fields are **not** trustworthy end-to-end QA (missing/empty generation path on full runs).  
-**Passage N=500 EM=0.106** is the only semi-usable pilot-scale EM in the ledger — still re-validate in Phase 5 under run cards before paper QA tables.
-
-**Paper rule:** split **Retrieval tables** vs **QA tables**. Never put literature IRCoT/HippoRAG EM in the same row block as our EM≈0.
-
-### 2.6 Engineering baseline
-
-| Item | Value |
-|------|------:|
-| Tests | **58/58** |
-| Experiment scripts | 33 |
-| SOTA adapter | `30_sota_adapter.py` (setup) |
-| Algorithm | `run_pathfinder.py` |
-
----
-
-## §3. Paper correctness checklist (offline)
-
-Priority order for `pathfinder-paper.md` surgery:
-
-| # | Issue | Action |
-|---|--------|--------|
-| P1 | Protocol says `text-embedding-3-small`; results are MiniLM/BGE | Align §7.3 to **actual** encoders |
-| P2 | Abstract / mixed headlining of sentence 0.26 vs passage 0.64+ | Lead **passage + hybrid**; sentence = ablation |
-| P3 | “First graph-coherent submodular…” | Cite **S-RAG**, **COSMOS**; state delta |
-| P4 | SOTA table mixes literature EM 50–60 with our EM≈0 | Split tables; Notes on generator/encoder |
-| P5 | Passage EM=0.000 “LLM can’t use passages” narrative | Attribute to **rate limit / invalid run**, not science |
-| P6 | Llama-8B EM=0 as model failure | Quarantine until clean regen |
-| P7 | Multidimensional as contribution #1 | Reframe: interface; **semantic-only default** on wiki |
-| P8 | σ / four open problems as central | Demote until calibrated |
-| P9 | Guarantee scope | Keep connected-subtree / frontier box; hybrid corollary only per-component |
-| P10 | MuSiQue | Limitation + diagnostic plan; not a silent win |
-
-### 3.1 Target paper pitch (safe)
-
-1. Multi-hop needs **coherent** evidence, not only cosine neighbors.  
-2. Method: greedy submodular coverage on **passage** KG + optional **dense anchors**.  
-3. Theory: (1−1/e) vs **OPT_frontier**; related to S-RAG/COSMOS; state differences.  
-4. Empirics: granularity, encoder, hybrid parity, internal graph baselines, mechanism slices.  
-5. QA: only **clean matched** generator results.  
-6. Limits: MuSiQue, σ, facets without metadata, teleport weak, no free lunch vs multi-call IRCoT.
+> Prior submodular RAG methods optimize *flat* context packing (S-RAG, GeoRAG, Bala); connectivity-oriented submodular retrieval (COSMOS) targets *KB triples*. PATHFINDER applies coverage-style greedy selection under a **frontier/tree constraint on Hotpot-style passage graphs**, with **dense-anchor hybridization** and a **matched multi-hop RAG** evaluation protocol.
 
 ---
 
-## §4. Experimental protocol (when USER runs)
+## §3. Locked evidence ledger
 
-### 4.1 Fixed contract
+> Do not re-run. Cite.
+
+### 3.1 Hotpot retrieval
+
+| Setting | N | Enc | PF R@5 | RAG R@5 | PF R@10 |
+|---------|--:|-----|-------:|--------:|--------:|
+| Sent full | 7405 | MiniLM | 0.257 | 0.293 | **0.335** |
+| Pass 500 | 500 | MiniLM | **0.644** | 0.708 | 0.764 |
+| Pass full | 7405 | MiniLM | **0.667** | 0.705 | **0.771** |
+| Sent 500 | 500 | BGE | 0.466 | 0.484 | 0.480 |
+| Pass 500 | 500 | BGE | **0.864** | 0.870 | 0.866 |
+| Hybrid DA BGE pass | 500 | BGE | **0.870** | 0.870 | 0.964 |
+
+### 3.2 Cross-bench (sent MiniLM) — diagnostic
+
+| Set | PF R@5 | RAG R@5 |
+|-----|-------:|--------:|
+| 2Wiki full | 0.235 | 0.325 |
+| MuSiQue full | 0.008 | 0.004 |
+
+### 3.3 Valid components
+
+Teleport R@10 modest ↑ · Bandit → semantic-only · Latency ~3.5 ms · LLM sentence rerank small-N ↑ · NLI sufficiency invalid.
+
+### 3.4 Invalid EM (deleted / untrusted)
+
+Poisoned Groq files deleted. Most eval-JSON EM fields are **not** paper-grade QA. Only clean Phase-5 runs may enter QA tables.  
+**Split retrieval vs QA tables always.**
+
+### 3.5 Eng
+
+58 tests · 33 experiment scripts · `30_sota_adapter.py` setup · `RATE_LIMITED` sentinel shipped.
+
+---
+
+## §4. Stronger development directions (high EV only)
+
+Ranked by **expected paper impact / effort**, given prior art.  
+**All start offline unless marked LOCAL or API.**
+
+### D1. Answer-in-context diagnostic on *our* packs ⭐⭐⭐ (offline → local)
+
+**Why:** Bala’26 shows this predicts F1 better than recall and explains when submodular packing wins. We currently optimize/report R@k only — reviewers will ask for the packing-relevant metric.  
+**What:** For each system’s packed context string, measure whether gold answer span survives (Hotpot/2Wiki). Correlate with EM/F1 when available; even without EM, report answer-in-context@budget vs R@5.  
+**Diff vs Bala:** Apply to **graph-coherent vs dense vs hybrid** packs from PATHFINDER, not only flat packers.  
+**Effort:** Small script on existing retrieval outputs + gold answers (no API).  
+**Gate:** If ρ(answer-in-context, F1) weak when F1 exists, do not center this metric.
+
+### D2. Packing baselines: MMR, focused top-k, cost-aware submodular, DPP-lite ⭐⭐⭐ (offline code, LOCAL run)
+
+**Why:** S-RAG/Bala/GeoRAG all beat top-k/MMR with flat submodular. If we only compare BFS/SA, reviewers say “wrong baselines.”  
+**What:** Same candidate pool & budget: (a) dense top-k, (b) MMR, (c) cardinality greedy coverage, (d) **ΔF/token** greedy, (e) PATHFINDER frontier greedy, (f) dense-anchor hybrid.  
+**Diff:** Adds **connectivity constraint** comparison the flat papers lack.  
+**Effort:** Medium; mostly offline implementation.
+
+### D3. Cost-aware / knapsack greedy (H10) ⭐⭐ (offline + local)
+
+**Why:** Passages have heterogeneous token length; paper already cites Sviridenko-style remark — empirics missing. Bala uses marginal-gain-per-token.  
+**What:** Implement density greedy; pilot N=500 BGE-passage.  
+**Promote if:** answer-in-context or R@k↑ at same token budget.
+
+### D4. Mechanism / error taxonomy ⭐⭐⭐ (offline on locked JSON)
+
+**Why:** Surveys and SeedER/HippoRAG all say *when* structure helps is underspecified. This is our best “not just another hybrid” story.  
+**Slices:** hop type (bridge/compare), bridge-entity degree, gold dense-rank, graph component size, teleport help/hurt.  
+**Output:** `results/analysis/error_taxonomy.md` + one paper figure.  
+**No API.**
+
+### D5. Graph construction upgrade for MuSiQue / 2Wiki (H11) ⭐⭐ (local, no API)
+
+**Why:** HippoRAG wins on MuSiQue/2Wiki via **OpenIE entity graph + PPR**, not passage cosine graphs. Our MuSiQue R@5≈0 is likely **construction**, not greedy.  
+**What (in order):**  
+1. Diagnostics: gold support overlap, edge density, component connectivity on MuSiQue graphs.  
+2. Add **entity co-occurrence / coref / OpenIE-lite edges** (spaCy first; LLM OpenIE only if needed → API last).  
+3. Optional: PPR baseline on *same* new graph (fair).  
+**Kill:** if still ~0 after entity edges, limitation section — don’t hide.
+
+### D6. Two-stage pipeline: wide dense retrieve → PATHFINDER pack ⭐⭐ (local)
+
+**Why:** Bala separates retriever vs packer; G-Retriever/SubgraphRAG assume a graph already. Production RAG is two-stage.  
+**What:** Pool top-20/50 dense passages → build mini-graph or run frontier greedy / cost-aware pack under K_tok.  
+**Already partial:** `two_stage_20_5` in hybrid JSON — promote, ablate pool size, report answer-in-context.
+
+### D7. Fair efficiency table ⭐⭐ (local + API only for others if needed)
+
+**Why:** Our real advantage vs IRCoT/ToG may be **0 LLM calls @ retrieve, ~ms latency**, not F1.  
+**Columns:** R@5, answer-in-context, EM/F1 (if clean), **LLM calls/q**, index time, p50 latency.  
+**Systems:** PF-hybrid, dense, MMR pack, HippoRAG, IRCoT (matched generator when possible).
+
+### D8. Theory sharpening vs COSMOS / PCST ⭐ (offline writing)
+
+**Why:** Reviewers who know COSMOS/G-Retriever will ask.  
+**What:**  
+- Table: objective, constraint (frontier tree vs MaxST vs PCST), graph type, approx ratio assumptions (γ alignment in COSMOS).  
+- Clarify teleport/hybrid **breaks** pure tree certificate → per-anchor corollary only.  
+- Independence assumption limits (already in limitations).
+
+### D9. Paper surgery (mandatory, offline) ⭐⭐⭐
+
+See §5. Without this, new experiments won’t save the paper.
+
+### D10. Clean H5 EM only after D1–D4 ⭐ (API last)
+
+Matched generator, matched budget, run cards, bootstrap. Accept kill criterion.
+
+### Explicitly deferred
+
+Learned RL expansion (SeedER clone) · full DPP training (ScalDPP) · community summaries (GraphRAG) · training PathRetriever-class models · multidimensional revival on Hotpot.
+
+---
+
+## §5. Paper surgery checklist (offline, do before new evals)
+
+| # | Fix |
+|---|-----|
+| 1 | Related work = §2.5 list; kill “first graph-coherent submodular” |
+| 2 | Abstract leads passage + hybrid + certificate scope |
+| 3 | Encoder protocol = MiniLM/BGE (not text-embedding-3-small) |
+| 4 | Split retrieval vs QA; no literature EM beside our EM≈0 |
+| 5 | Quarantine poisoned EM narratives (passage EM=0 ≠ “LLM can’t read passages”) |
+| 6 | Semantic-only default; facets = optional interface |
+| 7 | Demote σ / four-open-problems centrality |
+| 8 | Add answer-in-context to metrics protocol |
+| 9 | Add MMR/cost-aware as baselines in protocol |
+| 10 | Limitations: MuSiQue, reader-scale interaction (cite Bala), COSMOS/S-RAG overlap |
+
+---
+
+## §6. Experimental protocol
 
 | Knob | Default |
 |------|---------|
-| Split | HotpotQA distractor validation |
-| Pilot N | **500** hash-stable IDs |
-| Full N | 7405 / official full only for final tables |
-| K_tok | 2048 |
-| Metrics | R@5, R@10, R@20, paragraph-R@5; EM/F1 via **one** scorer |
-| Generator (QA only) | Llama-3.3-70B-versatile @ Groq |
-| Encoder (new work) | **BGE**; MiniLM legacy |
-| Nodes | **Passage** |
-| Retrieval default | **Dense-anchor hybrid** (k∈{3,5}) |
-| Weights default (wiki) | **Semantic-only** α=1 unless metadata exists |
-| Stats | Paired bootstrap 10k; 95% CI |
+| Data | Hotpot distractor; pilot N=500 stable IDs |
+| Nodes | Passage |
+| Encoder (new) | BGE |
+| Retrieval | Dense-anchor hybrid k=5 |
+| Weights (wiki) | Semantic-only |
+| K_tok | 2048 (also report tight budget e.g. 160–512 for packing story) |
+| Metrics | R@5/10/20, para-R@5, **answer-in-context**, EM/F1 (clean only), latency, LLM calls/q |
+| Packing baselines | top-k, MMR, cost-aware submodular, PF frontier, hybrid |
+| Stats | paired bootstrap 10k |
+| Generator | Llama-3.3-70B @ Groq (**API last**) |
 
-### 4.2 Run card (`meta` in every new JSON)
-
-```json
-{
-  "git_sha": "...",
-  "script": "experiments/XX_....py",
-  "hypothesis_id": "H3",
-  "n": 500,
-  "encoder": "BAAI/bge-base-en-v1.5",
-  "node_level": "passage",
-  "retrieval_mode": "dense_anchor_5",
-  "k_tok": 2048,
-  "generator": null,
-  "seed": 42,
-  "quota_exhausted": false,
-  "n_rate_limited": 0,
-  "wall_time_s": 0
-}
-```
-
-### 4.3 Promote rule
-
-Pilot N=500 improves primary metric with CI not covering 0, and no >1 pt regression on secondary → then consider full-scale.  
-**Full-scale never runs “to peek.”**
+Run card `meta`: git_sha, script, hypothesis_id, n, encoder, node_level, retrieval_mode, k_tok, generator, seed, quota_exhausted, n_rate_limited, wall_time_s.
 
 ---
 
-## §5. Workstreams (offline → local → API)
+## §7. Workstreams (mapped to §4)
 
 ```
- A Hygiene              offline     maintain
- B Defaults & code      offline     agent
- C Paper + theory       offline     agent
- D Analysis tooling     offline     agent; user runs on disk JSONs
- E Local retrieval      USER local  no API
- F Generator / LLM      USER API    LAST
- G External SOTA        USER        adapters offline first
- H Paper lock           offline     after E/F gates
+A Hygiene              ✅ / maintain
+B Code: defaults, cost-aware, MMR, answer-in-context metric, adapter   OFFLINE
+C Paper + theory + related work                                        OFFLINE
+D Mechanism taxonomy + MuSiQue diagnostics on disk                     OFFLINE
+E Local retrieval / packing pilots                                     USER LOCAL
+F Generator EM/F1                                                      USER API LAST
+G External SOTA fair score                                             USER
+H Paper lock                                                           OFFLINE
 ```
 
-### A — Hygiene ✅ / maintain
+### B — Offline engineering (agent)
 
-- [x] Delete poisoned EM JSONs  
-- [x] Rate-limit sentinel in `generate_answers.py`  
-- [x] Formal tests 58  
-- [ ] `meta` run cards on eval writers  
-- [ ] `print_metrics.py` includes BGE + hybrid + passage full  
-- [ ] `.gitignore` keeps new raw dumps from accidental commit  
+| ID | Task |
+|----|------|
+| B1 | Passage + hybrid + encoder CLI defaults |
+| B2 | `answer_in_context(context, gold_answers)` utility + unit tests |
+| B3 | Cost-aware greedy (ΔF/tokens) flag in `run_pathfinder` |
+| B4 | MMR packer baseline script |
+| B5 | `31_error_taxonomy.py` over existing eval JSON |
+| B6 | `32_packing_baselines.py` (top-k / MMR / cost-aware / PF / hybrid) |
+| B7 | Extend `30_sota_adapter` for external dumps |
+| B8 | `print_metrics` includes BGE, hybrid, answer-in-context when present |
 
-### B — Code defaults (offline, agent)
+**Gate B:** pytest 58+ new tests; no dataset full scan required for CI.
 
-| Task | WHY | Files |
-|------|-----|-------|
-| B1 Default passage node path in CLI/docs | H1 | `05_evaluate.py`, README |
-| B2 Hybrid `dense_anchor_5` flag as recommended default | H3 | `run_pathfinder.py`, `23_hybrid_retrieval.py` |
-| B3 `--encoder {minilm,bge}` consistency | H2 | build + eval scripts |
-| B4 Semantic-only default weights on wiki benches | bandit evidence | `run_pathfinder.py` |
-| B5 Teleport: off by default on dense BGE-passage; document regimes | H6 | flags + docs |
-| B6 Extend `30_sota_adapter.py` loaders (IRCoT/HippoRAG/LightRAG dump → `score_system`) | H7 | `30_sota_adapter.py` |
-| B7 Error-taxonomy **script** (reads existing preds; no API) | mechanism | new `experiments/31_error_taxonomy.py` |
+### C — Paper (agent)
 
-**Gate B:** `pytest` 58/58; syntax check; dry-run help/CLI only (no full data).
+§5 checklist + §2 positioning paragraph.
 
-### C — Theory + paper surgery (offline, agent) — **highest ROI**
+### D — Offline analysis (agent scripts; user may run)
 
-| Task | Output |
-|------|--------|
-| C1 Related work: S-RAG, COSMOS, HippoRAG, IRCoT, LightRAG | paper §2 |
-| C2 Guarantee scope box + hybrid corollary wording | paper §5 |
-| C3 Abstract + contributions rewrite per §1.1 / §3.1 | paper |
-| C4 Split retrieval vs QA tables; remove poisoned narratives | paper §7 |
-| C5 Encoder protocol = MiniLM/BGE reality | paper §7.3 |
-| C6 Limitations: MuSiQue, σ, facets, teleport, unfair SOTA | paper §8 |
-| C7 Finish teleport vs connected-subtree remark | paper + optional proof note |
+Taxonomy; teleport slices; MuSiQue gold-vs-graph overlap report.
 
-**Gate C:** paper contains no literature-EM-vs-our-EM single table; no “first” without COSMOS/S-RAG; abstract leads passage/hybrid.
-
-### D — Offline analysis on **existing** artifacts
-
-| Task | Needs API? | Who runs |
-|------|------------|----------|
-| D1 Error taxonomy from locked JSONs (hop, bridge, connectivity) | No | Script agent; exec user if heavy |
-| D2 Teleport help/hurt slices from `teleportation_ablation.json` | No | same |
-| D3 MuSiQue diagnostic plan + code to measure gold-support vs graph overlap | No code API | agent write; user run local |
-| D4 Coverage-ratio interpretation note (synthetic tightness ≠ real hardness) | No | paper |
-
-### E — Local retrieval evals (USER, **no API**)
-
-Only after Gates B–C (and D scripts ready). Examples:
+### E — Local (user, no API)
 
 ```cmd
 pytest pathfinder/tests/
-
-:: retrieval-only pilots (no GROQ)
-python experiments/23_hybrid_retrieval.py --graphs data/hotpotqa_graphs_passage_bge.pkl --max_samples 500 --output results/raw/hybrid_bge_passage.json
-python experiments/05b_teleportation_ablation.py --graphs data/hotpotqa_graphs_passage_bge.pkl --max_samples 500 --output results/raw/teleport_bge_pass.json
-python experiments/31_error_taxonomy.py --eval results/hotpotqa_eval_bge_passage.json --out results/analysis/error_taxonomy.md
+python experiments/32_packing_baselines.py --graphs data/hotpotqa_graphs_passage_bge.pkl --max_samples 500 ...
+python experiments/31_error_taxonomy.py --eval results/hotpotqa_eval_bge_passage.json ...
+:: optional graph rebuild with entity edges for MuSiQue
 ```
 
-Full-scale retrieval only for paper-final locked tables not already in §2.
+### F — API last (user)
 
-**Gate E:** mechanism figure/table exists; no new retrieval claim without N and encoder.
+Smoke 5 → H5 N=100 → N=500 → optional rerank → never average empties.
 
-### F — API / generator (USER, **LAST**)
+### G — SOTA (user)
 
-Prerequisites: Gate E done or explicitly waived; fresh key; smoke 5 queries.
-
-```cmd
-set GROQ_API_KEY=...
-python experiments/generate_answers.py --smoke 5
-:: abort if RATE_LIMITED / quota_exhausted
-
-:: H5 pilot ladder
-:: N=100 then N=500; matched budget PF-hybrid vs RAG; same generator
-:: write quota_exhausted into summary; drop or separately report limited queries
-```
-
-Order inside F:
-
-1. Smoke  
-2. H5 N=100  
-3. H5 N=500 + bootstrap  
-4. Optional rerank composition (H4)  
-5. Heterogeneous 8B/70B only if H5 clean  
-6. Never average empty strings into EM  
-
-**Gate F:** `quota_exhausted=false` on reported QA tables; CI reported.
-
-### G — External SOTA (USER; offline adapter first)
-
-| Step | Offline? |
-|------|----------|
-| G1 Adapter schema + PATHFINDER dump → score | Yes (agent) |
-| G2 Clone IRCoT / HippoRAG / LightRAG; follow **their** install | User local |
-| G3 Same 500 IDs; dump preds; `30_sota_adapter.score_system` | User |
-| G4 Fill `results/sota_comparison.md` | User/agent edit |
-| G5 Honesty Notes: generator, encoder, LLM calls/q | Required |
-
-Systems pre-registered: PATHFINDER-Coherent, PATHFINDER-Hybrid, Naive RAG, IRCoT, HippoRAG(2), LightRAG; SubgraphRAG only if KG map <1 day else limitations.
-
-### H — Paper lock
-
-Sync abstract, §7, limitations, repro appendix to ledger + F/G outcomes. Figures via `print_metrics` / `make_plots` **after** numbers freeze.
+Adapters first; same 500 IDs; one scorer; efficiency columns.
 
 ---
 
-## §6. Default production stack (target)
+## §8. Default stack (target)
 
 ```
-Passage nodes
-  + BGE encoder
-  + Dense-anchor hybrid (k=5)
-  + semantic-only weights (wiki distractors)
-  + optional CE/LLM rerank (Phase F only if H4 holds)
-  + Llama-3.3-70B generation (Phase F)
-  + official EM/F1 via 30_sota_adapter
+Passage nodes + BGE
+  → dense pool (top-20) optional
+  → dense-anchor hybrid / frontier submodular (semantic-only)
+  → cost-aware tie-break under K_tok
+  → report R@k + answer-in-context
+  → (API last) Llama-3.3-70B → EM/F1
 ```
 
-Not default: LLM-guided traversal, NLI sufficiency, multidimensional weights on Hotpot, pure sentence MiniLM.
+Not default: LLM traversal, NLI stop, multi-facet weights on wiki, sentence MiniLM headline.
 
 ---
 
-## §7. SOTA fair-compare principles
+## §9. Milestones
 
-1. Same question IDs  
-2. Same scorer  
-3. Same generator when the method allows  
-4. Flag stronger official stacks in Notes — never hide  
-5. Report LLM calls/query and index cost  
-6. No cherry-pick; systems listed before numbers  
-7. **Retrieval-only** and **QA** reported separately  
-
-Live table lives in `results/sota_comparison.md` (setup only until Phase G).
-
----
-
-## §8. Milestone tracker
-
-| ID | Milestone | Depends on | Status |
-|----|-----------|------------|--------|
-| M0 | Hygiene + rate-limit safe + 58 tests | — | ✅ |
-| M1 | Passage + BGE + hybrid locked in ledger | — | ✅ |
-| M2 | Paper surgery §3 (offline) | M0 | ⬜ **next** |
-| M3 | Defaults + adapter + error-taxonomy script (offline) | M0 | ⬜ |
-| M4 | Mechanism analysis from disk / local retrieval | M3, USER E | ⬜ |
-| M5 | Clean H5 EM/F1 N=500 | M4 optional, USER F | ⬜ |
-| M6 | ≥3 external systems scored fairly | M3, USER G | ⬜ |
-| M7 | Camera-ready paper + figures | M5–M6 decisions | ⬜ |
+| ID | Milestone | Status |
+|----|-----------|--------|
+| M0 | Hygiene + sentinel + 58 tests | ✅ |
+| M1 | Passage/BGE/hybrid ledger | ✅ |
+| M2 | Prior-art map + thesis lock (this doc) | ✅ |
+| M3 | Paper surgery + related work | ⬜ next |
+| M4 | Offline metrics: answer-in-context, MMR, cost-aware code | ⬜ |
+| M5 | Mechanism taxonomy from disk | ⬜ |
+| M6 | Local packing/retrieval pilots | ⬜ USER |
+| M7 | MuSiQue construction attempt | ⬜ USER |
+| M8 | Clean H5 | ⬜ USER API |
+| M9 | Fair SOTA + efficiency table | ⬜ USER |
+| M10 | Camera-ready | ⬜ |
 
 ---
 
-## §9. Risk register
+## §10. Risks
 
 | Risk | Mitigation |
 |------|------------|
-| Groq silent quota | API last; sentinel; abort; never cite empties |
-| Chasing dense R@5 past parity | Thesis = coherence + hybrid parity, not dense deathmatch |
-| Novelty clash with S-RAG/COSMOS | Cite and differentiate early (Phase C) |
-| MuSiQue zero | Diagnostic offline; honest limitation |
-| Unfair SOTA tables | Split metrics; one scorer; Notes |
-| Agent runs 18h eval | R2–R4 |
-| Multidimensional story collapses | Semantic-only default; facets optional |
-| Guarantee overclaim | Frontier/connected-subtree only |
+| Novelty clash with S-RAG/COSMOS/Bala | §2 citations + N1–N6 deltas only |
+| Submodular packing gains vanish at 70B reader | Cite Bala scale ladder; emphasize certificate + efficiency + R@k |
+| MuSiQue zero | H11 entity edges; else limitation |
+| API corruption | API last; sentinel; drop limited queries |
+| Wrong baselines (only BFS) | D2 MMR/cost-aware |
+| Chasing dense R@5 | Thesis = coherence + parity + certificate |
+| SeedER critique (greedy misses connectors) | Hybrid anchors + teleport regime analysis |
 
 ---
 
-## §10. Immediate next actions
+## §11. Immediate next actions
 
 ### Agent (now — offline only)
 
-1. Paper surgery (C1–C7) — highest leverage  
-2. B1–B7 code/docs/adapter/taxonomy script  
-3. Keep PLAN/paper/ledger consistent  
-4. No evals, no API  
+1. Paper surgery (§5) + related-work from §2.  
+2. Implement B2–B6 (answer-in-context, cost-aware, MMR, taxonomy, packing baselines).  
+3. Theory note vs COSMOS/PCST/S-RAG/Bala.  
+4. **No evals. No API.**
 
-### User (later — local, no API)
+### User (later)
 
-1. Gate: `pytest` 58/58  
-2. Phase E retrieval / taxonomy commands as needed  
-3. Only then Phase F with fresh `GROQ_API_KEY`  
-4. Phase G external clones after adapters ready  
+1. `pytest`  
+2. Phase E packing/taxonomy/MuSiQue graph diagnostics  
+3. Phase F only after E gates  
+4. Phase G external systems  
 
-### Explicitly deferred (do not start early)
+### Do not start early
 
-- Full Hotpot/2Wiki/MuSiQue re-evals already in §2  
-- Any Groq batch  
-- Claiming H5/H7 in the abstract  
+Full re-eval of locked tables · Groq batches · RL SeedER clone · “first submodular” branding.
 
 ---
 
-## §11. Quick command sheet
+## §12. Quick commands
 
 ```cmd
-:: offline always
+:: offline
 pytest pathfinder/tests/
 python experiments/print_metrics.py
 
-:: local retrieval only (USER) — no API key
-python experiments/23_hybrid_retrieval.py --help
+:: local retrieval/packing (USER, no key)
+python experiments/32_packing_baselines.py --help
 
 :: API last (USER)
 set GROQ_API_KEY=...
@@ -490,15 +484,34 @@ python experiments/generate_answers.py --smoke 5
 
 ---
 
-## §12. Document history
+## §13. Literature anchors (for citations)
 
-| Ver | Date | Summary |
-|-----|------|---------|
-| v1 | 2026-07 | Phase 5–12 experiment list |
-| v2 | 2026-07-26 | Cleaning + no-silent-eval; rate-limit crisis |
-| v3 | 2026-07-26 | Research OS: ledger, H1–H8, workstreams A–F |
-| **v4** | **2026-07-26** | **Literature-backed thesis lock; banned claims; S-RAG/COSMOS; offline→local→API order; kill criteria; paper surgery first** |
+| Key | Ref |
+|-----|-----|
+| Submodular summarization | Lin & Bilmes, 2011 |
+| Flat submodular RAG | S-RAG (OpenReview gtcOku1v2s); GeoRAG arXiv:2606.29328 |
+| Budgeted packing + answer-in-context | Bala, arXiv:2607.00725 |
+| Connected submodular KBQA | COSMOS, ACL 2026 (anthology 2026.acl-long.1662) |
+| PCST subgraph RAG | G-Retriever, NeurIPS 2024 |
+| Learned subgraph | SubgraphRAG |
+| Seed+expand RL | SeedER, arXiv:2605.23753 |
+| OpenIE+PPR | HippoRAG, NeurIPS 2024 |
+| Iterative CoT retrieve | IRCoT |
+| Path learning | PathRetriever; MDR; Beam Retrieval (NAACL 2024) |
+| Dense vs Graph | RAG vs GraphRAG systematic evals (e.g. arXiv:2502.11371) |
+| Hard multi-hop data | MuSiQue (Trivedi et al., TACL 2022) |
 
 ---
 
-*End of PLAN.md v4 — defend the coherent hybrid thesis; finish offline work; evals local; API last.*
+## §14. Document history
+
+| Ver | Summary |
+|-----|---------|
+| v1–v2 | Experiment lists; rate-limit crisis |
+| v3 | Research OS skeleton |
+| v4 | Thesis lock; offline→API policy |
+| **v5** | **Max-effort prior-art map; COSMOS/S-RAG/Bala/GeoRAG/G-Retriever/SeedER/HippoRAG; honest niches N1–N6; stronger dirs D1–D10; answer-in-context + packing baselines; banned low-EV work** |
+
+---
+
+*End of PLAN.md v5 — the idea is not empty space; win on combination, certificate, passage-graph multi-hop RAG, diagnostics, and honesty.*
